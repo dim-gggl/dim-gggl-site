@@ -1,0 +1,21 @@
+<div 
+  id="intro-overlay" 
+  class="fixed inset-0 z-[999] flex items-center justify-center bg-[var(--color-bg-primary)] text-[var(--color-text-primary)]" 
+  aria-hidden="true"
+>
+  <div class="w-full max-w-3xl px-6">
+    <div class="rounded-lg border border-neutral-800/80 bg-[var(--color-bg-secondary)]/80 p-6 shadow-2xl backdrop-blur">
+      <pre id="intro-terminal" class="h-56 overflow-hidden font-mono text-sm leading-6 text-[color:var(--color-accent-primary)]">
+<span class="opacity-70">&gt;</span>
+      </pre>
+      <div class="mt-4 flex items-center justify-between">
+        <button id="intro-skip" class="invisible inline-flex items-center gap-2 rounded-md border border-neutral-700 px-3 py-1.5 text-xs text-[var(--color-text-secondary)] transition-colors hover:border-[color:var(--color-accent-primary)] hover:text-[var(--color-text-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-accent-primary)]">
+          Skip intro
+        </button>
+        <span id="intro-hint" class="text-xs text-[var(--color-text-muted)]">Appuyez sur Entrée pour continuer</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
