@@ -9,7 +9,6 @@ django-compressor==4.5.1
 sentry-sdk==2.43.0
 django-redis==6.0.0
 redis==7.0.1
-clinkey-cli==1.1.0
 
 # NEW: Better rate limiting
 django-ratelimit==4.1.0

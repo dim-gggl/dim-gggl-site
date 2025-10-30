@@ -6,9 +6,8 @@ ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     DEBUG=0 \
     ENVIRONMENT=production \
-    ALLOWED_HOSTS=dim-gggl.com,www.dim-gggl.com
-
-RUN SECRET_KEY=$(clinkey -l 128 -t super_strong -s - -low)
+    ALLOWED_HOSTS=dim-gggl.com,www.dim-gggl.com \
+    SECRET_KEY="losm-^\&.-74823-zishegla-!~+*.-63319-visrakjeplus-;?*-9447-vybrublusmil-!\*-6165-dosrafetdobreqawusr-,.:-295705-dyzrumu-+*+\-135"
 
 WORKDIR /app
 
