@@ -20,33 +20,33 @@
 
 {% block content %}
 <!-- HERO SECTION -->
-<section class="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black py-20 px-4">
+<section class="relative bg-gradient-to-br from-[var(--color-bg-secondary)] via-[var(--color-bg-tertiary)] to-[var(--color-bg-primary)] py-20 px-4">
   <div class="max-w-7xl mx-auto">
     <div class="grid md:grid-cols-2 gap-12 items-center">
       <!-- Photo et infos principales -->
       <div class="text-center md:text-left">
         <div class="inline-block mb-8">
-          <div class="w-48 h-48 rounded-full overflow-hidden border-4 border-orange-500 shadow-2xl mx-auto md:mx-0">
+          <div class="w-48 h-48 rounded-full overflow-hidden border-4 border-[color:var(--color-accent-primary)] shadow-2xl mx-auto md:mx-0">
             <img src="{{ MEDIA_URL }}profile/dimitri_photo.jpg"
                  alt="Dimitri Gaggioli"
                  class="w-full h-full object-cover"
                  onerror="this.src='{% static 'images/about.png' %}'">
           </div>
         </div>
-        <h1 class="text-5xl md:text-6xl font-bold text-white mb-4">Dimitri <span class="text-orange-500">Gaggioli</span></h1>
-        <p class="text-2xl text-gray-300 mb-6">Développeur Python - Backend</p>
+        <h1 class="text-5xl md:text-6xl font-bold text-[var(--color-text-primary)] mb-4">Dimitri <span class="text-[color:var(--color-accent-primary)]">Gaggioli</span></h1>
+        <p class="text-2xl text-[var(--color-text-secondary)] mb-6">Développeur Python - Backend</p>
         <div class="flex flex-wrap gap-3 justify-center md:justify-start mb-8">
-          <span class="px-4 py-2 bg-orange-500/20 border border-orange-500 text-orange-400 rounded-full font-medium">⚡ Vite</span>
-          <span class="px-4 py-2 bg-orange-500/20 border border-orange-500 text-orange-400 rounded-full font-medium">✨ Propre</span>
-          <span class="px-4 py-2 bg-orange-500/20 border border-orange-500 text-orange-400 rounded-full font-medium">🧪 Testé</span>
+          <span class="px-4 py-2 bg-[color:var(--color-accent-primary)]/20 border border-[color:var(--color-accent-primary)] text-[color:var(--color-accent-primary)] rounded-full font-medium">⚡ Vite</span>
+          <span class="px-4 py-2 bg-[color:var(--color-accent-primary)]/20 border border-[color:var(--color-accent-primary)] text-[color:var(--color-accent-primary)] rounded-full font-medium">✨ Propre</span>
+          <span class="px-4 py-2 bg-[color:var(--color-accent-primary)]/20 border border-[color:var(--color-accent-primary)] text-[color:var(--color-accent-primary)] rounded-full font-medium">🧪 Testé</span>
         </div>
         <!-- CTA Buttons -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-          <a href="{{ MEDIA_URL }}cv/CV_DEVPYTH.pdf" download class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition shadow-lg">
+          <a href="{{ MEDIA_URL }}cv/CV_DEVPYTH.pdf" download class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[color:var(--color-accent-primary)] text-[var(--color-text-primary)] font-semibold rounded-lg hover:bg-[color:var(--color-accent-hover)] transition shadow-lg">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             Télécharger mon CV
           </a>
-          <a href="{% url 'core:contact' %}" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-700 transition border border-gray-700">
+          <a href="{% url 'core:contact' %}" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)] font-semibold rounded-lg hover:bg-neutral-800 transition border border-neutral-800">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
             Me contacter
           </a>
@@ -54,59 +54,59 @@
       </div>
       <!-- Stats -->
       <div class="grid grid-cols-2 gap-6">
-        <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 text-center"><div class="text-5xl font-bold text-orange-500 mb-2">{{ total_projects }}+</div><div class="text-gray-400">Projets réalisés</div></div>
-        <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 text-center"><div class="text-5xl font-bold text-orange-500 mb-2">{{ years_experience }}+</div><div class="text-gray-400">Ans d'expérience</div></div>
-        <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 text-center"><div class="text-5xl font-bold text-orange-500 mb-2">{{ technologies_count }}+</div><div class="text-gray-400">Technologies</div></div>
-        <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 text-center"><div class="text-5xl font-bold text-orange-500 mb-2">100%</div><div class="text-gray-400">Passion</div></div>
+        <div class="bg-[var(--color-bg-secondary)] p-6 rounded-xl border border-neutral-800 text-center"><div class="text-5xl font-bold text-[color:var(--color-accent-primary)] mb-2">{{ total_projects }}+</div><div class="text-[var(--color-text-muted)]">Projets réalisés</div></div>
+        <div class="bg-[var(--color-bg-secondary)] p-6 rounded-xl border border-neutral-800 text-center"><div class="text-5xl font-bold text-[color:var(--color-accent-primary)] mb-2">{{ years_experience }}+</div><div class="text-[var(--color-text-muted)]">Ans d'expérience</div></div>
+        <div class="bg-[var(--color-bg-secondary)] p-6 rounded-xl border border-neutral-800 text-center"><div class="text-5xl font-bold text-[color:var(--color-accent-primary)] mb-2">{{ technologies_count }}+</div><div class="text-[var(--color-text-muted)]">Technologies</div></div>
+        <div class="bg-[var(--color-bg-secondary)] p-6 rounded-xl border border-neutral-800 text-center"><div class="text-5xl font-bold text-[color:var(--color-accent-primary)] mb-2">100%</div><div class="text-[var(--color-text-muted)]">Passion</div></div>
       </div>
     </div>
   </div>
   </section>
 
 <!-- À PROPOS -->
-<section class="bg-black py-16 px-4">
+<section class="bg-[var(--color-bg-primary)] py-16 px-4">
   <div class="max-w-4xl mx-auto">
-    <h2 class="text-4xl font-bold text-white mb-8 text-center">Qui suis-je <span class="text-orange-500">?</span></h2>
-    <div class="space-y-6 text-gray-300 text-lg leading-relaxed">
-      <p><strong class="text-white">Développeur Python orienté backend</strong>, je conçois des applications robustes, scalables et maintenables. Ma philosophie de développement se résume en trois mots : <span class="text-orange-500 font-semibold">Vite, Propre, Testé</span>.</p>
-      <p>Passionné par <strong class="text-white">Django</strong>, les <strong class="text-white">APIs REST</strong>, et les <strong class="text-white">CLIs modernes</strong>, j'ai développé une solide expertise dans la création d'outils et d'applications backend performantes. Je privilégie les environnements reproductibles (uv), la documentation exploitable, et le code testé.</p>
-      <p>Au-delà du code, je suis également sensible à l'<strong class="text-white">expérience utilisateur</strong> et au <strong class="text-white">design</strong>. J'aime créer des interfaces qui allient fonctionnalité et esthétique, comme en témoignent mes projets personnels.</p>
-      <p>Actuellement en formation <strong class="text-white">Développement Web Python</strong> chez OpenClassrooms (2024-2025), après un Master 1 en Cinéma et 14 ans d'expérience en management dans l'hôtellerie-restauration.</p>
+    <h2 class="text-4xl font-bold text-[var(--color-text-primary)] mb-8 text-center">Qui suis-je <span class="text-[color:var(--color-accent-primary)]">?</span></h2>
+    <div class="space-y-6 text-[var(--color-text-secondary)] text-lg leading-relaxed">
+      <p><strong class="text-[var(--color-text-primary)]">Développeur Python orienté backend</strong>, je conçois des applications robustes, scalables et maintenables. Ma philosophie de développement se résume en trois mots : <span class="text-[color:var(--color-accent-primary)] font-semibold">Vite, Propre, Testé</span>.</p>
+      <p>Passionné par <strong class="text-[var(--color-text-primary)]">Django</strong>, les <strong class="text-[var(--color-text-primary)]">APIs REST</strong>, et les <strong class="text-[var(--color-text-primary)]">CLIs modernes</strong>, j'ai développé une solide expertise dans la création d'outils et d'applications backend performantes. Je privilégie les environnements reproductibles (uv), la documentation exploitable, et le code testé.</p>
+      <p>Au-delà du code, je suis également sensible à l'<strong class="text-[var(--color-text-primary)]">expérience utilisateur</strong> et au <strong class="text-[var(--color-text-primary)]">design</strong>. J'aime créer des interfaces qui allient fonctionnalité et esthétique, comme en témoignent mes projets personnels.</p>
+      <p>Actuellement en formation <strong class="text-[var(--color-text-primary)]">Développement Web Python</strong> chez OpenClassrooms (2024-2025), après un Master 1 en Cinéma et 14 ans d'expérience en management dans l'hôtellerie-restauration.</p>
     </div>
   </div>
 </section>
 
 <!-- PARCOURS / TIMELINE -->
-<section class="bg-gray-900 py-16 px-4">
+<section class="bg-[var(--color-bg-secondary)] py-16 px-4">
   <div class="max-w-5xl mx-auto">
-    <h2 class="text-4xl font-bold text-white mb-12 text-center">Mon <span class="text-orange-500">parcours</span></h2>
+    <h2 class="text-4xl font-bold text-[var(--color-text-primary)] mb-12 text-center">Mon <span class="text-[color:var(--color-accent-primary)]">parcours</span></h2>
     <div class="relative">
-      <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gray-800 hidden md:block"></div>
+      <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-neutral-800 hidden md:block"></div>
       <div class="space-y-12">
         <div class="timeline-item grid md:grid-cols-2 gap-8 items-center">
           <div class="md:text-right">
-            <div class="inline-block bg-orange-500 text-white px-4 py-2 rounded-full text-sm font-medium mb-3">2024 - 2025</div>
-            <h3 class="text-2xl font-bold text-white mb-2">Développement Web Python</h3>
-            <p class="text-gray-400 mb-3">OpenClassrooms</p>
-            <p class="text-gray-300">Formation intensive en développement Python/Django, APIs REST, tests, et bonnes pratiques de développement.</p>
+            <div class="inline-block bg-[color:var(--color-accent-primary)] text-[var(--color-text-primary)] px-4 py-2 rounded-full text-sm font-medium mb-3">2024 - 2025</div>
+            <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-2">Développement Web Python</h3>
+            <p class="text-[var(--color-text-muted)] mb-3">OpenClassrooms</p>
+            <p class="text-[var(--color-text-secondary)]">Formation intensive en développement Python/Django, APIs REST, tests, et bonnes pratiques de développement.</p>
           </div>
           <div class="hidden md:block"></div>
         </div>
         <div class="timeline-item grid md:grid-cols-2 gap-8 items-center">
           <div class="hidden md:block"></div>
           <div>
-            <div class="inline-block bg-gray-700 text-white px-4 py-2 rounded-full text-sm font-medium mb-3">2012</div>
-            <h3 class="text-2xl font-bold text-white mb-2">Master 1 Cinéma</h3>
-            <p class="text-gray-400 mb-3">Paris X Nanterre</p>
-            <p class="text-gray-300">Formation en analyse filmique et théorie du cinéma, développant mon sens critique et ma créativité.</p>
+            <div class="inline-block bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)] px-4 py-2 rounded-full text-sm font-medium mb-3">2012</div>
+            <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-2">Master 1 Cinéma</h3>
+            <p class="text-[var(--color-text-muted)] mb-3">Paris X Nanterre</p>
+            <p class="text-[var(--color-text-secondary)]">Formation en analyse filmique et théorie du cinéma, développant mon sens critique et ma créativité.</p>
           </div>
         </div>
         <div class="timeline-item grid md:grid-cols-2 gap-8 items-center">
           <div class="md:text-right">
-            <div class="inline-block bg-gray-700 text-white px-4 py-2 rounded-full text-sm font-medium mb-3">2010 - 2024</div>
-            <h3 class="text-2xl font-bold text-white mb-2">Hôtellerie - Restauration</h3>
-            <p class="text-gray-400 mb-3">Directeur ~ Manager ~ Chef de rang</p>
-            <ul class="text-gray-300 text-left md:text-right space-y-2">
+            <div class="inline-block bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)] px-4 py-2 rounded-full text-sm font-medium mb-3">2010 - 2024</div>
+            <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-2">Hôtellerie - Restauration</h3>
+            <p class="text-[var(--color-text-muted)] mb-3">Directeur ~ Manager ~ Chef de rang</p>
+            <ul class="text-[var(--color-text-secondary)] text-left md:text-right space-y-2">
               <li>✓ Gestion d'équipes et orientation résultats</li>
               <li>✓ Analyse de données (tickets de caisse, KPIs)</li>
               <li>✓ Résolution de problèmes en temps réel</li>
@@ -121,50 +121,50 @@
 </section>
 
 <!-- COMPÉTENCES DÉTAILLÉES -->
-<section class="bg-black py-16 px-4">
+<section class="bg-[var(--color-bg-primary)] py-16 px-4">
   <div class="max-w-6xl mx-auto">
-    <h2 class="text-4xl font-bold text-white mb-12 text-center">Stack <span class="text-orange-500">technique</span></h2>
+    <h2 class="text-4xl font-bold text-[var(--color-text-primary)] mb-12 text-center">Stack <span class="text-[color:var(--color-accent-primary)]">technique</span></h2>
     <div class="grid md:grid-cols-2 gap-8">
-      <div class="bg-gray-900 p-8 rounded-xl border border-gray-800">
-        <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="text-3xl">⚙️</span>Backend</h3>
+      <div class="bg-[var(--color-bg-secondary)] p-8 rounded-xl border border-neutral-800">
+        <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center gap-3"><span class="text-3xl">⚙️</span>Backend</h3>
         <div class="space-y-4">
           {% for tech in backend_techs %}
             <div>
-              <div class="flex justify-between mb-2"><span class="text-gray-300 font-medium">{{ tech.name }}</span><span class="text-orange-500">{{ tech.proficiency }}/5</span></div>
-              <div class="h-2 bg-gray-800 rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r from-orange-500 to-orange-600 rounded-full" style="width: {{ tech.proficiency|mul:20 }}%"></div></div>
+              <div class="flex justify-between mb-2"><span class="text-[var(--color-text-secondary)] font-medium">{{ tech.name }}</span><span class="text-[color:var(--color-accent-primary)]">{{ tech.proficiency }}/5</span></div>
+              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r from-[color:var(--color-accent-primary)] to-[color:var(--color-accent-hover)] rounded-full" style="width: {{ tech.proficiency|mul:20 }}%"></div></div>
             </div>
           {% endfor %}
         </div>
       </div>
-      <div class="bg-gray-900 p-8 rounded-xl border border-gray-800">
-        <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="text-3xl">🎨</span>Frontend</h3>
+      <div class="bg-[var(--color-bg-secondary)] p-8 rounded-xl border border-neutral-800">
+        <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center gap-3"><span class="text-3xl">🎨</span>Frontend</h3>
         <div class="space-y-4">
           {% for tech in frontend_techs %}
             <div>
-              <div class="flex justify-between mb-2"><span class="text-gray-300 font-medium">{{ tech.name }}</span><span class="text-orange-500">{{ tech.proficiency }}/5</span></div>
-              <div class="h-2 bg-gray-800 rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r from-orange-500 to-orange-600 rounded-full" style="width: {{ tech.proficiency|mul:20 }}%"></div></div>
+              <div class="flex justify-between mb-2"><span class="text-[var(--color-text-secondary)] font-medium">{{ tech.name }}</span><span class="text-[color:var(--color-accent-primary)]">{{ tech.proficiency }}/5</span></div>
+              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r from-[color:var(--color-accent-primary)] to-[color:var(--color-accent-hover)] rounded-full" style="width: {{ tech.proficiency|mul:20 }}%"></div></div>
             </div>
           {% endfor %}
         </div>
       </div>
-      <div class="bg-gray-900 p-8 rounded-xl border border-gray-800">
-        <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="text-3xl">🗄️</span>Bases de données</h3>
+      <div class="bg-[var(--color-bg-secondary)] p-8 rounded-xl border border-neutral-800">
+        <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center gap-3"><span class="text-3xl">🗄️</span>Bases de données</h3>
         <div class="space-y-4">
           {% for tech in database_techs %}
             <div>
-              <div class="flex justify-between mb-2"><span class="text-gray-300 font-medium">{{ tech.name }}</span><span class="text-orange-500">{{ tech.proficiency }}/5</span></div>
-              <div class="h-2 bg-gray-800 rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r from-orange-500 to-orange-600 rounded-full" style="width: {{ tech.proficiency|mul:20 }}%"></div></div>
+              <div class="flex justify-between mb-2"><span class="text-[var(--color-text-secondary)] font-medium">{{ tech.name }}</span><span class="text-[color:var(--color-accent-primary)]">{{ tech.proficiency }}/5</span></div>
+              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r from-[color:var(--color-accent-primary)] to-[color:var(--color-accent-hover)] rounded-full" style="width: {{ tech.proficiency|mul:20 }}%"></div></div>
             </div>
           {% endfor %}
         </div>
       </div>
-      <div class="bg-gray-900 p-8 rounded-xl border border-gray-800">
-        <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="text-3xl">🛠️</span>Outils</h3>
+      <div class="bg-[var(--color-bg-secondary)] p-8 rounded-xl border border-neutral-800">
+        <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center gap-3"><span class="text-3xl">🛠️</span>Outils</h3>
         <div class="space-y-4">
           {% for tech in tools %}
             <div>
-              <div class="flex justify-between mb-2"><span class="text-gray-300 font-medium">{{ tech.name }}</span><span class="text-orange-500">{{ tech.proficiency }}/5</span></div>
-              <div class="h-2 bg-gray-800 rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r from-orange-500 to-orange-600 rounded-full" style="width: {{ tech.proficiency|mul:20 }}%"></div></div>
+              <div class="flex justify-between mb-2"><span class="text-[var(--color-text-secondary)] font-medium">{{ tech.name }}</span><span class="text-[color:var(--color-accent-primary)]">{{ tech.proficiency }}/5</span></div>
+              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r from-[color:var(--color-accent-primary)] to-[color:var(--color-accent-hover)] rounded-full" style="width: {{ tech.proficiency|mul:20 }}%"></div></div>
             </div>
           {% endfor %}
         </div>
@@ -174,47 +174,47 @@
 </section>
 
 <!-- CENTRES D'INTÉRÊT -->
-<section class="bg-gray-900 py-16 px-4">
+<section class="bg-[var(--color-bg-secondary)] py-16 px-4">
   <div class="max-w-5xl mx-auto">
-    <h2 class="text-4xl font-bold text-white mb-12 text-center">Centres d'<span class="text-orange-500">intérêt</span></h2>
+    <h2 class="text-4xl font-bold text-[var(--color-text-primary)] mb-12 text-center">Centres d'<span class="text-[color:var(--color-accent-primary)]">intérêt</span></h2>
     <div class="grid md:grid-cols-2 gap-8">
-      <div class="bg-black p-8 rounded-xl border border-gray-800 hover:border-orange-500 transition group">
+      <div class="bg-[var(--color-bg-primary)] p-8 rounded-xl border border-neutral-800 hover:border-[color:var(--color-accent-primary)] transition group">
         <div class="text-5xl mb-4">📖</div>
-        <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-orange-500 transition">Poésie</h3>
-        <p class="text-gray-300 mb-4">Écriture et partage de poésie sur Instagram sous le pseudonyme <a href="https://instagram.com/remo_nesa" target="_blank" class="text-orange-500 hover:text-orange-400">@remo_nesa</a>.</p>
-        <p class="text-gray-400 text-sm">L'écriture poétique nourrit ma créativité et ma sensibilité à l'esthétique.</p>
+        <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-3 group-hover:text-[color:var(--color-accent-primary)] transition">Poésie</h3>
+        <p class="text-[var(--color-text-secondary)] mb-4">Écriture et partage de poésie sur Instagram sous le pseudonyme <a href="https://instagram.com/remo_nesa" target="_blank" class="text-[color:var(--color-accent-primary)] hover:text-[color:var(--color-accent-hover)]">@remo_nesa</a>.</p>
+        <p class="text-[var(--color-text-muted)] text-sm">L'écriture poétique nourrit ma créativité et ma sensibilité à l'esthétique.</p>
       </div>
-      <div class="bg-black p-8 rounded-xl border border-gray-800 hover:border-orange-500 transition group">
+      <div class="bg-[var(--color-bg-primary)] p-8 rounded-xl border border-neutral-800 hover:border-[color:var(--color-accent-primary)] transition group">
         <div class="text-5xl mb-4">🎬</div>
-        <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-orange-500 transition">Cinéma & Programmation</h3>
-        <p class="text-gray-300 mb-4">Passionné de cinéma et de programmation, je partage mes découvertes sur <a href="https://instagram.com/laclefrevival" target="_blank" class="text-orange-500 hover:text-orange-400">@laclefrevival</a>.</p>
-        <p class="text-gray-400 text-sm">L'analyse filmique développe mon esprit critique et ma capacité à résoudre des problèmes complexes.</p>
+        <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-3 group-hover:text-[color:var(--color-accent-primary)] transition">Cinéma & Programmation</h3>
+        <p class="text-[var(--color-text-secondary)] mb-4">Passionné de cinéma et de programmation, je partage mes découvertes sur <a href="https://instagram.com/laclefrevival" target="_blank" class="text-[color:var(--color-accent-primary)] hover:text-[color:var(--color-accent-hover)]">@laclefrevival</a>.</p>
+        <p class="text-[var(--color-text-muted)] text-sm">L'analyse filmique développe mon esprit critique et ma capacité à résoudre des problèmes complexes.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- SOFT SKILLS -->
-<section class="bg-black py-16 px-4">
+<section class="bg-[var(--color-bg-primary)] py-16 px-4">
   <div class="max-w-4xl mx-auto">
-    <h2 class="text-4xl font-bold text-white mb-12 text-center">Qualités <span class="text-orange-500">professionnelles</span></h2>
+    <h2 class="text-4xl font-bold text-[var(--color-text-primary)] mb-12 text-center">Qualités <span class="text-[color:var(--color-accent-primary)]">professionnelles</span></h2>
     <div class="grid md:grid-cols-2 gap-6">
-      <div class="flex items-start gap-4"><div class="w-12 h-12 rounded-lg bg-orange-500/20 flex items-center justify-center flex-shrink-0"><svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div><div><h4 class="text-xl font-bold text-white mb-2">Créativité</h4><p class="text-gray-400">Approche innovante des problèmes techniques et design</p></div></div>
-      <div class="flex items-start gap-4"><div class="w-12 h-12 rounded-lg bg-orange-500/20 flex items-center justify-center flex-shrink-0"><svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></div><div><h4 class="text-xl font-bold text-white mb-2">Adaptabilité</h4><p class="text-gray-400">Capacité à apprendre rapidement de nouvelles technologies</p></div></div>
-      <div class="flex items-start gap-4"><div class="w-12 h-12 rounded-lg bg-orange-500/20 flex items-center justify-center flex-shrink-0"><svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg></div><div><h4 class="text-xl font-bold text-white mb-2">Esprit d'équipe</h4><p class="text-gray-400">Collaboration efficace et communication claire</p></div></div>
-      <div class="flex items-start gap-4"><div class="w-12 h-12 rounded-lg bg-orange-500/20 flex items-center justify-center flex-shrink-0"><svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg></div><div><h4 class="text-xl font-bold text-white mb-2">Orientation résultats</h4><p class="text-gray-400">Focus sur la livraison de solutions de qualité</p></div></div>
+      <div class="flex items-start gap-4"><div class="w-12 h-12 rounded-lg bg-[color:var(--color-accent-primary)]/20 flex items-center justify-center flex-shrink-0"><svg class="w-6 h-6 text-[color:var(--color-accent-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div><div><h4 class="text-xl font-bold text-[var(--color-text-primary)] mb-2">Créativité</h4><p class="text-[var(--color-text-muted)]">Approche innovante des problèmes techniques et design</p></div></div>
+      <div class="flex items-start gap-4"><div class="w-12 h-12 rounded-lg bg-[color:var(--color-accent-primary)]/20 flex items-center justify-center flex-shrink-0"><svg class="w-6 h-6 text-[color:var(--color-accent-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></div><div><h4 class="text-xl font-bold text-[var(--color-text-primary)] mb-2">Adaptabilité</h4><p class="text-[var(--color-text-muted)]">Capacité à apprendre rapidement de nouvelles technologies</p></div></div>
+      <div class="flex items-start gap-4"><div class="w-12 h-12 rounded-lg bg-[color:var(--color-accent-primary)]/20 flex items-center justify-center flex-shrink-0"><svg class="w-6 h-6 text-[color:var(--color-accent-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg></div><div><h4 class="text-xl font-bold text-[var(--color-text-primary)] mb-2">Esprit d'équipe</h4><p class="text-[var(--color-text-muted)]">Collaboration efficace et communication claire</p></div></div>
+      <div class="flex items-start gap-4"><div class="w-12 h-12 rounded-lg bg-[color:var(--color-accent-primary)]/20 flex items-center justify-center flex-shrink-0"><svg class="w-6 h-6 text-[color:var(--color-accent-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg></div><div><h4 class="text-xl font-bold text-[var(--color-text-primary)] mb-2">Orientation résultats</h4><p class="text-[var(--color-text-muted)]">Focus sur la livraison de solutions de qualité</p></div></div>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="bg-gradient-to-br from-orange-500 to-orange-600 py-16 px-4">
+<section class="bg-gradient-to-br from-[color:var(--color-accent-primary)] to-[color:var(--color-accent-hover)] py-16 px-4">
   <div class="max-w-4xl mx-auto text-center">
-    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Travaillons ensemble !</h2>
-    <p class="text-xl text-white/90 mb-8">Je suis disponible pour des opportunités de collaboration</p>
+    <h2 class="text-3xl md:text-4xl font-bold text-[var(--color-text-primary)] mb-4">Travaillons ensemble !</h2>
+    <p class="text-xl text-[var(--color-text-primary)]/90 mb-8">Je suis disponible pour des opportunités de collaboration</p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="{% url 'core:contact' %}" class="px-8 py-4 bg-white text-orange-600 font-semibold rounded-lg hover:bg-gray-100 transition shadow-lg">Me contacter</a>
-      <a href="{% url 'projects:list' %}" class="px-8 py-4 bg-black/20 backdrop-blur-sm text-white font-semibold rounded-lg hover:bg-black/30 transition border border-white/20">Voir mes projets</a>
+      <a href="{% url 'core:contact' %}" class="px-8 py-4 bg-[var(--color-text-primary)] text-[color:var(--color-accent-primary)] font-semibold rounded-lg hover:bg-[var(--color-text-primary)]/90 transition shadow-lg">Me contacter</a>
+      <a href="{% url 'projects:list' %}" class="px-8 py-4 bg-[var(--color-bg-primary)]/20 backdrop-blur-sm text-[var(--color-text-primary)] font-semibold rounded-lg hover:bg-[var(--color-bg-primary)]/30 transition border border-[var(--color-text-primary)]/20">Voir mes projets</a>
     </div>
   </div>
 </section>
