@@ -6,7 +6,7 @@ register = template.Library()
 
 
 @register.simple_tag
-def project_image(project, default: str = 'img/placeholder-project.jpg') -> str:
+def project_image(project, default: str = 'img/dim-gggl.png') -> str:
     """Return project featured image URL or a static placeholder.
 
     Args:
