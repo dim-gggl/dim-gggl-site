@@ -8,6 +8,8 @@ ENV PYTHONUNBUFFERED=1 \
     ENVIRONMENT=production \
     ALLOWED_HOSTS=dim-gggl.com,www.dim-gggl.com
 
+RUN SECRET_KEY=$(clinkey -l 128 -t super_strong -s - -low)
+
 WORKDIR /app
 
 # System dependencies (only what's needed at runtime)
