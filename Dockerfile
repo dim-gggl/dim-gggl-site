@@ -1,29 +1,31 @@
 # Dockerfile
 FROM python:3.11-slim
 
-# Variables d'environnement
+# Runtime environment
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1
 
 WORKDIR /app
 
-# Dépendances système (si besoin de pillow, psycopg2, etc.)
-RUN apt-get update && apt-get install -y \
+# System dependencies (only what's needed at runtime)
+RUN apt-get update && apt-get install -y --no-install-recommends \
     postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
-# Installation des dépendances Python
-COPY requirements/base.txt .
-RUN pip install --no-cache-dir -r requirements/base.txt
+# Install Python dependencies
+# Copy all requirement files to leverage Docker layer caching
+COPY requirements/ ./requirements/
+RUN python -m pip install --upgrade pip && \
+    python -m pip install --no-cache-dir -r requirements/prod.txt
 
-# Copie du code
+# Copy project code
 COPY . .
 
-# Collecte des fichiers statiques
+# Collect static files at build time (does not require DB)
 RUN python manage.py collectstatic --noinput
 
-# Port d'écoute
+# Expose default port (Railway will provide $PORT)
 EXPOSE 8000
 
-# Commande de démarrage
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "portfolio_dimitri.wsgi:application"]
+# Start: run migrations then Gunicorn binding on $PORT (fallback 8000)
+CMD ["sh", "-c", "python manage.py migrate --noinput && gunicorn --bind 0.0.0.0:${PORT:-8000} portfolio_dimitri.wsgi:application"]

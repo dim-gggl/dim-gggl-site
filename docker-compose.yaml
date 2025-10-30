@@ -1,4 +1,4 @@
-# docker-compose.yml (pour développement local)
+# docker-compose.yml (development only)
 version: '3.8'
 
 services:
@@ -8,11 +8,20 @@ services:
       - "8000:8000"
     env_file:
       - .env
+    environment:
+      DEBUG: "1"
+      DB_ENGINE: django.db.backends.postgresql
+      DB_NAME: portfolio
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_HOST: db
+      DB_PORT: "5432"
     volumes:
       - .:/app
+    command: sh -c "python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000"
     depends_on:
       - db
-  
+
   db:
     image: postgres:15
     environment:
