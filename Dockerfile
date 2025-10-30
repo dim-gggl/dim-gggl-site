@@ -29,4 +29,4 @@ RUN mkdir -p static && python manage.py collectstatic --noinput
 EXPOSE 8000
 
 # Start: run migrations then Gunicorn binding on $PORT (fallback 8000)
-CMD ["sh", "-c", "python manage.py migrate --noinput && gunicorn --bind 0.0.0.0:${PORT:-8000} portfolio_dimitri.wsgi:application"]
+CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py load_projects ./projects.json && gunicorn --bind 0.0.0.0:${PORT:-8000} portfolio_dimitri.wsgi:application"]
