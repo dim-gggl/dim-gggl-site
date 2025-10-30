@@ -4,8 +4,7 @@
     <div class="relative h-36 w-36 rounded-full border-4 border-[color:var(--color-accent-primary)] bg-[var(--color-bg-secondary)] shadow-xl transition-transform hover:rotate-1 overflow-hidden">
       <img src="{% static 'images/profile-photo.png' %}"
            alt="{{ person.name }}"
-           class="h-full w-full object-cover"
-           onerror="this.style.display='none'">
+           class="h-full w-full object-cover">
     </div>
     <h1 id="hero-title" class="text-3xl font-extrabold sm:text-5xl">{{ person.name }}</h1>
     <p class="text-xl font-medium text-[color:var(--color-accent-primary)]">{{ person.title }}</p>

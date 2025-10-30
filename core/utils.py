@@ -31,3 +31,15 @@ def optimize_image(image_field, max_width=1920, quality=85):
         charset=None,
     )
 
+def get_client_ip(request):
+    """
+    Get the client's IP address from the request.
+    Handles proxies correctly.
+    """
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        # Take the first IP if there are multiple
+        ip = x_forwarded_for.split(',')[0].strip()
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip

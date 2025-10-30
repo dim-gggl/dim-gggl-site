@@ -5,18 +5,18 @@
   --color-bg-tertiary: #242424;
 
   /* Accent */
-  --color-accent-primary: #ff6b35;
-  --color-accent-secondary: #f7931e;
-  --color-accent-hover: #ff8555;
+  --color-accent-primary: #ef0041;
+  --color-accent-secondary: #ec3767;
+  --color-accent-hover: #e76387;
 
   /* Text */
-  --color-text-primary: #ffffff;
+  --color-text-primary: #eaeaea;
   --color-text-secondary: #b8b8b8;
   --color-text-muted: #808080;
 
   /* Typography */
-  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-primary: "Saira", "Helvetica Neue", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "IBM Plex Mono", "Fira Code", monospace;
 
   /* Spacing */
   --spacing-xs: 0.5rem;

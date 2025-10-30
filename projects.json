@@ -302,7 +302,7 @@
 	  "order": 7
 	},
 	{
-	  "title": "--clinkey-cli",
+	  "title": "clinkey-cli",
 	  "slug": "clinkey-cli",
 	  "tagline": "l'assistant mots de passe en ligne de commande.",
 	  "description": "Clinkey est un générateur de mots de passe des plus simples. Proposant de générer des mots de passes robustes de manière aléatoire, en respectant les paramètres sélectionnés par l'utilisateur.\nIl est possible d'obtenir un mot de passe entre 16 et 128 caractères, composé uniquement de lettres organisées en syllabes prononçables,\nd'y ajouter des chiffres et des caractères spéciaux.\nDisponible sur Pypi : `pip install clinkey-cli`\nou via Homebrew : `brew tap dim-gggl/clinkey-cli && brew install clinkey-cli`.",

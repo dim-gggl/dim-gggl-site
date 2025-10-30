@@ -185,10 +185,10 @@ class Command(BaseCommand):
 
         # Map slugs to featured images relative to MEDIA root
         image_mapping = {
-            'aura-app': 'projects/featured/aura_title.png',
-            'clinkey-cli': 'projects/featured/clinkey-cli-title.png',
-            'softdesk_support': 'projects/featured/softdesk-support-api.png',
-            'epic_events': 'projects/featured/epic-events-help.png',
+            'aura-app': 'images/aura_title.png',
+            'clinkey-cli': 'images/clinkey-cli-title.png',
+            'softdesk_support': 'images/softdesk-support-api.png',
+            'epic_events': 'images/epic-events-help.png',
         }
 
         featured_slugs = set(image_mapping.keys())

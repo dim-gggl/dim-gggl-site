@@ -28,7 +28,7 @@ module.exports = {
       },
       fontFamily: {
         sans: [
-          'Inter',
+          'Saira',
           '-apple-system',
           'BlinkMacSystemFont',
           'Segoe UI',
@@ -38,7 +38,7 @@ module.exports = {
           'Noto Sans',
           'sans-serif',
         ],
-        mono: ['JetBrains Mono', 'Fira Code', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        mono: ['IBM Plex Mono', 'Fira Code', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
     },
   },
