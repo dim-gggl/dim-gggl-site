@@ -1,13 +1,13 @@
 <header class="sticky top-0 z-50 border-b border-neutral-900/60 bg-[var(--color-bg-primary)]/80 backdrop-blur">
   <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-    <a href="/" class="text-lg font-bold tracking-wide text-[var(--color-text-primary)]">
+    <a href="{% url 'core:home' %}" class="text-lg font-bold tracking-wide text-[var(--color-text-primary)]">
       <span class="text-[color:var(--color-accent-primary)]">DG</span> · Portfolio
     </a>
     <nav class="hidden gap-6 text-sm text-[var(--color-text-secondary)] md:flex">
       <a class="hover:text-[var(--color-text-primary)]" href="{% url 'projects:list' %}">Projets</a>
       <a class="hover:text-[var(--color-text-primary)]" href="#skills">Compétences</a>
-      <a class="hover:text-[var(--color-text-primary)]" href="{% url 'about' %}">À propos</a>
-      <a class="hover:text-[var(--color-text-primary)]" href="{% url 'contact' %}">Contact</a>
+      <a class="hover:text-[var(--color-text-primary)]" href="{% url 'core:about' %}">À propos</a>
+      <a class="hover:text-[var(--color-text-primary)]" href="{% url 'core:contact' %}">Contact</a>
     </nav>
   </div>
 </header>
