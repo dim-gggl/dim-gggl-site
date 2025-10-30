@@ -27,7 +27,7 @@ COPY . .
 
 # Collect static files at build time (does not require DB)
 # Ensure source static directory exists to silence W004 in production
-RUN mkdir -p static && python manage.py collectstatic --noinput
+RUN python manage.py collectstatic --noinput
 
 # Expose default port (Railway will provide $PORT)
 EXPOSE 8000

@@ -222,7 +222,7 @@ STORAGES = {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage,
     },
 }
 
@@ -233,10 +233,6 @@ COMPRESS_OFFLINE = not DEBUG
 # Media files
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-
-# NEW: File upload constraints
-FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024  # 5MB
-DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024  # 10MB
 
 
 # ==============================================================================
@@ -260,7 +256,7 @@ if _redis_url and not DEBUG:
                 'COMPRESSOR': 'django_redis.compressors.zlib.ZlibCompressor',
             },
             'KEY_PREFIX': 'portfolio',
-            'TIMEOUT': 60 * 15,  # 15 minutes
+            'TIMEOUT': 60 * 15,
         }
     }
 else:
@@ -399,7 +395,7 @@ LOGGING = {
             'level': 'DEBUG' if DEBUG else 'INFO',
             'propagate': False,
         },
-        'portfolio': {  # NEW: Custom logger for the app
+        'portfolio': {
             'handlers': ['console'] + (['file'] if DEBUG else []),
             'level': 'INFO',
             'propagate': False,
@@ -446,20 +442,20 @@ if SENTRY_DSN:
 # Personal information (centralized instead of hardcoded in views)
 PORTFOLIO_PERSON = {
     'name': 'Dimitri Gaggioli',
-    'title': 'Développeur Python - Backend',
+    'title': 'Python Developer - Backend',
     'baseline': 'Think. Code. Push.',
-    'location': 'Paris 2e',
+    'location': 'Paris',
     'contact_email': 'dimitri.gaggioli@gmail.com',
-    'contact_phone': '+33 6 20 15 61 72',
+    'contact_phone': '+33620156172',
     'github': 'https://github.com/dim-gggl',
     'linkedin': 'https://www.linkedin.com/in/dimitri-gaggioli/',
-    'years_experience': 3,
+    'years_experience': 14,
 }
 
 # Project list constants
-PROJECTS_PER_PAGE = 12
-FEATURED_PROJECTS_COUNT = 4
-SIMILAR_PROJECTS_COUNT = 3
+PROJECTS_PER_PAGE = 4
+FEATURED_PROJECTS_COUNT = 2
+SIMILAR_PROJECTS_COUNT = 2
 
 
 # ==============================================================================
