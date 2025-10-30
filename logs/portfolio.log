@@ -377,3 +377,5 @@ Traceback (most recent call last):
     )
 django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '('images/Dimitri_Gaggioli.png')' from 'static('images/Dimitri_Gaggioli.png')'
 [ERROR] 2025-10-30 11:29:42,717 basehttp "GET /about/ HTTP/1.1" 500 272125
+[WARNING] 2025-10-30 12:50:03,914 log Not Found: /media/cv/CV_DEVPYTH.pdf
+[WARNING] 2025-10-30 12:50:03,915 basehttp "GET /media/cv/CV_DEVPYTH.pdf HTTP/1.1" 404 4152
