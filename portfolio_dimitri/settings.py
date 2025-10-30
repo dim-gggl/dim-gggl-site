@@ -226,9 +226,9 @@ STORAGES = {
     },
 }
 
-# Django Compressor
-COMPRESS_ENABLED = not DEBUG
-COMPRESS_OFFLINE = not DEBUG
+if not DEBUG:
+    COMPRESS_OFFLINE = False
+    COMPRESS_ENABLED = True 
 
 # Media files
 MEDIA_URL = 'media/'
