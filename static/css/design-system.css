@@ -1,0 +1,72 @@
+:root {
+  /* Core backgrounds */
+  --color-bg-primary: #0f0f0f;
+  --color-bg-secondary: #1a1a1a;
+  --color-bg-tertiary: #242424;
+
+  /* Accent */
+  --color-accent-primary: #ef0041;
+  --color-accent-secondary: #ec3767;
+  --color-accent-hover: #e76387;
+
+  /* Text */
+  --color-text-primary: #eaeaea;
+  --color-text-secondary: #b8b8b8;
+  --color-text-muted: #808080;
+
+  /* Typography */
+  --font-primary: "Saira", "Helvetica Neue", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "IBM Plex Mono", "Fira Code", monospace;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 6rem;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.4s ease;
+  --transition-slow: 0.6s ease;
+}
+
+/* Base element defaults */
+html, body {
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+}
+
+/* Terminal-like caret */
+.caret {
+  display: inline-block;
+  width: 8px;
+  height: 1.1em;
+  background: var(--color-accent-primary);
+  margin-left: 6px;
+  animation: blink 1s steps(1, start) infinite;
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Subtle glitch effect utility */
+.glitch {
+  position: relative;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  mix-blend-mode: screen;
+  opacity: 0.08;
+}
+.glitch::before { transform: translate(1px, 0); color: #ff0066; }
+.glitch::after { transform: translate(-1px, 0); color: #00e1ff; }
+
+
