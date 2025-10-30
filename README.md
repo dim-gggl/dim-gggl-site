@@ -1,61 +1,115 @@
 # Portfolio Django – Dimitri Gaggioli
 
-Projet Django avec frontend Tailwind (CDN pour démarrer) et structure prête pour intégration UI/animations.
+Portfolio professionnel construit avec Django 5 et une interface moderne inspirée de shadcn UI. Le projet met en avant les réalisations backend Python, avec une attention particulière portée aux performances, au SEO et à la préparation du déploiement.
 
-## Prérequis
-- Python 3.11+ (fonctionne avec 3.14)
-- macOS/Linux (zsh/bash)
+## ✨ Fonctionnalités principales
 
-## Installation rapide
-```
-# 1) Créer et activer l'environnement (dans le repo)
+- SEO avancé : meta tags dynamiques, Open Graph, Twitter Cards, structured data JSON‑LD, sitemap et robots.txt générés dynamiquement.
+- Performances : compression CSS/JS via `django-compressor`, lazy-loading des images, optimisation automatique des visuels uploadés, cache applicatif et middleware de surveillance des requêtes SQL.
+- Sécurité : en-têtes renforcés (HSTS, CSP, Referrer-Policy), rate limiting du formulaire de contact, honeypot anti-spam, mode maintenance configurable.
+- Monitoring : intégration Sentry, Google Analytics 4 avec anonymisation IP, logs structurés en rotation.
+- Déploiement : script d’automatisation, configuration Gunicorn/Nginx prête à l’emploi, paramètres production-friendly.
+
+## 🧰 Stack technique
+
+- **Backend** : Django 5, Python 3.11+
+- **Frontend** : Templates Django, design system maison compatible shadcn, Tailwind CDN pour prototypage
+- **Base de données** : PostgreSQL en production (SQLite possible en local)
+- **Outils** : django-compressor, Pillow, Sentry SDK, pytest-django
+
+## 🚀 Démarrage rapide
+
+```bash
+# 1. Cloner le dépôt
+git clone https://github.com/dim-ggg1/portfolio.git
+cd portfolio
+
+# 2. Créer et activer l’environnement virtuel
 python3 -m venv .venv
 source .venv/bin/activate
 
-# 2) Installer les dépendances de base
-pip install -r requirements/base.txt
-
-# (Optionnel) Dépendances de dev
+# 3. Installer les dépendances
 pip install -r requirements/dev.txt
 
-# 3) Variables d'environnement (exemple)
-# Créez un fichier .env à la racine avec:
-# SECRET_KEY=change-me
-# DEBUG=True
-# ALLOWED_HOSTS=
-# # BDD PostgreSQL (pour prod)
-# # DB_ENGINE=django.db.backends.sqlite3
-# # DB_NAME=portfolio
-# # DB_USER=postgres
-# # DB_PASSWORD=secure-password
-# # DB_HOST=localhost
-# # DB_PORT=5432
+# 4. Configurer les variables d’environnement (voir section dédiée)
 
-# 4) Migrations
+# 5. Appliquer les migrations et lancer le serveur
 python manage.py migrate
-
-# 5) Lancer le serveur
 python manage.py runserver
 ```
 
-## Structure principale
+## 🔐 Variables d’environnement
+
+Créer un fichier `.env` à la racine en vous basant sur les clés ci-dessous :
+
+```
+DEBUG=True
+SECRET_KEY=change-me
+ALLOWED_HOSTS=127.0.0.1,localhost
+SITE_URL=http://localhost:8000
+DATABASE_URL=
+CSRF_TRUSTED_ORIGINS=
+GOOGLE_ANALYTICS_ID=
+SENTRY_DSN=
+SENTRY_TRACES_SAMPLE_RATE=0.1
+DJANGO_CACHE_LOCATION=
+ENVIRONMENT=development
+MAINTENANCE_MODE=False
+```
+
+> `GOOGLE_ANALYTICS_ID`, `SENTRY_DSN` et `DJANGO_CACHE_LOCATION` sont optionnels mais fortement recommandés pour la production.
+
+## 🧪 Tests
+
+```bash
+source .venv/bin/activate
+pytest
+```
+
+## 📦 Déploiement
+
+### Script automatisé
+
+```bash
+./scripts/deploy.sh
+```
+
+Le script :
+
+- Vérifie la branche active
+- Met à jour le code et installe les dépendances production
+- Exécute migrations, collectstatic et compress
+- Redémarre Gunicorn et Nginx
+
+### Gunicorn & Nginx
+
+- `gunicorn_config.py` : configuration multi-workers prête à copier sur le serveur
+- `deploy/gunicorn.service` : unit file systemd
+- `deploy/nginx.conf` : configuration SSL + cache statique + proxy
+
+## 🗂️ Structure du projet
+
 ```
 portfolio_dimitri/
-├── core/            # Pages, base templates, overlay intro
-├── projects/        # Modèle Project (featured)
-├── requirements/    # base/dev/prod
-└── tailwind.config.js
+├── core/
+│   ├── templates/core/        # Layout, composants, maintenance
+│   ├── templatetags/          # SEO & helpers images
+│   ├── middleware.py          # Maintenance, sécurité, debug requêtes
+│   └── utils/image_optimizer.py
+├── projects/                  # Modèles, vues, sitemaps projets
+├── scripts/deploy.sh
+├── deploy/                    # Configurations server-side
+├── logs/, cache/              # Emplacements gérés par Django
+└── portfolio_dimitri/settings.py
 ```
 
-## Frontend
-- Tailwind via CDN (bootstrap rapide). Fichier core/static/css/design-system.css pour la palette/variables.
-- Composants de la home: navbar, hero, summary, featured, tech, footer.
-- Overlay d'intro animé: core/templates/core/components/intro_overlay.html + core/static/js/main.js.
+## ✅ Checklist production
 
-## Prochaines étapes
-- Intégrer un build Tailwind (CLI ou PostCSS) pour la prod
-- Ajouter tests (pytest-django) et debug toolbar en dev
-- Configurer PostgreSQL et déploiement (Heroku/containers)
+- Renseigner `SITE_URL`, `ALLOWED_HOSTS`, `GOOGLE_ANALYTICS_ID`, `SENTRY_DSN`
+- Lancer `python manage.py compress --settings=portfolio_dimitri.settings`
+- Activer `MAINTENANCE_MODE=True` pendant les opérations critiques
+- Créer les sockets/logs (`/run/gunicorn`, `/var/log/gunicorn`) avec les droits adéquats
 
-## License
+## 📄 Licence
+
 MIT

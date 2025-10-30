@@ -1,10 +1,13 @@
+from django.contrib import messages
+from django.http import HttpResponse
+from django.urls import reverse, reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
-from django.contrib import messages
-from django.urls import reverse_lazy
 
 from projects.models import Project, Technology
 from .forms import ContactForm
+from .decorators import rate_limit
 
 
 class HomeView(TemplateView):
@@ -40,7 +43,10 @@ class HomeView(TemplateView):
             'Codex'
         ]
         context['featured_projects'] = (
-            Project.objects.filter(is_featured=True).order_by('order')[:4]
+            Project.objects.filter(is_featured=True, is_published=True)
+            .select_related('category')
+            .prefetch_related('technologies')
+            .order_by('order')[:4]
         )
         return context
 
@@ -76,6 +82,7 @@ class CompetencesView(TemplateView):
     template_name = 'core/competences.html'
 
 
+@method_decorator(rate_limit(key_prefix='contact_form', limit=3, period=3600), name='post')
 class ContactView(FormView):
     template_name = 'core/contact.html'
     form_class = ContactForm
@@ -95,3 +102,17 @@ class ContactView(FormView):
             "❌ An error occurred. Please check the form fields."
         )
         return super().form_invalid(form)
+
+
+class RobotsTxtView(TemplateView):
+    """Serve the robots.txt content dynamically."""
+
+    def get(self, request, *args, **kwargs):
+        sitemap_url = request.build_absolute_uri(reverse('sitemap'))
+        lines = [
+            "User-agent: *",
+            "Allow: /",
+            "",
+            f"Sitemap: {sitemap_url}",
+        ]
+        return HttpResponse("\n".join(lines), content_type="text/plain")

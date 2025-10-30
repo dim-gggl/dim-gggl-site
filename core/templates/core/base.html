@@ -1,14 +1,19 @@
 {% load static %}
+{% load seo_tags %}
+{% load compress %}
 <!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}Portfolio – Dimitri Gaggioli{% endblock %}</title>
-    <meta name="description" content="Portfolio de Dimitri Gaggioli, Développeur Python - Backend. Vite, propre, testé." />
-    <meta property="og:title" content="Portfolio – Dimitri Gaggioli" />
-    <meta property="og:description" content="Développeur Python - Backend. Vite, propre, testé." />
-    <meta property="og:type" content="website" />
+
+    {% block meta_tags %}
+      {% seo_meta_tags %}
+    {% endblock %}
+
+    {% include 'core/components/structured_data.html' %}
+    {% include 'core/components/analytics.html' %}
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -58,7 +63,9 @@
     </script>
 
     <!-- Custom design system variables -->
+    {% compress css %}
     <link rel="stylesheet" href="{% static 'css/design-system.css' %}">
+    {% endcompress %}
 
     {% block extra_head %}{% endblock %}
   </head>
@@ -70,7 +77,9 @@
 
     {% include 'core/components/footer.html' %}
 
+    {% compress js %}
     <script defer src="{% static 'js/main.js' %}"></script>
+    {% endcompress %}
     {% block extra_js %}{% endblock %}
   </body>
   

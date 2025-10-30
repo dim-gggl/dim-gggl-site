@@ -6,6 +6,17 @@ from .models import ContactMessage
 class ContactForm(forms.ModelForm):
     """Model-backed contact form for the website contact page."""
 
+    website = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                'style': 'display:none;',
+                'tabindex': '-1',
+                'autocomplete': 'off',
+            }
+        ),
+    )
+
     class Meta:
         model = ContactMessage
         fields = [
@@ -54,5 +65,11 @@ class ContactForm(forms.ModelForm):
         if len(message or "") < 20:
             raise forms.ValidationError("Le message doit contenir au moins 20 caractères.")
         return message
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if cleaned_data.get('website'):
+            raise forms.ValidationError("Spam détecté")
+        return cleaned_data
 
 

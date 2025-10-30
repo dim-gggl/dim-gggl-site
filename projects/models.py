@@ -1,6 +1,8 @@
 from django.db import models
-from django.utils.text import slugify
 from django.urls import reverse
+from django.utils.text import slugify
+
+from core.utils.image_optimizer import optimize_image
 
 
 class Technology(models.Model):
@@ -182,6 +184,8 @@ class Project(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
+        if self.featured_image and not getattr(self.featured_image, "_committed", False):
+            self.featured_image = optimize_image(self.featured_image)
         super().save(*args, **kwargs)
 
     def get_absolute_url(self) -> str:

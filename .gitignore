@@ -2,4 +2,5 @@ WORKFLOW.md
 AGENTS.md
 .cursor
 .venv
+venv/
 .env
