@@ -18,31 +18,31 @@ class ContactForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(
                 attrs={
-                    'class': 'w-full bg-gray-800 text-white px-4 py-3 rounded-lg border border-gray-700 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20 transition',
+                    'class': 'w-full bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)] px-4 py-3 rounded-lg border border-neutral-800 focus:border-[color:var(--color-accent-primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-accent-primary)]/20 transition',
                     'placeholder': 'Dimitri Gaggioli',
                 }
             ),
             'email': forms.EmailInput(
                 attrs={
-                    'class': 'w-full bg-gray-800 text-white px-4 py-3 rounded-lg border border-gray-700 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20 transition',
-                    'placeholder': 'dimitri.gaggioarruvéli@gmail.com',
+                    'class': 'w-full bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)] px-4 py-3 rounded-lg border border-neutral-800 focus:border-[color:var(--color-accent-primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-accent-primary)]/20 transition',
+                    'placeholder': 'dimitri.gaggioli@gmail.com',
                 }
             ),
             'phone': forms.TextInput(
                 attrs={
-                    'class': 'w-full bg-gray-800 text-white px-4 py-3 rounded-lg border border-gray-700 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20 transition',
+                    'class': 'w-full bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)] px-4 py-3 rounded-lg border border-neutral-800 focus:border-[color:var(--color-accent-primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-accent-primary)]/20 transition',
                     'placeholder': '+33 6 12 34 56 78 (optionnel)',
                 }
             ),
             'subject': forms.TextInput(
                 attrs={
-                    'class': 'w-full bg-gray-800 text-white px-4 py-3 rounded-lg border border-gray-700 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20 transition',
+                    'class': 'w-full bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)] px-4 py-3 rounded-lg border border-neutral-800 focus:border-[color:var(--color-accent-primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-accent-primary)]/20 transition',
                     'placeholder': "Sujet de votre message",
                 }
             ),
             'message': forms.Textarea(
                 attrs={
-                    'class': 'w-full bg-gray-800 text-white px-4 py-3 rounded-lg border border-gray-700 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20 transition',
+                    'class': 'w-full bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)] px-4 py-3 rounded-lg border border-neutral-800 focus:border-[color:var(--color-accent-primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-accent-primary)]/20 transition',
                     'placeholder': 'Décrivez votre projet, vos besoins ou votre message...',
                     'rows': 6,
                 }
