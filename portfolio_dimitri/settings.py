@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import dj_database_url
 
 load_dotenv()
 
@@ -31,7 +32,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-secret-key-change-me')
 def _str_to_bool(value):
     return str(value).lower() in {"1", "true", "yes", "on"}
 
-DEBUG = False
+DEBUG = _str_to_bool(os.environ.get('DEBUG', 'True'))
 
 ALLOWED_HOSTS = [
     h.strip() for h in os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost,dim-gggl.com,www.dim-gggl.com').split(',') if h.strip()
@@ -99,6 +100,15 @@ DATABASES = {
         'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
+
+# Prefer DATABASE_URL when available (e.g. Railway)
+_database_url = os.environ.get('DATABASE_URL')
+if _database_url:
+    DATABASES['default'] = dj_database_url.config(
+        default=_database_url,
+        conn_max_age=int(os.environ.get('CONN_MAX_AGE', '600')),
+        ssl_require=True,
+    )
 
 
 # Password validation
