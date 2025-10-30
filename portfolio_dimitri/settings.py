@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-secret-key-change-me')
 def _str_to_bool(value):
     return str(value).lower() in {"1", "true", "yes", "on"}
 
-DEBUG = _str_to_bool(os.environ.get('DEBUG', 'True'))
+DEBUG = False
 
 ALLOWED_HOSTS = [
     h.strip() for h in os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost,dim-gggl.com,www.dim-gggl.com').split(',') if h.strip()
