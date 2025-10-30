@@ -30,16 +30,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Lines to type
   const lines = [
-    '> Initialisation du portfolio...',
-    '> Chargement des compétences... [████████] 100%',
-    '> Importation des projets... [████████] 100%',
+    '> Initializing portfolio...',
+    '> Loading skills... [████████] 100%',
+    '> Loading projects... [████████] 100%',
     '>',
-    '> Portfolio de Dimitri Gaggioli',
-    '> Développeur Python - Backend',
+    '> Portfolio of Dimitri Gaggioli',
+    '> Python Developer - Backend',
     '>',
-    '> Philosophie : Vite • Propre • Testé',
+    '> Philosophie : Think. Code. Push.',
     '>',
-    '> Appuyez sur [ENTRÉE] ou attendez pour continuer...'
+    '> Press [ENTER] or wait to continue...'
   ];
 
   let aborted = false;
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Reveal skip after 2s
     window.setTimeout(() => {
       if (skipBtn) skipBtn.classList.remove('invisible');
-    }, 2000);
+    }, 4000);
 
     for (lineIndex = 0; lineIndex < lines.length; lineIndex += 1) {
       const text = lines[lineIndex];
@@ -103,10 +103,10 @@ document.addEventListener('DOMContentLoaded', () => {
     abortIntro();
   });
 
-  // Auto-hide safety net after 5s
+  // Auto-hide safety net after 6s
   window.setTimeout(() => {
     if (!aborted) abortIntro();
-  }, 5000);
+  }, 6000);
 
   runIntro();
 });
