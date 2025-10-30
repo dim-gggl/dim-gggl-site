@@ -1,7 +1,9 @@
 import json
+import os
 from datetime import date
 
 from django.core.management.base import BaseCommand, CommandError
+from django.conf import settings
 from django.utils.text import slugify
 
 from projects.models import Project, Technology, Category
@@ -181,6 +183,16 @@ class Command(BaseCommand):
         created_count = 0
         updated_count = 0
 
+        # Map slugs to featured images relative to MEDIA root
+        image_mapping = {
+            'aura-app': 'projects/featured/aura_title.png',
+            'clinkey-cli': 'projects/featured/clinkey-cli-title.png',
+            'softdesk_support': 'projects/featured/softdesk-support-api.png',
+            'epic_events': 'projects/featured/epic-events-help.png',
+        }
+
+        featured_slugs = set(image_mapping.keys())
+
         for project_data in projects_data:
             tech_names = project_data.pop("technologies", [])
             category_name = project_data.pop("category", None)
@@ -197,11 +209,25 @@ class Command(BaseCommand):
             if not slug:
                 raise CommandError("Each project must have a slug in the JSON data")
 
+            # Attach featured image path if present on disk
+            img_rel = image_mapping.get(slug)
+            if img_rel:
+                media_path = os.path.join(settings.MEDIA_ROOT, img_rel)
+                if os.path.exists(media_path):
+                    project_data["featured_image"] = img_rel
+                else:
+                    self.stdout.write(
+                        self.style.WARNING(
+                            f"⚠ Featured image not found on disk for {slug}: {media_path}"
+                        )
+                    )
+
             project, created = Project.objects.update_or_create(
                 slug=slug,
                 defaults={
                     **project_data,
                     "category": category,
+                    "is_featured": slug in featured_slugs or project_data.get("is_featured", False),
                 },
             )
 

@@ -24,7 +24,7 @@ pip install -r requirements/dev.txt
 # DEBUG=True
 # ALLOWED_HOSTS=
 # # BDD PostgreSQL (pour prod)
-# # DB_ENGINE=django.db.backends.postgresql
+# # DB_ENGINE=django.db.backends.sqlite3
 # # DB_NAME=portfolio
 # # DB_USER=postgres
 # # DB_PASSWORD=secure-password

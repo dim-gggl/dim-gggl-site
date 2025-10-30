@@ -13,38 +13,10 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Installation des dépendances Python
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements/base.txt .
+RUN pip install --no-cache-dir -r requirements/base.txt
 
 # Copie du code
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 COPY . .
 
 # Collecte des fichiers statiques
@@ -54,4 +26,4 @@ RUN python manage.py collectstatic --noinput
 EXPOSE 8000
 
 # Commande de démarrage
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "dim-gggl.wsgi:application"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "portfolio_dimitri.wsgi:application"]
