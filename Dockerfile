@@ -3,7 +3,10 @@ FROM python:3.11-slim
 
 # Runtime environment
 ENV PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1
+    PYTHONDONTWRITEBYTECODE=1 \
+    DEBUG=0 \
+    ENVIRONMENT=production \
+    ALLOWED_HOSTS=dim-gggl.com,www.dim-gggl.com
 
 WORKDIR /app
 
