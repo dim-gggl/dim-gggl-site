@@ -36,6 +36,8 @@ DEBUG = _str_to_bool(os.environ.get('DEBUG', 'True'))
 ALLOWED_HOSTS = [
     h.strip() for h in os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',') if h.strip()
 ]
+if not DEBUG:
+    ALLOWED_HOSTS = ["dim-gggl.com", "www.dim-gggl.com"]
 
 
 # Application definition
