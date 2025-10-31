@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED=1 \
     DEBUG=0 \
     ENVIRONMENT=production \
     ALLOWED_HOSTS=127.0.0.1,localhost,dim-gggl.com,www.dim-gggl.com \
-    DJANGO_SECRET_KEY_FILE=/run/secrets/django_secret_key
+    DJANGO_SECRET_KEY_FILE=/secrets/django_secret_key.txt
 
 WORKDIR /app
 
