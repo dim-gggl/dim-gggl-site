@@ -14,8 +14,10 @@ class ContactMessage(models.Model):
         verbose_name="Message",
         validators=[
             MinLengthValidator(20, "Le message doit contenir au moins 20 caractères."),
-            MaxLengthValidator(5000, "Le message ne peut pas dépasser 5000 caractères."),
-        ]
+            MaxLengthValidator(
+                5000, "Le message ne peut pas dépasser 5000 caractères."
+            ),
+        ],
     )
     phone = models.CharField(max_length=20, blank=True, verbose_name="Téléphone")
 
@@ -23,7 +25,7 @@ class ContactMessage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     is_read = models.BooleanField(default=False, db_index=True)
     replied_at = models.DateTimeField(null=True, blank=True)
-    
+
     # IP tracking for security/analytics
     ip_address = models.GenericIPAddressField(null=True, blank=True)
 
@@ -32,7 +34,7 @@ class ContactMessage(models.Model):
         verbose_name = "Message de contact"
         verbose_name_plural = "Messages de contact"
         indexes = [
-            models.Index(fields=['-created_at', 'is_read']),
+            models.Index(fields=["-created_at", "is_read"]),
         ]
 
     def __str__(self) -> str:
@@ -42,11 +44,11 @@ class ContactMessage(models.Model):
         """Mark message as read."""
         if not self.is_read:
             self.is_read = True
-            self.save(update_fields=['is_read'])
+            self.save(update_fields=["is_read"])
 
     def mark_as_replied(self):
         """Mark message as replied."""
         if not self.replied_at:
             self.replied_at = timezone.now()
             self.is_read = True
-            self.save(update_fields=['replied_at', 'is_read'])
+            self.save(update_fields=["replied_at", "is_read"])

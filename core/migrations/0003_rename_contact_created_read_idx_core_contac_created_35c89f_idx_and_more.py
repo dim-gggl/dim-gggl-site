@@ -7,18 +7,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0002_add_indexes_and_ip'),
+        ("core", "0002_add_indexes_and_ip"),
     ]
 
     operations = [
         migrations.RenameIndex(
-            model_name='contactmessage',
-            new_name='core_contac_created_35c89f_idx',
-            old_name='contact_created_read_idx',
+            model_name="contactmessage",
+            new_name="core_contac_created_35c89f_idx",
+            old_name="contact_created_read_idx",
         ),
         migrations.AlterField(
-            model_name='contactmessage',
-            name='message',
-            field=models.TextField(validators=[django.core.validators.MinLengthValidator(20, 'Le message doit contenir au moins 20 caractères.'), django.core.validators.MaxLengthValidator(5000, 'Le message ne peut pas dépasser 5000 caractères.')], verbose_name='Message'),
+            model_name="contactmessage",
+            name="message",
+            field=models.TextField(
+                validators=[
+                    django.core.validators.MinLengthValidator(
+                        20, "Le message doit contenir au moins 20 caractères."
+                    ),
+                    django.core.validators.MaxLengthValidator(
+                        5000, "Le message ne peut pas dépasser 5000 caractères."
+                    ),
+                ],
+                verbose_name="Message",
+            ),
         ),
     ]

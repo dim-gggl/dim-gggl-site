@@ -28,5 +28,3 @@ class CategorySitemap(Sitemap):
 
     def location(self, obj: Category):
         return f"{reverse('projects:list')}?category={obj.slug}"
-
-

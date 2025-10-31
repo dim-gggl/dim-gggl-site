@@ -7,7 +7,14 @@ from .models import Technology, Category, Project, ProjectImage
 
 @admin.register(Technology)
 class TechnologyAdmin(admin.ModelAdmin):
-    list_display = ["name", "category", "proficiency_display", "color_badge", "projects_count", "order"]
+    list_display = [
+        "name",
+        "category",
+        "proficiency_display",
+        "color_badge",
+        "projects_count",
+        "order",
+    ]
     list_filter = ["category", "proficiency"]
     search_fields = ["name"]
     prepopulated_fields = {"slug": ("name",)}
@@ -16,7 +23,7 @@ class TechnologyAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         """Optimize queryset with annotation."""
         queryset = super().get_queryset(request)
-        return queryset.annotate(_projects_count=Count('projects'))
+        return queryset.annotate(_projects_count=Count("projects"))
 
     @admin.display(description="Projects")
     def projects_count(self, obj):
@@ -45,7 +52,7 @@ class CategoryAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         """Optimize queryset with annotation."""
         queryset = super().get_queryset(request)
-        return queryset.annotate(_projects_count=Count('projects'))
+        return queryset.annotate(_projects_count=Count("projects"))
 
     @admin.display(description="Badge")
     def color_badge(self, obj):
@@ -78,15 +85,21 @@ class ProjectAdmin(admin.ModelAdmin):
         "tech_count",
         "color_preview",
     ]
-    list_filter = ["is_featured", "is_published", "category", "technologies", "created_at"]
+    list_filter = [
+        "is_featured",
+        "is_published",
+        "category",
+        "technologies",
+        "created_at",
+    ]
     search_fields = ["title", "description", "tagline"]
     prepopulated_fields = {"slug": ("title",)}
     list_editable = ["is_featured", "is_published", "order"]
     date_hierarchy = "completed_at"
     filter_horizontal = ["technologies"]
     inlines = [ProjectImageInline]
-    
-    actions = ['mark_as_featured', 'mark_as_not_featured', 'publish', 'unpublish']
+
+    actions = ["mark_as_featured", "mark_as_not_featured", "publish", "unpublish"]
 
     fieldsets = (
         (
@@ -148,22 +161,22 @@ class ProjectAdmin(admin.ModelAdmin):
     def tech_count(self, obj):
         return obj.technologies.count()
 
-    @admin.action(description='Mark as featured')
+    @admin.action(description="Mark as featured")
     def mark_as_featured(self, request, queryset):
         count = queryset.update(is_featured=True)
-        self.message_user(request, f'{count} project(s) marked as featured.')
+        self.message_user(request, f"{count} project(s) marked as featured.")
 
-    @admin.action(description='Remove from featured')
+    @admin.action(description="Remove from featured")
     def mark_as_not_featured(self, request, queryset):
         count = queryset.update(is_featured=False)
-        self.message_user(request, f'{count} project(s) removed from featured.')
+        self.message_user(request, f"{count} project(s) removed from featured.")
 
-    @admin.action(description='Publish projects')
+    @admin.action(description="Publish projects")
     def publish(self, request, queryset):
         count = queryset.update(is_published=True)
-        self.message_user(request, f'{count} project(s) published.')
+        self.message_user(request, f"{count} project(s) published.")
 
-    @admin.action(description='Unpublish projects')
+    @admin.action(description="Unpublish projects")
     def unpublish(self, request, queryset):
         count = queryset.update(is_published=False)
-        self.message_user(request, f'{count} project(s) unpublished.')
+        self.message_user(request, f"{count} project(s) unpublished.")

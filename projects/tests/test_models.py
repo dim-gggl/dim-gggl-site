@@ -44,4 +44,3 @@ class TestProjectModel:
         )
         # Without technologies set, similar list should be empty
         assert list(p1.get_similar_projects()) == []
-

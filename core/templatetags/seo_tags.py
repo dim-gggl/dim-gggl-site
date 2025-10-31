@@ -35,11 +35,7 @@ def _absolute_url(request, url: str) -> str:
 
 @register.inclusion_tag("core/components/meta_tags.html", takes_context=True)
 def seo_meta_tags(
-    context,
-    title=None,
-    description=None,
-    image=None,
-    page_type="website"
+    context, title=None, description=None, image=None, page_type="website"
 ):
     """Render SEO, Open Graph, and Twitter meta tags."""
     request = context.get("request")
@@ -65,4 +61,3 @@ def seo_meta_tags(
         "site_name": DEFAULT_SITE_NAME,
         "twitter_handle": DEFAULT_TWITTER_HANDLE,
     }
-

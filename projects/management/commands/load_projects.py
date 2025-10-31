@@ -51,7 +51,9 @@ class Command(BaseCommand):
                 by_name = Category.objects.filter(name=cat_name).first()
                 if by_name:
                     # Ensure slug uniqueness for existing record
-                    by_name.slug = generate_unique_slug(Category, base_slug, exclude_id=by_name.id)
+                    by_name.slug = generate_unique_slug(
+                        Category, base_slug, exclude_id=by_name.id
+                    )
                     if not by_name.description:
                         by_name.description = f"Category {cat_name}"
                     if not by_name.color:
@@ -143,7 +145,9 @@ class Command(BaseCommand):
             by_name = Technology.objects.filter(name=tech_name).first()
             if by_name:
                 # Ensure slug uniqueness for this record
-                by_name.slug = generate_unique_slug(Technology, base_slug, exclude_id=by_name.id)
+                by_name.slug = generate_unique_slug(
+                    Technology, base_slug, exclude_id=by_name.id
+                )
                 by_name.category = tech_categories.get(tech_name, "tool")
                 by_name.color = tech_colors.get(tech_name, "#ff6b35")
                 by_name.icon = base_slug
@@ -185,10 +189,10 @@ class Command(BaseCommand):
 
         # Map slugs to featured images relative to MEDIA root
         image_mapping = {
-            'aura-app': 'images/aura_title.png',
-            'clinkey-cli': 'images/clinkey-cli-title.png',
-            'softdesk_support': 'images/softdesk-support-api.png',
-            'epic_events': 'images/epic-events-help.png',
+            "aura-app": "images/aura_title.png",
+            "clinkey-cli": "images/clinkey-cli-title.png",
+            "softdesk_support": "images/softdesk-support-api.png",
+            "epic_events": "images/epic-events-help.png",
         }
 
         featured_slugs = set(image_mapping.keys())
@@ -227,7 +231,8 @@ class Command(BaseCommand):
                 defaults={
                     **project_data,
                     "category": category,
-                    "is_featured": slug in featured_slugs or project_data.get("is_featured", False),
+                    "is_featured": slug in featured_slugs
+                    or project_data.get("is_featured", False),
                 },
             )
 
@@ -240,15 +245,17 @@ class Command(BaseCommand):
 
             if created:
                 created_count += 1
-                self.stdout.write(self.style.SUCCESS(f"✓ Created project: {project.title}"))
+                self.stdout.write(
+                    self.style.SUCCESS(f"✓ Created project: {project.title}")
+                )
             else:
                 updated_count += 1
-                self.stdout.write(self.style.SUCCESS(f"✓ Updated project: {project.title}"))
+                self.stdout.write(
+                    self.style.SUCCESS(f"✓ Updated project: {project.title}")
+                )
 
         self.stdout.write(
             self.style.SUCCESS(
                 f"\n🎉 Import completed! {len(projects_data)} projects processed. Created: {created_count}, Updated: {updated_count}"
             )
         )
-
-

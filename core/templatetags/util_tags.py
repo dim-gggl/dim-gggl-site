@@ -11,5 +11,3 @@ def mul(value, arg):
         return float(value) * float(arg)
     except Exception:
         return 0
-
-

@@ -28,4 +28,3 @@ class TestProjectViews:
         """Filtering by technology slug returns 200 even without data."""
         response = client.get(reverse("projects:list") + "?tech=python")
         assert response.status_code == 200
-

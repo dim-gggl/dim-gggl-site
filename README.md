@@ -55,9 +55,17 @@ SENTRY_TRACES_SAMPLE_RATE=0.1
 DJANGO_CACHE_LOCATION=
 ENVIRONMENT=development
 MAINTENANCE_MODE=False
+DJANGO_SECRET_KEY_FILE=
 ```
 
 > `GOOGLE_ANALYTICS_ID`, `SENTRY_DSN` et `DJANGO_CACHE_LOCATION` sont optionnels mais fortement recommandés pour la production.
+
+### Secrets Docker
+
+- Créer `secrets/django_secret_key.txt` (ignoré par Git) et y placer la clé, sans guillemets ni espaces.
+- Monter le fichier comme secret dans Docker : via Compose `secrets: [django_secret_key]` ou `docker run --mount type=bind,src=$(pwd)/secrets/django_secret_key.txt,dst=/run/secrets/django_secret_key,ro`.
+- Exposer le chemin dans la variable d’environnement `DJANGO_SECRET_KEY_FILE=/run/secrets/django_secret_key`.
+- En dehors de Docker, conserver l’approche `.env` en définissant directement `SECRET_KEY`.
 
 ## 🧪 Tests
 

@@ -1,4 +1,5 @@
 """Django management command to update technology proficiency levels interactively."""
+
 from django.core.management.base import BaseCommand
 from django.db.models.signals import post_save, post_delete
 
@@ -8,8 +9,8 @@ from projects.signals import invalidate_sidebar_cache
 
 class Command(BaseCommand):
     """Interactive command to review and update technology proficiency levels."""
-    
-    help = 'Interactively update technology proficiency levels'
+
+    help = "Interactively update technology proficiency levels"
 
     def get_star_display(self, level):
         """Return a visual star rating."""
@@ -34,7 +35,7 @@ class Command(BaseCommand):
         """Display technology info with formatting."""
         color = self.get_color_code(tech.proficiency)
         stars = self.get_star_display(tech.proficiency)
-        
+
         self.stdout.write(f"\n{color}{'=' * 60}{self.reset_color()}")
         self.stdout.write(f"{color}[{index}] {tech.name.upper()}{self.reset_color()}")
         self.stdout.write(f"{color}{'=' * 60}{self.reset_color()}")
@@ -62,17 +63,19 @@ class Command(BaseCommand):
         self.stdout.write("⚙️  Temporarily disabling cache invalidation signals...")
         post_save.disconnect(invalidate_sidebar_cache, sender=Technology)
         post_delete.disconnect(invalidate_sidebar_cache, sender=Technology)
-        
-        technologies = Technology.objects.all().order_by('category', 'name')
+
+        technologies = Technology.objects.all().order_by("category", "name")
         total = technologies.count()
-        
+
         if total == 0:
-            self.stdout.write(self.style.ERROR("No technologies found in the database."))
+            self.stdout.write(
+                self.style.ERROR("No technologies found in the database.")
+            )
             # Reconnect signals before returning
             post_save.connect(invalidate_sidebar_cache, sender=Technology)
             post_delete.connect(invalidate_sidebar_cache, sender=Technology)
             return
-        
+
         self.stdout.write("\n" + "=" * 60)
         self.stdout.write("🎯 TECHNOLOGY PROFICIENCY UPDATE TOOL")
         self.stdout.write("=" * 60)
@@ -83,20 +86,20 @@ class Command(BaseCommand):
         self.stdout.write("  q:   Quit and save changes")
         self.stdout.write("  v:   View all technologies summary")
         self.stdout.write("=" * 60)
-        
+
         updated_count = 0
         skipped_count = 0
-        
+
         try:
             for index, tech in enumerate(technologies, 1):
                 self.display_technology(tech, f"{index}/{total}")
-                
+
                 # Get user action
                 action = self.get_valid_input(
                     f"\n➡️  Action [1-5/s/q/v]: ",
-                    ["1", "2", "3", "4", "5", "s", "skip", "q", "quit", "v", "view"]
+                    ["1", "2", "3", "4", "5", "s", "skip", "q", "quit", "v", "view"],
                 )
-                
+
                 # Handle view command
                 if action in ["v", "view"]:
                     self.stdout.write("\n" + "=" * 60)
@@ -104,15 +107,17 @@ class Command(BaseCommand):
                     self.stdout.write("=" * 60)
                     for t in technologies:
                         stars = self.get_star_display(t.proficiency)
-                        self.stdout.write(f"  {t.name:<30} {stars} ({t.proficiency}/5) - {t.category}")
+                        self.stdout.write(
+                            f"  {t.name:<30} {stars} ({t.proficiency}/5) - {t.category}"
+                        )
                     self.stdout.write("=" * 60)
-                    
+
                     # Ask again for this technology
                     action = self.get_valid_input(
                         f"\n➡️  Action for {tech.name} [1-5/s/q]: ",
-                        ["1", "2", "3", "4", "5", "s", "skip", "q", "quit"]
+                        ["1", "2", "3", "4", "5", "s", "skip", "q", "quit"],
                     )
-                
+
                 # Handle quit command
                 if action in ["q", "quit"]:
                     self.stdout.write(
@@ -121,17 +126,17 @@ class Command(BaseCommand):
                         )
                     )
                     break
-                
+
                 # Handle skip command
                 if action in ["s", "skip"]:
                     self.stdout.write(f"⏭️  Skipped {tech.name}")
                     skipped_count += 1
                     continue
-                
+
                 # Handle proficiency update
                 new_level = int(action)
                 old_level = tech.proficiency
-                
+
                 if new_level != old_level:
                     tech.proficiency = new_level
                     tech.save()
@@ -145,20 +150,20 @@ class Command(BaseCommand):
                 else:
                     self.stdout.write(f"➖ No change for {tech.name}")
                     skipped_count += 1
-        
+
         except KeyboardInterrupt:
             self.stdout.write(
                 self.style.WARNING(
                     "\n\n⚠️  Interrupted by user. Changes up to this point have been saved."
                 )
             )
-        
+
         finally:
             # Reconnect signals
             self.stdout.write("\n⚙️  Reconnecting cache invalidation signals...")
             post_save.connect(invalidate_sidebar_cache, sender=Technology)
             post_delete.connect(invalidate_sidebar_cache, sender=Technology)
-        
+
         # Final summary
         self.stdout.write("\n" + "=" * 60)
         self.stdout.write("📊 FINAL SUMMARY")
@@ -166,9 +171,11 @@ class Command(BaseCommand):
         self.stdout.write(f"  Total technologies:  {total}")
         self.stdout.write(f"  Updated:             {updated_count}")
         self.stdout.write(f"  Skipped:             {skipped_count}")
-        self.stdout.write(f"  Reviewed:            {updated_count + skipped_count}/{total}")
+        self.stdout.write(
+            f"  Reviewed:            {updated_count + skipped_count}/{total}"
+        )
         self.stdout.write("=" * 60 + "\n")
-        
+
         # Show final distribution
         self.stdout.write("🎯 PROFICIENCY DISTRIBUTION:")
         for level in range(1, 6):
@@ -177,11 +184,12 @@ class Command(BaseCommand):
             bar = "█" * count
             self.stdout.write(f"  {stars} ({level}/5): {bar} {count}")
         self.stdout.write("=" * 60 + "\n")
-        
+
         # Manual cache invalidation (will work if Redis is running)
         try:
             from django.core.cache import cache
-            cache.delete('project_list_sidebar_data')
+
+            cache.delete("project_list_sidebar_data")
             self.stdout.write(self.style.SUCCESS("✅ Cache invalidated successfully"))
         except Exception as e:
             self.stdout.write(
@@ -189,5 +197,6 @@ class Command(BaseCommand):
                     f"⚠️  Could not invalidate cache (Redis not running?): {e}"
                 )
             )
-            self.stdout.write("   Cache will be refreshed automatically when Redis is available.")
-
+            self.stdout.write(
+                "   Cache will be refreshed automatically when Redis is available."
+            )

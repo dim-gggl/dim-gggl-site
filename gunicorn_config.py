@@ -23,4 +23,3 @@ daemon = False
 raw_env = [
     "DJANGO_SETTINGS_MODULE=portfolio_dimitri.settings",
 ]
-

@@ -4,7 +4,7 @@ from django.conf import settings
 from django.db import connection, reset_queries
 from django.shortcuts import render
 
-logger = logging.getLogger('portfolio')
+logger = logging.getLogger("portfolio")
 
 
 class QueryCountDebugMiddleware:
@@ -30,7 +30,7 @@ class QueryCountDebugMiddleware:
                 logger.warning(
                     f"High query count on {request.path}: {num_queries} queries"
                 )
-                
+
                 # In DEBUG, also log the queries
                 for i, query in enumerate(connection.queries, 1):
                     logger.debug(f"Query {i}: {query['sql'][:100]}...")
@@ -50,7 +50,10 @@ class MaintenanceModeMiddleware:
     def __call__(self, request):
         if getattr(settings, "MAINTENANCE_MODE", False):
             # Allow admin access and static files
-            if not (request.path.startswith("/admin/") or request.path.startswith("/static/")):
+            if not (
+                request.path.startswith("/admin/")
+                or request.path.startswith("/static/")
+            ):
                 logger.info(f"Maintenance mode: Blocked access to {request.path}")
                 return render(request, "core/maintenance.html", status=503)
 
@@ -65,9 +68,11 @@ class SecurityHeadersMiddleware:
 
     def __call__(self, request):
         response = self.get_response(request)
-        
+
         # Only add CSP in production
         if not settings.DEBUG and getattr(settings, "CONTENT_SECURITY_POLICY", ""):
-            response.setdefault("Content-Security-Policy", settings.CONTENT_SECURITY_POLICY)
-        
+            response.setdefault(
+                "Content-Security-Policy", settings.CONTENT_SECURITY_POLICY
+            )
+
         return response

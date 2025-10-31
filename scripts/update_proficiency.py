@@ -13,10 +13,10 @@ if __name__ == "__main__":
     # Add the project root to the path
     sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "portfolio_dimitri.settings")
-    
+
     # Disable cache to avoid Redis connection issues during updates
     os.environ["DISABLE_CACHE"] = "1"
-    
+
     django.setup()
 
 from django.db.models.signals import post_save, post_delete
@@ -50,7 +50,7 @@ def display_technology(tech, index):
     """Display technology info with formatting."""
     color = get_color_code(tech.proficiency)
     stars = get_star_display(tech.proficiency)
-    
+
     print(f"\n{color}{'=' * 60}{reset_color()}")
     print(f"{color}[{index}] {tech.name.upper()}{reset_color()}")
     print(f"{color}{'=' * 60}{reset_color()}")
@@ -59,7 +59,7 @@ def display_technology(tech, index):
     print(f"  Icon:        {tech.icon or 'None'}")
     print(f"  Color:       {tech.color}")
     print(f"  Projects:    {tech.projects.count()}")
-    
+
 
 def get_valid_input(prompt, valid_options):
     """Get and validate user input."""
@@ -76,17 +76,17 @@ def update_proficiency_interactive():
     print("\n⚙️  Temporarily disabling cache invalidation signals...")
     post_save.disconnect(invalidate_sidebar_cache, sender=Technology)
     post_delete.disconnect(invalidate_sidebar_cache, sender=Technology)
-    
-    technologies = Technology.objects.all().order_by('category', 'name')
+
+    technologies = Technology.objects.all().order_by("category", "name")
     total = technologies.count()
-    
+
     if total == 0:
         print("❌ No technologies found in the database.")
         # Reconnect signals before returning
         post_save.connect(invalidate_sidebar_cache, sender=Technology)
         post_delete.connect(invalidate_sidebar_cache, sender=Technology)
         return
-    
+
     print("\n" + "=" * 60)
     print("🎯 TECHNOLOGY PROFICIENCY UPDATE TOOL")
     print("=" * 60)
@@ -97,19 +97,19 @@ def update_proficiency_interactive():
     print("  q:   Quit and save changes")
     print("  v:   View all technologies summary")
     print("=" * 60)
-    
+
     updated_count = 0
     skipped_count = 0
-    
+
     for index, tech in enumerate(technologies, 1):
         display_technology(tech, f"{index}/{total}")
-        
+
         # Get user action
         action = get_valid_input(
             f"\n➡️  Action [1-5/s/q/v]: ",
-            ["1", "2", "3", "4", "5", "s", "skip", "q", "quit", "v", "view"]
+            ["1", "2", "3", "4", "5", "s", "skip", "q", "quit", "v", "view"],
         )
-        
+
         # Handle view command
         if action in ["v", "view"]:
             print("\n" + "=" * 60)
@@ -119,28 +119,28 @@ def update_proficiency_interactive():
                 stars = get_star_display(t.proficiency)
                 print(f"  {t.name:<30} {stars} ({t.proficiency}/5) - {t.category}")
             print("=" * 60)
-            
+
             # Ask again for this technology
             action = get_valid_input(
                 f"\n➡️  Action for {tech.name} [1-5/s/q]: ",
-                ["1", "2", "3", "4", "5", "s", "skip", "q", "quit"]
+                ["1", "2", "3", "4", "5", "s", "skip", "q", "quit"],
             )
-        
+
         # Handle quit command
         if action in ["q", "quit"]:
             print(f"\n✅ Quitting. Updated: {updated_count}, Skipped: {skipped_count}")
             break
-        
+
         # Handle skip command
         if action in ["s", "skip"]:
             print(f"⏭️  Skipped {tech.name}")
             skipped_count += 1
             continue
-        
+
         # Handle proficiency update
         new_level = int(action)
         old_level = tech.proficiency
-        
+
         if new_level != old_level:
             tech.proficiency = new_level
             tech.save()
@@ -150,12 +150,12 @@ def update_proficiency_interactive():
         else:
             print(f"➖ No change for {tech.name}")
             skipped_count += 1
-    
+
     # Reconnect signals
     print("\n⚙️  Reconnecting cache invalidation signals...")
     post_save.connect(invalidate_sidebar_cache, sender=Technology)
     post_delete.connect(invalidate_sidebar_cache, sender=Technology)
-    
+
     # Final summary
     print("\n" + "=" * 60)
     print("📊 FINAL SUMMARY")
@@ -165,7 +165,7 @@ def update_proficiency_interactive():
     print(f"  Skipped:             {skipped_count}")
     print(f"  Reviewed:            {updated_count + skipped_count}/{total}")
     print("=" * 60 + "\n")
-    
+
     # Show final distribution
     print("🎯 PROFICIENCY DISTRIBUTION:")
     for level in range(1, 6):
@@ -174,11 +174,12 @@ def update_proficiency_interactive():
         bar = "█" * count
         print(f"  {stars} ({level}/5): {bar} {count}")
     print("=" * 60 + "\n")
-    
+
     # Manual cache invalidation (will work if Redis is running)
     try:
         from django.core.cache import cache
-        cache.delete('project_list_sidebar_data')
+
+        cache.delete("project_list_sidebar_data")
         print("✅ Cache invalidated successfully")
     except Exception as e:
         print(f"⚠️  Could not invalidate cache (Redis not running?): {e}")
@@ -208,4 +209,3 @@ if __name__ == "__main__":
         except:
             pass
         sys.exit(1)
-

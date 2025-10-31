@@ -10,20 +10,20 @@ from core.utils import optimize_image
 # Custom validators
 def validate_hex_color(value):
     """Validate that a string is a valid HEX color code."""
-    if not value.startswith('#') or len(value) != 7:
+    if not value.startswith("#") or len(value) != 7:
         raise ValidationError(
-            f'{value} is not a valid HEX color code (must be #RRGGBB)'
+            f"{value} is not a valid HEX color code (must be #RRGGBB)"
         )
     try:
         int(value[1:], 16)
     except ValueError:
-        raise ValidationError(f'{value} is not a valid HEX color code')
+        raise ValidationError(f"{value} is not a valid HEX color code")
 
 
 # Custom managers
 class PublishedManager(models.Manager):
     """Manager that returns only published items."""
-    
+
     def get_queryset(self):
         return super().get_queryset().filter(is_published=True)
 
@@ -67,7 +67,7 @@ class Technology(models.Model):
         verbose_name = "Technology"
         verbose_name_plural = "Technologies"
         indexes = [
-            models.Index(fields=['category', 'proficiency']),
+            models.Index(fields=["category", "proficiency"]),
         ]
 
     def __str__(self) -> str:
@@ -235,9 +235,9 @@ class Project(models.Model):
         verbose_name = "Project"
         verbose_name_plural = "Projects"
         indexes = [
-            models.Index(fields=['is_published', 'is_featured', 'order']),
-            models.Index(fields=['is_published', 'order', '-completed_at']),
-            models.Index(fields=['category', 'is_published']),
+            models.Index(fields=["is_published", "is_featured", "order"]),
+            models.Index(fields=["is_published", "order", "-completed_at"]),
+            models.Index(fields=["category", "is_published"]),
         ]
 
     def __str__(self) -> str:
@@ -250,17 +250,20 @@ class Project(models.Model):
         """
         if not self.slug:
             self.slug = slugify(self.title)
-        
+
         # Only optimize if it's a new image (not already committed)
-        if self.featured_image and not getattr(self.featured_image, "_committed", False):
+        if self.featured_image and not getattr(
+            self.featured_image, "_committed", False
+        ):
             try:
                 self.featured_image = optimize_image(self.featured_image)
             except Exception as e:
                 # Log the error but don't block the save
                 import logging
-                logger = logging.getLogger('portfolio')
+
+                logger = logging.getLogger("portfolio")
                 logger.error(f"Failed to optimize image for project {self.title}: {e}")
-        
+
         super().save(*args, **kwargs)
 
     def get_absolute_url(self) -> str:
@@ -276,29 +279,30 @@ class Project(models.Model):
         """
         Return published projects similar to this one.
         Prioritizes projects with same category and shared technologies.
-        
+
         Args:
             limit: Maximum number of similar projects to return
-            
+
         Returns:
             QuerySet of Project objects
         """
         from django.db.models import Count, Q
-        
+
         similar = (
             Project.published.exclude(id=self.id)
             .filter(
-                Q(category=self.category) |
-                Q(technologies__in=self.technologies.all())
+                Q(category=self.category) | Q(technologies__in=self.technologies.all())
             )
             .annotate(
-                same_category=Count('id', filter=Q(category=self.category)),
-                shared_techs=Count('technologies', filter=Q(technologies__in=self.technologies.all()))
+                same_category=Count("id", filter=Q(category=self.category)),
+                shared_techs=Count(
+                    "technologies", filter=Q(technologies__in=self.technologies.all())
+                ),
             )
-            .order_by('-same_category', '-shared_techs', 'order', '-completed_at')
+            .order_by("-same_category", "-shared_techs", "order", "-completed_at")
             .distinct()[:limit]
         )
-        
+
         return similar
 
 
@@ -329,6 +333,9 @@ class ProjectImage(models.Model):
                 self.image = optimize_image(self.image)
             except Exception as e:
                 import logging
-                logger = logging.getLogger('portfolio')
-                logger.error(f"Failed to optimize gallery image for project {self.project.title}: {e}")
+
+                logger = logging.getLogger("portfolio")
+                logger.error(
+                    f"Failed to optimize gallery image for project {self.project.title}: {e}"
+                )
         super().save(*args, **kwargs)

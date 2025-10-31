@@ -6,8 +6,8 @@ ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     DEBUG=0 \
     ENVIRONMENT=production \
-    ALLOWED_HOSTS=dim-gggl.com,www.dim-gggl.com \
-    SECRET_KEY="losm-^\&.-74823-zishegla-!~+*.-63319-visrakjeplus-;?*-9447-vybrublusmil-!\*-6165-dosrafetdobreqawusr-,.:-295705-dyzrumu-+*+\-135"
+    ALLOWED_HOSTS=127.0.0.1,localhost,dim-gggl.com,www.dim-gggl.com \
+    DJANGO_SECRET_KEY_FILE=/run/secrets/django_secret_key
 
 WORKDIR /app
 

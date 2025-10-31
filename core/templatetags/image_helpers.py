@@ -6,7 +6,9 @@ register = template.Library()
 
 
 @register.simple_tag
-def lazy_img(src, alt="", css_class="", width=None, height=None, fallback=None, **extra_attrs):
+def lazy_img(
+    src, alt="", css_class="", width=None, height=None, fallback=None, **extra_attrs
+):
     """Return an <img> tag configured for lazy loading."""
 
     placeholder = (
@@ -41,4 +43,3 @@ def lazy_img(src, alt="", css_class="", width=None, height=None, fallback=None, 
 
     tag = f"<img {' '.join(attributes)}>"
     return mark_safe(tag)
-

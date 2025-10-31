@@ -7,28 +7,35 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Project',
+            name="Project",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200)),
-                ('slug', models.SlugField(blank=True, unique=True)),
-                ('description', models.TextField(blank=True)),
-                ('is_featured', models.BooleanField(default=False)),
-                ('order', models.IntegerField(default=0)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('completed_at', models.DateField(blank=True, null=True)),
-                ('demo_url', models.URLField(blank=True)),
-                ('github_url', models.URLField(blank=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=200)),
+                ("slug", models.SlugField(blank=True, unique=True)),
+                ("description", models.TextField(blank=True)),
+                ("is_featured", models.BooleanField(default=False)),
+                ("order", models.IntegerField(default=0)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("completed_at", models.DateField(blank=True, null=True)),
+                ("demo_url", models.URLField(blank=True)),
+                ("github_url", models.URLField(blank=True)),
             ],
             options={
-                'verbose_name': 'Project',
-                'verbose_name_plural': 'Projects',
-                'ordering': ['order', '-created_at'],
+                "verbose_name": "Project",
+                "verbose_name_plural": "Projects",
+                "ordering": ["order", "-created_at"],
             },
         ),
     ]

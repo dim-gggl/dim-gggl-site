@@ -16,8 +16,15 @@
 
 {% block extra_head %}
 <style>
-  :root { --project-primary: {{ project.primary_color }}; --project-secondary: {{ project.secondary_color }}; }
-  .project-hero { background: linear-gradient(135deg, var(--project-primary) 0%, var(--project-secondary) 100%); }
+  :root { 
+    --project-primary: {{ project.primary_color }}; 
+    --project-secondary: {{ project.secondary_color }}; 
+  }
+  .project-hero { 
+    background: linear-gradient(
+      135deg, var(--project-primary) 0%, var(--project-secondary) 100%
+    ); 
+  }
   .accent-color { color: var(--project-primary); }
   .accent-bg { background-color: var(--project-primary); }
   .accent-border { border-color: var(--project-primary); }
