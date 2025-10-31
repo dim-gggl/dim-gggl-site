@@ -17,4 +17,5 @@ def site_info(_request):
     return {
         'person': settings.PORTFOLIO_PERSON,
         'site_url': settings.SITE_URL,
+        'years_experience': settings.PORTFOLIO_PERSON.get('years_experience', 0),
     }

@@ -34,9 +34,14 @@ def _absolute_url(request, url: str) -> str:
 
 
 @register.inclusion_tag("core/components/meta_tags.html", takes_context=True)
-def seo_meta_tags(context, title=None, description=None, image=None, type="website"):
+def seo_meta_tags(
+    context,
+    title=None,
+    description=None,
+    image=None,
+    page_type="website"
+):
     """Render SEO, Open Graph, and Twitter meta tags."""
-
     request = context.get("request")
 
     default_image_url = _absolute_url(
@@ -56,7 +61,7 @@ def seo_meta_tags(context, title=None, description=None, image=None, type="websi
         "description": description or DEFAULT_DESCRIPTION,
         "image": resolved_image or default_image_url,
         "url": current_url,
-        "type": type or "website",
+        "type": page_type or "website",
         "site_name": DEFAULT_SITE_NAME,
         "twitter_handle": DEFAULT_TWITTER_HANDLE,
     }

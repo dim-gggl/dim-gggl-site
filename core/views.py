@@ -26,7 +26,7 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+
         # Featured projects with optimized query
         context['featured_projects'] = (
             Project.published
@@ -39,7 +39,16 @@ class HomeView(TemplateView):
             )
             .order_by('order')[:settings.FEATURED_PROJECTS_COUNT]
         )
-        
+
+        # Tech stack for homepage
+        context['tech_backend'] = Technology.objects.filter(
+            category__in=['backend', 'language']
+        ).order_by('-proficiency', 'name').values_list('name', flat=True)
+
+        context['tech_data_tools'] = Technology.objects.filter(
+            category__in=['database', 'tool']
+        ).order_by('-proficiency', 'name').values_list('name', flat=True)
+
         return context
 
 

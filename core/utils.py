@@ -31,6 +31,7 @@ def optimize_image(image_field, max_width=1920, quality=85):
         charset=None,
     )
 
+
 def get_client_ip(request):
     """
     Get the client's IP address from the request.

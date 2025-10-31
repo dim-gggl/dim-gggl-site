@@ -11,7 +11,9 @@ from core.utils import optimize_image
 def validate_hex_color(value):
     """Validate that a string is a valid HEX color code."""
     if not value.startswith('#') or len(value) != 7:
-        raise ValidationError(f'{value} is not a valid HEX color code (must be #RRGGBB)')
+        raise ValidationError(
+            f'{value} is not a valid HEX color code (must be #RRGGBB)'
+        )
     try:
         int(value[1:], 16)
     except ValueError:

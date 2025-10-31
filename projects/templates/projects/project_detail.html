@@ -8,9 +8,9 @@
 
 {% block meta_tags %}
 {% if project.featured_image %}
-{% seo_meta_tags title=project.title|add:" - Portfolio Dimitri Gaggioli" description=project.tagline image=project.featured_image.url type="article" %}
+{% seo_meta_tags title=project.title|add:" - Portfolio Dimitri Gaggioli" description=project.tagline image=project.featured_image.url page_type="article" %}
 {% else %}
-{% seo_meta_tags title=project.title|add:" - Portfolio Dimitri Gaggioli" description=project.tagline type="article" %}
+{% seo_meta_tags title=project.title|add:" - Portfolio Dimitri Gaggioli" description=project.tagline page_type="article" %}
 {% endif %}
 {% endblock %}
 

@@ -7,7 +7,7 @@
 	  "primary_color": "#ff6b35",
 	  "secondary_color": "#f7931e",
 	  "background_style": "gradient",
-	  "featured_image": "",
+	  "featured_image": "images/epic-events.png",
 	  "logo": "",
 	  "category": "Projets d'études",
 	  "technologies": [
@@ -18,8 +18,8 @@
 		"JWT",
 		"Sentry"
 	  ],
-	  "challenges": "",
-	  "learnings": "",
+	  "challenges": "Implémentation de la base de donnée PostgreSQL, Sécurisation de l'application avec chiffrement des mots de passe et authentification JWT.",
+	  "learnings": "PostgreSQL, JWT, hashage, TUI",
 	  "features": [
 		"Flux CLI complet – Interface terminal intuitive et stylisée avec Rich pour créer, modifier, des événements, gérer sa clientèle et ses collaborateurs.",
 		"Connexion et données sécurisées – Système de permissions et de validation des données permettant de garantir leur intégrité et d'en favoriser la sécurité.",
@@ -32,7 +32,7 @@
 	  "documentation_url": "",
 	  "completed_at": null,
 	  "duration": "",
-	  "is_featured": false,
+	  "is_featured": true,
 	  "is_published": true,
 	  "order": 0
 	},
@@ -131,7 +131,7 @@
 	  "primary_color": "#ff6b35",
 	  "secondary_color": "#f7931e",
 	  "background_style": "gradient",
-	  "featured_image": "",
+	  "featured_image": "images/lit-review-title.png",
 	  "logo": "",
 	  "category": "Projets d'études",
 	  "technologies": [
@@ -163,7 +163,7 @@
 	{
 	  "title": "JustStreamIt",
 	  "slug": "JustStreamIt",
-	  "tagline": "découvrir les films les mieux notés.",
+	  "tagline": "App dynamique affichant les meilleurs films selon IMDB",
 	  "description": "Front-end JavaScript consommant l’API OCMovies (OpenClassrooms) pour afficher le meilleur film, des tops par catégories, et des fiches détaillées en modal (affiche, résumé, casting).",
 	  "primary_color": "#ff6b35",
 	  "secondary_color": "#f7931e",
@@ -176,8 +176,8 @@
 		"CSS",
 		"JavaScript"
 	  ],
-	  "challenges": "",
-	  "learnings": "",
+	  "challenges": "Prise en main de Javascript, 1ères interactions avec une API",
+	  "learnings": "HTML, CSS, Javascript, Affichage dynamique, appels AJAX",
 	  "features": [
 		"Film le mieux noté en hero (affiche + résumé court)",
 		"Carrousels « Meilleurs films » et par genre",
@@ -213,8 +213,8 @@
 		"Algorithme du sac à dos",
 		"Big O notation"
 	  ],
-	  "challenges": "",
-	  "learnings": "",
+	  "challenges": "Comprendre la construction de l'algorithme du sac à dos",
+	  "learnings": "Notation Big O, Brute Force, Dynamic Programming",
 	  "features": [
 		"Force brute exhaustive – Parcourt **toutes** les combinaisons d’actions possibles afin de garantir la solution optimale en termes de profit, au prix d’un temps de calcul exponentiel (O(2^n)).",
 		"Programmation dynamique – Algorithme optimisé inspiré du knapsack classique, beaucoup plus rapide (≈ O * n * × * W *) et recommandé dès que la liste dépasse ~20 actifs, utilisant une méthode de mémoïsation pour éviter les calculs redondants.",
@@ -237,7 +237,7 @@
 	  "primary_color": "#ff6b35",
 	  "secondary_color": "#f7931e",
 	  "background_style": "gradient",
-	  "featured_image": "",
+	  "featured_image": "images/Chess_Up_title.png",
 	  "logo": "",
 	  "category": "Projets d'études",
 	  "technologies": [
@@ -248,8 +248,8 @@
 		"JSON",
 		"flake8"
 	  ],
-	  "challenges": "",
-	  "learnings": "",
+	  "challenges": "Prise en main de la P.O.O. et découverte de l'architecture MVC.",
+	  "learnings": "P.O.O., MVC, CLI, JSON, flake8",
 	  "features": [
 		"Flux CLI complet – Interface terminal intuitive pour créer un tournoi, ajouter des joueurs, lancer les rondes, saisir les résultats et éditer des rapports, le tout sans quitter le CLI.",
 		"Appariement Suisse – Algorithme évitant les rencontres en double et gérant automatiquement les joueurs exemptés (bye) si besoin, pour des rondes équilibrées.",
@@ -269,12 +269,12 @@
 	{
 	  "title": "Book Scraper",
 	  "slug": "Book_Scraper",
-	  "tagline": "l'assistant catalogue de livres.",
-	  "description": "Book Scraper est un script Python complet pour extraire automatiquement les informations de livres du site Books to Scrape. Il récupère le titre, le prix, le stock, la note, la description et l'image de couverture de chaque livre, puis exporte ces données en fichiers CSV classés par catégorie.\nLe script peut également télécharger toutes les images de couverture (en option)\net navigue automatiquement à travers les pages du site (pagination).",
+	  "tagline": "Web Scraping et Pipeline ETL",
+	  "description": "Book Scraper est un programme Python établissant un pipeline ETL pour rassembler les informations de livres à partir du site Books to Scrape. À partir de cette fonctionnalité, il est ensuite possible d'extraire les données de tous les livres d'une catégorie, et, enfin, de les extraires tous en téléchargeant, en option, les couvertures.",
 	  "primary_color": "#ff6b35",
 	  "secondary_color": "#f7931e",
 	  "background_style": "gradient",
-	  "featured_image": "",
+	  "featured_image": "images/Book_Scraper_title.png",
 	  "logo": "",
 	  "category": "Projets d'études",
 	  "technologies": [
@@ -283,14 +283,14 @@
 		"BeautifulSoup",
 		"CLI"
 	  ],
-	  "challenges": "",
-	  "learnings": "",
+	  "challenges": "First programming project",
+	  "learnings": "Web Scraping, Pipeline ETL, BeautifulSoup, Requests, CLI",
 	  "features": [
 		"Scraping de toutes les catégories de livres",
-		"Récupération des titres, prix, stock, note, description, image",
-		"Export des données en CSV par catégorie (dossier output_data/)",
+		"Extraction des données de toutes les catégories",
 		"Téléchargement des images de couverture (en option)",
-		"Navigation automatique entre les pages (pagination)"
+		"Navigation automatique entre les pages (pagination)",
+		"Export des données en CSV par catégorie (dossier output_data/)"
 	  ],
 	  "github_url": "https://github.com/dim-gggl/Book_Scraper",
 	  "demo_url": "",

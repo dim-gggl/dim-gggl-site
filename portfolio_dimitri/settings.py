@@ -449,11 +449,11 @@ PORTFOLIO_PERSON = {
     'contact_phone': '+33620156172',
     'github': 'https://github.com/dim-gggl',
     'linkedin': 'https://www.linkedin.com/in/dimitri-gaggioli/',
-    'years_experience': 14,
+    'years_experience': 1,
 }
 
 # Project list constants
-PROJECTS_PER_PAGE = 4
+PROJECTS_PER_PAGE = 6
 FEATURED_PROJECTS_COUNT = 2
 SIMILAR_PROJECTS_COUNT = 2
 

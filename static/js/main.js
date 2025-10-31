@@ -137,3 +137,30 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+// Animate skill bars on scroll (for about page)
+document.addEventListener('DOMContentLoaded', () => {
+  const skillBars = document.querySelectorAll('.skill-bar');
+  if (skillBars.length === 0) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const bar = entry.target;
+          const targetWidth = bar.getAttribute('data-width') || bar.style.width;
+          bar.style.width = targetWidth;
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  skillBars.forEach((bar) => {
+    const targetWidth = bar.style.width;
+    bar.setAttribute('data-width', targetWidth);
+    bar.style.width = '0%';
+    observer.observe(bar);
+  });
+});
+
+
