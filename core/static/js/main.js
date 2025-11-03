@@ -5,12 +5,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const skipBtn = document.getElementById('intro-skip');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Show only once per session
-  const alreadyShown = sessionStorage.getItem('introShown') === '1';
+  let storage = null;
+  try {
+    storage = window.sessionStorage;
+    const testKey = '__introOverlayTest__';
+    storage.setItem(testKey, '1');
+    storage.removeItem(testKey);
+  } catch (error) {
+    storage = null;
+  }
+
+  // Show only once per session (falls back gracefully when storage is unavailable)
+  const alreadyShown = storage && storage.getItem('introShown') === '1';
   if (!overlay) return;
 
   function hideOverlay(immediate = false) {
-    sessionStorage.setItem('introShown', '1');
+    if (storage) {
+      try {
+        storage.setItem('introShown', '1');
+      } catch (error) {
+        // Ignore storage errors silently to avoid breaking the intro
+      }
+    }
     overlay.setAttribute('aria-hidden', 'true');
     if (immediate) {
       overlay.style.display = 'none';
