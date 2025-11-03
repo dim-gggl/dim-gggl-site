@@ -32,7 +32,8 @@ class TechnologyAdmin(admin.ModelAdmin):
     @admin.display(description="Badge")
     def color_badge(self, obj):
         return format_html(
-            '<span style="background:{}; color:white; padding:4px 8px; border-radius:4px;">{}</span>',
+            '<span style="background:{}; color:white; '
+            'padding:4px 8px; border-radius:4px;">{}</span>',
             obj.color,
             obj.name,
         )
@@ -57,7 +58,8 @@ class CategoryAdmin(admin.ModelAdmin):
     @admin.display(description="Badge")
     def color_badge(self, obj):
         return format_html(
-            '<span style="background:{}; color:white; padding:4px 8px; border-radius:4px;">{}</span>',
+            '<span style="background:{}; color:white; '
+            'padding:4px 8px; border-radius:4px;">{}</span>',
             obj.color,
             obj.name,
         )

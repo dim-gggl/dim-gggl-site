@@ -1,0 +1,13 @@
+[flake8]
+exclude =
+    .venv,
+    venv,
+    __pycache__,
+    */migrations/*,
+    .git,
+    .pytest_cache,
+    staticfiles,
+    media,
+    node_modules
+max-line-length = 100
+extend-ignore = E203, W503

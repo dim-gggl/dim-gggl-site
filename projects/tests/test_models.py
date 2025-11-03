@@ -36,7 +36,7 @@ class TestProjectModel:
             description="d1",
             completed_at="2024-01-01",
         )
-        p2 = Project.objects.create(
+        Project.objects.create(
             title="P2",
             tagline="t2",
             description="d2",

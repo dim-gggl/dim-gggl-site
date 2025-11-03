@@ -256,6 +256,7 @@ class Command(BaseCommand):
 
         self.stdout.write(
             self.style.SUCCESS(
-                f"\n🎉 Import completed! {len(projects_data)} projects processed. Created: {created_count}, Updated: {updated_count}"
+                f"\n🎉 Import completed! {len(projects_data)} projects processed. "
+                f"Created: {created_count}, Updated: {updated_count}"
             )
         )

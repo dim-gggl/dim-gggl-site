@@ -96,7 +96,7 @@ class Command(BaseCommand):
 
                 # Get user action
                 action = self.get_valid_input(
-                    f"\n➡️  Action [1-5/s/q/v]: ",
+                    "\n➡️  Action [1-5/s/q/v]: ",
                     ["1", "2", "3", "4", "5", "s", "skip", "q", "quit", "v", "view"],
                 )
 

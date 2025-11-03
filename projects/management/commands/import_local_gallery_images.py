@@ -6,7 +6,6 @@ Usage:
     python manage.py import_local_gallery_images
 """
 
-import os
 from pathlib import Path
 
 from django.conf import settings

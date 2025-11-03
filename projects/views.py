@@ -4,8 +4,6 @@ import logging
 from django.conf import settings
 from django.core.cache import cache
 from django.db.models import Q, Count, Prefetch
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import cache_page
 from django.views.generic import ListView, DetailView
 
 from .models import Project, Technology, Category, ProjectImage

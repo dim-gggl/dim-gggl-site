@@ -7,7 +7,6 @@ Usage:
 """
 
 import os
-from io import BytesIO
 
 import requests
 from django.core.files.base import ContentFile
@@ -35,7 +34,8 @@ class Command(BaseCommand):
         ],
         "softdesk_support": [
             {
-                "url": "https://dim-gggl.github.io/portfolio/assets/images/softdesk_user_detail.png",
+                "url": "https://dim-gggl.github.io/portfolio/assets/images/"
+                "softdesk_user_detail.png",
                 "caption": "Endpoint User Detail - Données utilisateur",
                 "order": 1,
             },

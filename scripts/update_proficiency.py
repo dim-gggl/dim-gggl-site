@@ -106,7 +106,7 @@ def update_proficiency_interactive():
 
         # Get user action
         action = get_valid_input(
-            f"\n➡️  Action [1-5/s/q/v]: ",
+            "\n➡️  Action [1-5/s/q/v]: ",
             ["1", "2", "3", "4", "5", "s", "skip", "q", "quit", "v", "view"],
         )
 
@@ -196,7 +196,7 @@ if __name__ == "__main__":
             post_save.connect(invalidate_sidebar_cache, sender=Technology)
             post_delete.connect(invalidate_sidebar_cache, sender=Technology)
             print("✅ Signals reconnected")
-        except:
+        except Exception:
             pass
         sys.exit(0)
     except Exception as e:
@@ -206,6 +206,6 @@ if __name__ == "__main__":
             post_save.connect(invalidate_sidebar_cache, sender=Technology)
             post_delete.connect(invalidate_sidebar_cache, sender=Technology)
             print("✅ Signals reconnected")
-        except:
+        except Exception:
             pass
         sys.exit(1)
