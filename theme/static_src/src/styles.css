@@ -9,7 +9,7 @@
  */
 @source "../../../**/*.{html,py,js}";
 
-@layer base {
+@layer base {-m
   :root {
     /* Core backgrounds */
     --color-bg-primary: #0f0f0f;

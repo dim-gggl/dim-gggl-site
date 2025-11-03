@@ -5,6 +5,7 @@ FROM python:3.11-slim
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     DEBUG=0 \
+    COMPRESS_OFFLINE=1 \
     ALLOWED_HOSTS=127.0.0.1,localhost,dim-gggl.com,www.dim-gggl.com
 
 WORKDIR /app
