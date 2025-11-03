@@ -25,28 +25,28 @@
 
 {% block content %}
 <!-- HERO SECTION -->
-<section class="relative bg-gradient-to-br from-[var(--color-bg-secondary)] via-[var(--color-bg-tertiary)] to-[var(--color-bg-primary)] py-20 px-4">
+<section class="relative bg-linear-to-br from-[--color-bg-secondary] via-[--color-bg-tertiary] to-[--color-bg-primary] py-20 px-4">
   <div class="max-w-7xl mx-auto">
     <div class="grid md:grid-cols-2 gap-12 items-center">
       <!-- Photo et infos principales -->
       <div class="text-center md:text-left">
         <div class="inline-block mb-8">
-          <div class="w-48 h-64 rounded-3xl overflow-hidden border border-[color:var(--color-accent-primary)] shadow-2xl mx-auto md:mx-0">
+          <div class="w-48 h-64 rounded-3xl overflow-hidden border border-[--color-accent-primary] shadow-2xl mx-auto md:mx-0">
             {% static 'images/Dimitri_Gaggioli.png' as profile_image %}
             {% static 'images/profile-photo.png' as fallback_image %}
             {% lazy_img profile_image alt='Dimitri Gaggioli' css_class='w-full h-full object-cover' width=192 height=192 fallback=fallback_image %}
           </div>
         </div>
-        <h1 class="text-5xl md:text-6xl font-bold text-[var(--color-text-primary)] mb-4">Dimitri <span class="text-[color:var(--color-accent-primary)]">Gaggioli</span></h1>
-        <p class="text-2xl text-[var(--color-text-secondary)] mb-6">Backend Python Developer</p>
+        <h1 class="text-5xl md:text-6xl font-bold text-[--color-text-primary] mb-4">Dimitri <span class="text-[--color-accent-primary]">Gaggioli</span></h1>
+        <p class="text-2xl text-[--color-text-secondary] mb-6">Backend Python Developer</p>
         <div class="flex flex-wrap gap-3 justify-center md:justify-start mb-8">
-          <span class="px-4 py-2 bg-[color:var(--color-accent-primary)]/20 border border-[color:var(--color-accent-primary)] text-[color:var(--color-accent-primary)] rounded-full font-medium">Think.</span>
-          <span class="px-4 py-2 bg-[color:var(--color-accent-primary)]/20 border border-[color:var(--color-accent-primary)] text-[color:var(--color-accent-primary)] rounded-full font-medium">Code.</span>
-          <span class="px-4 py-2 bg-[color:var(--color-accent-primary)]/20 border border-[color:var(--color-accent-primary)] text-[color:var(--color-accent-primary)] rounded-full font-medium">Push.</span>
+          <span class="px-4 py-2 bg-[--color-accent-primary]/20 border border-[--color-accent-primary] text-[--color-accent-primary] rounded-full font-medium">Think.</span>
+          <span class="px-4 py-2 bg-[--color-accent-primary]/20 border border-[--color-accent-primary] text-[--color-accent-primary] rounded-full font-medium">Code.</span>
+          <span class="px-4 py-2 bg-[--color-accent-primary]/20 border border-[--color-accent-primary] text-[--color-accent-primary] rounded-full font-medium">Push.</span>
         </div>
         <!-- CTA Button -->
         <div class="flex justify-center md:justify-start">
-          <a href="mailto:dimitri.gaggioli@gmail.com" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[color:var(--color-accent-primary)] text-[var(--color-text-primary)] font-semibold rounded-lg hover:bg-[color:var(--color-accent-hover)] transition shadow-lg">
+          <a href="mailto:dimitri.gaggioli@gmail.com" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[--color-accent-primary] text-[--color-text-primary] font-semibold rounded-lg hover:bg-[--color-accent-hover] transition shadow-lg">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
             Contact me
           </a>
@@ -54,59 +54,59 @@
       </div>
       <!-- Stats -->
       <div class="grid grid-cols-2 gap-6">
-        <div class="bg-[var(--color-bg-secondary)] p-6 rounded-xl border border-neutral-800 text-center"><div class="text-5xl font-bold text-[color:var(--color-accent-primary)] mb-2">{{ total_projects }}+</div><div class="text-[var(--color-text-muted)]">Projects completed</div></div>
-        <div class="bg-[var(--color-bg-secondary)] p-6 rounded-xl border border-neutral-800 text-center"><div class="text-5xl font-bold text-[color:var(--color-accent-primary)] mb-2">{{ years_experience }}+</div><div class="text-[var(--color-text-muted)]">Years of experience</div></div>
-        <div class="bg-[var(--color-bg-secondary)] p-6 rounded-xl border border-neutral-800 text-center"><div class="text-5xl font-bold text-[color:var(--color-accent-primary)] mb-2">{{ technologies_count }}+</div><div class="text-[var(--color-text-muted)]">Technologies</div></div>
-        <div class="bg-[var(--color-bg-secondary)] p-6 rounded-xl border border-neutral-800 text-center"><div class="text-5xl font-bold text-[color:var(--color-accent-primary)] mb-2">100%</div><div class="text-[var(--color-text-muted)]">Passion</div></div>
+        <div class="bg-[--color-bg-secondary] p-6 rounded-xl border border-neutral-800 text-center"><div class="text-5xl font-bold text-[--color-accent-primary] mb-2">{{ total_projects }}+</div><div class="text-[--color-text-muted]">Projects completed</div></div>
+        <div class="bg-[--color-bg-secondary] p-6 rounded-xl border border-neutral-800 text-center"><div class="text-5xl font-bold text-[--color-accent-primary] mb-2">{{ years_experience }}+</div><div class="text-[--color-text-muted]">Years of experience</div></div>
+        <div class="bg-[--color-bg-secondary] p-6 rounded-xl border border-neutral-800 text-center"><div class="text-5xl font-bold text-[--color-accent-primary] mb-2">{{ technologies_count }}+</div><div class="text-[--color-text-muted]">Technologies</div></div>
+        <div class="bg-[--color-bg-secondary] p-6 rounded-xl border border-neutral-800 text-center"><div class="text-5xl font-bold text-[--color-accent-primary] mb-2">100%</div><div class="text-[--color-text-muted]">Passion</div></div>
       </div>
     </div>
   </div>
   </section>
 
 <!-- À PROPOS -->
-<section class="bg-[var(--color-bg-primary)] py-16 px-4">
+<section class="bg-[--color-bg-primary] py-16 px-4">
   <div class="max-w-4xl mx-auto">
-    <h2 class="text-4xl font-bold text-[var(--color-text-primary)] mb-8 text-center">Who am I <span class="text-[color:var(--color-accent-primary)]">?</span></h2>
-    <div class="space-y-6 text-[var(--color-text-secondary)] text-lg leading-relaxed">
-      <p><strong class="text-[var(--color-text-primary)]">Backend Python Developer</strong>, I design robust, scalable and maintainable apps.</p>
-      <p>Trained in <strong class="text-[var(--color-text-primary)]">Django</strong>, <strong class="text-[var(--color-text-primary)]">APIs REST</strong>, and <strong class="text-[var(--color-text-primary)]">Modern CLIs</strong>, I have developed a solid expertise in creating performant backend tools and applications. I prioritize reproducible environments (uv), usable documentation, and tested code.</p>
-      <p>Passionate about <strong class="text-[var(--color-text-primary)]">generative AI</strong>, I continue to train in <strong class="text-[var(--color-text-primary)]">agentic programming</strong>, and <strong class="text-[var(--color-text-primary)]">prompt engineering</strong>, I build a solid foundation of tools and knowledge to integrate these new technologies into my work environment.</p>
-      <p>Beyond the code, I am also sensitive to <strong class="text-[var(--color-text-primary)]">user experience</strong> and <strong class="text-[var(--color-text-primary)]">design</strong>. I like to create interfaces that combine functionality and aesthetics, as evidenced by my personal projects.</p>
+    <h2 class="text-4xl font-bold text-[--color-text-primary] mb-8 text-center">Who am I <span class="text-[--color-accent-primary]">?</span></h2>
+    <div class="space-y-6 text-[--color-text-secondary] text-lg leading-relaxed">
+      <p><strong class="text-[--color-text-primary]">Backend Python Developer</strong>, I design robust, scalable and maintainable apps.</p>
+      <p>Trained in <strong class="text-[--color-text-primary]">Django</strong>, <strong class="text-[--color-text-primary]">APIs REST</strong>, and <strong class="text-[--color-text-primary]">Modern CLIs</strong>, I have developed a solid expertise in creating performant backend tools and applications. I prioritize reproducible environments (uv), usable documentation, and tested code.</p>
+      <p>Passionate about <strong class="text-[--color-text-primary]">generative AI</strong>, I continue to train in <strong class="text-[--color-text-primary]">agentic programming</strong>, and <strong class="text-[--color-text-primary]">prompt engineering</strong>, I build a solid foundation of tools and knowledge to integrate these new technologies into my work environment.</p>
+      <p>Beyond the code, I am also sensitive to <strong class="text-[--color-text-primary]">user experience</strong> and <strong class="text-[--color-text-primary]">design</strong>. I like to create interfaces that combine functionality and aesthetics, as evidenced by my personal projects.</p>
     </div>
   </div>
 </section>
 
 <!-- PARCOURS / TIMELINE -->
-<section class="bg-[var(--color-bg-secondary)] py-16 px-4">
+<section class="bg-[--color-bg-secondary] py-16 px-4">
   <div class="max-w-5xl mx-auto">
-    <h2 class="text-4xl font-bold text-[var(--color-text-primary)] mb-12 text-center">Mon <span class="text-[color:var(--color-accent-primary)]">parcours</span></h2>
+    <h2 class="text-4xl font-bold text-[--color-text-primary] mb-12 text-center">Mon <span class="text-[--color-accent-primary]">parcours</span></h2>
     <div class="relative">
       <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-neutral-800 hidden md:block"></div>
       <div class="space-y-12">
         <div class="timeline-item grid md:grid-cols-2 gap-8 items-center">
           <div class="md:text-right">
-            <div class="inline-block bg-[color:var(--color-accent-primary)] text-[var(--color-text-primary)] px-4 py-2 rounded-full text-sm font-medium mb-3">2024 - 2025</div>
-            <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-2">Python Web Development</h3>
-            <p class="text-[var(--color-text-muted)] mb-3">OpenClassrooms</p>
-            <p class="text-[var(--color-text-secondary)]">Intensive training in Python/Django, APIs REST, tests, and best practices in development.</p>
+            <div class="inline-block bg-[--color-accent-primary] text-[--color-text-primary] px-4 py-2 rounded-full text-sm font-medium mb-3">2024 - 2025</div>
+            <h3 class="text-2xl font-bold text-[--color-text-primary] mb-2">Python Web Development</h3>
+            <p class="text-[--color-text-muted] mb-3">OpenClassrooms</p>
+            <p class="text-[--color-text-secondary]">Intensive training in Python/Django, APIs REST, tests, and best practices in development.</p>
           </div>
           <div class="hidden md:block"></div>
         </div>
         <div class="timeline-item grid md:grid-cols-2 gap-8 items-center">
           <div class="hidden md:block"></div>
           <div>
-            <div class="inline-block bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)] px-4 py-2 rounded-full text-sm font-medium mb-3">2012</div>
-            <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-2">Master 1 Cinéma</h3>
-            <p class="text-[var(--color-text-muted)] mb-3">Paris X Nanterre</p>
-            <p class="text-[var(--color-text-secondary)]">Training in film analysis and cinema theory, developing my critical sense and creativity.</p>
+            <div class="inline-block bg-[--color-bg-tertiary] text-[--color-text-primary] px-4 py-2 rounded-full text-sm font-medium mb-3">2012</div>
+            <h3 class="text-2xl font-bold text-[--color-text-primary] mb-2">Master 1 Cinéma</h3>
+            <p class="text-[--color-text-muted] mb-3">Paris X Nanterre</p>
+            <p class="text-[--color-text-secondary]">Training in film analysis and cinema theory, developing my critical sense and creativity.</p>
           </div>
         </div>
         <div class="timeline-item grid md:grid-cols-2 gap-8 items-center">
           <div class="md:text-right">
-            <div class="inline-block bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)] px-4 py-2 rounded-full text-sm font-medium mb-3">2010 - 2024</div>
-            <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-2">Hospitality - Catering</h3>
-            <p class="text-[var(--color-text-muted)] mb-3">Director ~ Manager ~ Waiter</p>
-            <ul class="text-[var(--color-text-secondary)] text-left md:text-right space-y-2">
+            <div class="inline-block bg-[--color-bg-tertiary] text-[--color-text-primary] px-4 py-2 rounded-full text-sm font-medium mb-3">2010 - 2024</div>
+            <h3 class="text-2xl font-bold text-[--color-text-primary] mb-2">Hospitality - Catering</h3>
+            <p class="text-[--color-text-muted] mb-3">Director ~ Manager ~ Waiter</p>
+            <ul class="text-[--color-text-secondary] text-left md:text-right space-y-2">
               <li>✓ Team management and results orientation</li>
               <li>✓ Data analysis (cash register tickets, KPIs)</li>
               <li>✓ Real-time problem solving</li>
@@ -121,50 +121,50 @@
 </section>
 
 <!-- COMPÉTENCES DÉTAILLÉES -->
-<section class="bg-[var(--color-bg-primary)] py-16 px-4">
+<section class="bg-(--color-bg-primary) py-16 px-4">
   <div class="max-w-6xl mx-auto">
-    <h2 class="text-4xl font-bold text-[var(--color-text-primary)] mb-12 text-center">Technical <span class="text-[color:var(--color-accent-primary)]">Stack</span></h2>
+    <h2 class="text-4xl font-bold text-(--color-text-primary) mb-12 text-center">Technical <span class="text-[--color-accent-primary]">Stack</span></h2>
     <div class="grid md:grid-cols-2 gap-8">
-      <div class="bg-[var(--color-bg-secondary)] p-8 rounded-xl border border-neutral-800">
-        <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center gap-3">Backend</h3>
+      <div class="bg-(--color-bg-secondary) p-8 rounded-xl border border-neutral-800">
+        <h3 class="text-2xl font-bold text-(--color-text-primary) mb-6 flex items-center gap-3">Backend</h3>
         <div class="space-y-4">
           {% for tech in backend_techs %}
             <div>
-              <div class="flex justify-between mb-2"><span class="text-[var(--color-text-secondary)] font-medium">{{ tech.name }}</span></div>
-              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r rounded-full" style="width: {% localize off %}{{ tech.proficiency|mul:20 }}{% endlocalize %}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
+              <div class="flex justify-between mb-2"><span class="text-(--color-text-secondary) font-medium">{{ tech.name }}</span></div>
+              <div class="h-2 bg-(--color-bg-tertiary) rounded-full overflow-hidden"><div class="skill-bar h-full bg-linear-to-r rounded-full" style="width: {% localize off %}{{ tech.proficiency|mul:20 }}{% endlocalize %}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
             </div>
           {% endfor %}
         </div>
       </div>
-      <div class="bg-[var(--color-bg-secondary)] p-8 rounded-xl border border-neutral-800">
-        <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center gap-3">Frontend</h3>
+      <div class="bg-(--color-bg-secondary) p-8 rounded-xl border border-neutral-800">
+        <h3 class="text-2xl font-bold text-(--color-text-primary) mb-6 flex items-center gap-3">Frontend</h3>
         <div class="space-y-4">
           {% for tech in frontend_techs %}
             <div>
-              <div class="flex justify-between mb-2"><span class="text-[var(--color-text-secondary)] font-medium">{{ tech.name }}</span></div>
-              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r rounded-full" style="width: {% localize off %}{{ tech.proficiency|mul:20 }}{% endlocalize %}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
+              <div class="flex justify-between mb-2"><span class="text-(--color-text-secondary) font-medium">{{ tech.name }}</span></div>
+              <div class="h-2 bg-(--color-bg-tertiary) rounded-full overflow-hidden"><div class="skill-bar h-full bg-linear-to-r rounded-full" style="width: {% localize off %}{{ tech.proficiency|mul:20 }}{% endlocalize %}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
             </div>
           {% endfor %}
         </div>
       </div>
-      <div class="bg-[var(--color-bg-secondary)] p-8 rounded-xl border border-neutral-800">
-        <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center gap-3">Databases</h3>
+      <div class="bg-(--color-bg-secondary) p-8 rounded-xl border border-neutral-800">
+        <h3 class="text-2xl font-bold text-(--color-text-primary) mb-6 flex items-center gap-3">Databases</h3>
         <div class="space-y-4">
           {% for tech in database_techs %}
             <div>
-              <div class="flex justify-between mb-2"><span class="text-[var(--color-text-secondary)] font-medium">{{ tech.name }}</span></div>
-              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r rounded-full" style="width: {% localize off %}{{ tech.proficiency|mul:20 }}{% endlocalize %}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
+              <div class="flex justify-between mb-2"><span class="text-(--color-text-secondary) font-medium">{{ tech.name }}</span></div>
+              <div class="h-2 bg-(--color-bg-tertiary) rounded-full overflow-hidden"><div class="skill-bar h-full bg-linear-to-r rounded-full" style="width: {% localize off %}{{ tech.proficiency|mul:20 }}{% endlocalize %}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
             </div>
           {% endfor %}
         </div>
       </div>
-      <div class="bg-[var(--color-bg-secondary)] p-8 rounded-xl border border-neutral-800">
-        <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center gap-3">Tools</h3>
+      <div class="bg-(--color-bg-secondary) p-8 rounded-xl border border-neutral-800">
+        <h3 class="text-2xl font-bold text-(--color-text-primary) mb-6 flex items-center gap-3">Tools</h3>
         <div class="space-y-4">
           {% for tech in tools %}
             <div>
-              <div class="flex justify-between mb-2"><span class="text-[var(--color-text-secondary)] font-medium">{{ tech.name }}</span></div>
-              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r rounded-full" style="width: {% localize off %}{{ tech.proficiency|mul:20 }}{% endlocalize %}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
+              <div class="flex justify-between mb-2"><span class="text-(--color-text-secondary) font-medium">{{ tech.name }}</span></div>
+              <div class="h-2 bg-(--color-bg-tertiary) rounded-full overflow-hidden"><div class="skill-bar h-full bg-linear-to-r rounded-full" style="width: {% localize off %}{{ tech.proficiency|mul:20 }}{% endlocalize %}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
             </div>
           {% endfor %}
         </div>
@@ -174,44 +174,44 @@
 </section>
 
 <!-- CENTRES D'INTÉRÊT -->
-<section class="bg-[var(--color-bg-secondary)] py-16 px-4">
+<section class="bg-(--color-bg-secondary) py-16 px-4">
   <div class="max-w-5xl mx-auto">
-    <h2 class="text-4xl font-bold text-[var(--color-text-primary)] mb-12 text-center">Areas of <span class="text-[color:var(--color-accent-primary)]">Interest</span></h2>
+    <h2 class="text-4xl font-bold text-(--color-text-primary) mb-12 text-center">Areas of <span class="text-[--color-accent-primary]">Interest</span></h2>
     <div class="grid md:grid-cols-2 gap-8">
-      <div class="bg-[var(--color-bg-primary)] p-8 rounded-xl border border-neutral-800 hover:border-[color:var(--color-accent-primary)] transition group">
-        <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-3 group-hover:text-[color:var(--color-accent-primary)] transition">Poetry</h3>
-        <p class="text-[var(--color-text-secondary)] mb-4">Writing and sharing poetry on Instagram under the pseudonym <a href="https://instagram.com/remo_nesa" target="_blank" class="text-[color:var(--color-accent-primary)] hover:text-[color:var(--color-accent-hover)]">@remo_nesa</a>.</p>
-        <p class="text-[var(--color-text-muted)] text-sm">Poetic writing nourishes my creativity and sensitivity to aesthetics.</p>
+      <div class="bg-(--color-bg-primary) p-8 rounded-xl border border-neutral-800 hover:border-(--color-accent-primary) transition group">
+        <h3 class="text-2xl font-bold text-(--color-text-primary) mb-3 group-hover:text-(--color-accent-primary) transition">Poetry</h3>
+        <p class="text-(--color-text-secondary) mb-4">Writing and sharing poetry on Instagram under the pseudonym <a href="https://instagram.com/remo_nesa" target="_blank" class="text-[--color-accent-primary] hover:text-[--color-accent-hover]">@remo_nesa</a>.</p>
+        <p class="text-(--color-text-muted) text-sm">Poetic writing nourishes my creativity and sensitivity to aesthetics.</p>
       </div>
-      <div class="bg-[var(--color-bg-primary)] p-8 rounded-xl border border-neutral-800 hover:border-[color:var(--color-accent-primary)] transition group">
-        <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-3 group-hover:text-[color:var(--color-accent-primary)] transition">Cinema & Programming</h3>
-        <p class="text-[var(--color-text-secondary)] mb-4">Passionate about cinema, I've also programmed film screenings at the Cinéma La Clef.<a href="https://instagram.com/laclefrevival" target="_blank" class="text-[color:var(--color-accent-primary)] hover:text-[color:var(--color-accent-hover)]">@laclefrevival</a>.</p>
+      <div class="bg-(--color-bg-primary) p-8 rounded-xl border border-neutral-800 hover:border-(--color-accent-primary) transition group">
+        <h3 class="text-2xl font-bold text-(--color-text-primary) mb-3 group-hover:text-(--color-accent-primary) transition">Cinema & Programming</h3>
+        <p class="text-(--color-text-secondary) mb-4">Passionate about cinema, I've also programmed film screenings at the Cinéma La Clef.<a href="https://instagram.com/laclefrevival" target="_blank" class="text-[--color-accent-primary] hover:text-[--color-accent-hover]">@laclefrevival</a>.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- SOFT SKILLS -->
-<section class="bg-[var(--color-bg-primary)] py-16 px-4">
+<section class="bg-(--color-bg-primary) py-16 px-4">
   <div class="max-w-4xl mx-auto">
-    <h2 class="text-4xl font-bold text-[var(--color-text-primary)] mb-12 text-center">Professional <span class="text-[color:var(--color-accent-primary)]">Qualities</span></h2>
+    <h2 class="text-4xl font-bold text-(--color-text-primary) mb-12 text-center">Professional <span class="text-(--color-accent-primary)">Qualities</span></h2>
     <div class="grid md:grid-cols-2 gap-6">
-      <div class="flex items-start gap-4"><div class="w-12 h-12 rounded-lg bg-[color:var(--color-accent-primary)]/20 flex items-center justify-center flex-shrink-0"><svg class="w-6 h-6 text-[color:var(--color-accent-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div><div><h4 class="text-xl font-bold text-[var(--color-text-primary)] mb-2">Creativity</h4><p class="text-[var(--color-text-muted)]">Innovative approach to technical problems and design</p></div></div>
-      <div class="flex items-start gap-4"><div class="w-12 h-12 rounded-lg bg-[color:var(--color-accent-primary)]/20 flex items-center justify-center flex-shrink-0"><svg class="w-6 h-6 text-[color:var(--color-accent-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></div><div><h4 class="text-xl font-bold text-[var(--color-text-primary)] mb-2">Adaptability</h4><p class="text-[var(--color-text-muted)]">Ability to learn quickly new technologies</p></div></div>
-      <div class="flex items-start gap-4"><div class="w-12 h-12 rounded-lg bg-[color:var(--color-accent-primary)]/20 flex items-center justify-center flex-shrink-0"><svg class="w-6 h-6 text-[color:var(--color-accent-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg></div><div><h4 class="text-xl font-bold text-[var(--color-text-primary)] mb-2">Team Spirit</h4><p class="text-[var(--color-text-muted)]">Effective collaboration and clear communication.</p></div></div>
-      <div class="flex items-start gap-4"><div class="w-12 h-12 rounded-lg bg-[color:var(--color-accent-primary)]/20 flex items-center justify-center flex-shrink-0"><svg class="w-6 h-6 text-[color:var(--color-accent-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg></div><div><h4 class="text-xl font-bold text-[var(--color-text-primary)] mb-2">Results oriented</h4><p class="text-[var(--color-text-muted)]">Focused on </p></div></div>
+      <div class="flex items-start gap-4"><div class="w-12 h-12 rounded-lg bg-(--color-accent-primary)/20 flex items-center justify-center shrink-0"><svg class="w-6 h-6 text-(--color-accent-primary)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div><div><h4 class="text-xl font-bold text-[--color-text-primary] mb-2">Creativity</h4><p class="text-[--color-text-muted]">Innovative approach to technical problems and design</p></div></div>
+      <div class="flex items-start gap-4"><div class="w-12 h-12 rounded-lg bg-(--color-accent-primary)/20 flex items-center justify-center shrink-0"><svg class="w-6 h-6 text-(--color-accent-primary)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></div><div><h4 class="text-xl font-bold text-[--color-text-primary] mb-2">Adaptability</h4><p class="text-[--color-text-muted]">Ability to learn quickly new technologies</p></div></div>
+      <div class="flex items-start gap-4"><div class="w-12 h-12 rounded-lg bg-(--color-accent-primary)/20 flex items-center justify-center shrink-0"><svg class="w-6 h-6 text-(--color-accent-primary)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg></div><div><h4 class="text-xl font-bold text-[--color-text-primary] mb-2">Team Spirit</h4><p class="text-[--color-text-muted]">Effective collaboration and clear communication.</p></div></div>
+      <div class="flex items-start gap-4"><div class="w-12 h-12 rounded-lg bg-(--color-accent-primary)/20 flex items-center justify-center shrink-0"><svg class="w-6 h-6 text-(--color-accent-primary)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg></div><div><h4 class="text-xl font-bold text-[--color-text-primary] mb-2">Results oriented</h4><p class="text-[--color-text-muted]">Focused on </p></div></div>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="bg-black py-16 px-4 mx-4 mb-8 rounded-2xl border-2 border-[color:var(--color-accent-primary)]">
+<section class="bg-black py-16 px-4 mx-4 mb-8 rounded-2xl border-2 border-(--color-accent-primary)">
   <div class="max-w-4xl mx-auto text-center">
-    <h2 class="text-3xl md:text-4xl font-bold text-[color:var(--color-accent-primary)] mb-4 font-mono">Let's work together!</h2>
-    <p class="text-xl text-[color:var(--color-accent-primary)]/80 mb-8 font-mono">I'm available for collaboration opportunities</p>
+    <h2 class="text-3xl md:text-4xl font-bold text-(--color-accent-primary) mb-4 font-mono">Let's work together!</h2>
+    <p class="text-xl text-(--color-accent-primary)/80 mb-8 font-mono">I'm available for collaboration opportunities</p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="mailto:dimitri.gaggioli@gmail.com" class="px-8 py-4 bg-[color:var(--color-accent-primary)] text-black font-semibold rounded-lg hover:bg-[color:var(--color-accent-hover)] transition shadow-lg shadow-[color:var(--color-accent-primary)]/20 font-mono">Contact me</a>
-      <a href="{% url 'projects:list' %}" class="px-8 py-4 bg-transparent text-[color:var(--color-accent-primary)] font-semibold rounded-lg hover:bg-[color:var(--color-accent-primary)]/10 transition border-2 border-[color:var(--color-accent-primary)] font-mono">See my projects</a>
+      <a href="mailto:dimitri.gaggioli@gmail.com" class="px-8 py-4 bg-(--color-accent-primary) text-black font-semibold rounded-lg hover:bg-(--color-accent-hover) transition shadow-lg shadow-(--color-accent-primary)/20 font-mono">Contact me</a>
+      <a href="{% url 'projects:list' %}" class="px-8 py-4 bg-transparent text-(--color-accent-primary) font-semibold rounded-lg hover:bg-(--color-accent-primary)/10 transition border-2 border-(--color-accent-primary) font-mono">See my projects</a>
     </div>
   </div>
 </section>

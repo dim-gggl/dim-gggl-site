@@ -1,7 +1,7 @@
 {% load static %}
 <section class="relative mx-auto max-w-6xl px-4 pb-12 pt-10 sm:pt-14" aria-labelledby="hero-title">
   <div class="flex flex-col items-center gap-6 text-center">
-    <div class="relative h-48 w-36 rounded-3xl border border-[color:var(--color-accent-primary)] bg-[var(--color-bg-secondary)] shadow-xl transition-transform hover:scale-105 overflow-hidden">
+    <div class="relative h-48 w-36 rounded-3xl border border-(--color-accent-primary) bg-(--color-bg-secondary) shadow-xl transition-transform hover:scale-105 overflow-hidden">
       <img src="{% static 'images/profile-photo.png' %}"
            alt="{{ person.name }}"
            class="h-full w-full object-cover">
@@ -10,16 +10,16 @@
      <div class="flex items-center justify-center">
       {% include 'core/components/dimitri_gaggioli.html' %}
      </div>
-    <p class="text-xl font-medium text-[color:var(--color-accent-primary)]">{{ person.title }}</p>
+    <p class="text-xl font-medium text-(--color-accent-primary)">{{ person.title }}</p>
     <div class="mt-2 flex gap-2">
-      <span class="rounded-md border border-[color:var(--color-accent-primary)] bg-[color:var(--color-bg-secondary)] px-3 py-1 text-sm">Think.</span>
-      <span class="rounded-md border border-[color:var(--color-accent-primary)] bg-[color:var(--color-bg-secondary)] px-3 py-1 text-sm">Code.</span>
-      <span class="rounded-md border border-[color:var(--color-accent-primary)] bg-[color:var(--color-bg-secondary)] px-3 py-1 text-sm">Push.</span>
+      <span class="rounded-md border border-(--color-accent-primary) bg-(--color-bg-secondary) px-3 py-1 text-sm">Think.</span>
+      <span class="rounded-md border border-(--color-accent-primary) bg-(--color-bg-secondary) px-3 py-1 text-sm">Code.</span>
+      <span class="rounded-md border border-(--color-accent-primary) bg-(--color-bg-secondary) px-3 py-1 text-sm">Push.</span>
     </div>
-    <p class="max-w-2xl text-[var(--color-text-secondary)]">Backend Python Developer in {{ person.location }}. Fast RESTfulAPIs, maintainable code, reliable tests, and helpful docs.</p>
+    <p class="max-w-2xl text-(--color-text-secondary)">Backend Python Developer in {{ person.location }}. Fast RESTfulAPIs, maintainable code, reliable tests, and helpful docs.</p>
     <div class="flex flex-wrap items-center justify-center gap-3">
-      <a href="{% url 'projects:list' %}" class="rounded-md bg-[color:var(--color-accent-primary)] px-5 py-2 font-semibold text-black transition-colors hover:bg-[color:var(--color-accent-hover)]">Voir mes projets</a>
-      <a href="mailto:dimitri.gaggioli@gmail.com" class="rounded-md border border-[color:var(--color-accent-primary)] px-5 py-2 font-semibold text-[var(--color-text-primary)] hover:bg-[color:var(--color-bg-secondary)]">Me contacter</a>
+      <a href="{% url 'projects:list' %}" class="rounded-md bg-(--color-accent-primary) px-5 py-2 font-semibold text-black transition-colors hover:bg-(--color-accent-hover)">Voir mes projets</a>
+      <a href="mailto:dimitri.gaggioli@gmail.com" class="rounded-md border border-(--color-accent-primary) px-5 py-2 font-semibold text-(--color-text-primary) hover:bg-(--color-bg-secondary)">Me contacter</a>
     </div>
   </div>
 </section>

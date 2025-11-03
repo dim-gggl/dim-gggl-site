@@ -3,22 +3,22 @@
   <h2 id="featured-title" class="mb-6 text-2xl font-bold">Featured Projects</h2>
   <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
     {% for project in featured_projects %}
-        <article class="group overflow-hidden rounded-xl border border-neutral-800 bg-[var(--color-bg-secondary)] shadow transition hover:-translate-y-1 hover:shadow-xl">
+        <article class="group overflow-hidden rounded-xl border border-neutral-800 bg-(--color-bg-secondary) shadow transition hover:-translate-y-1 hover:shadow-xl">
           <a href="{% url 'projects:detail' project.slug %}" class="block">
             {% project_image project as img_url %}
-            <div class="aspect-[4/3] w-full bg-transparent" style="background-image: url('{{ project.featured_image }}'); background-size: cover; background-position: center;"></div>
+            <div class="aspect-4/3 w-full bg-transparent" style="background-image: url('{{ project.featured_image }}'); background-size: cover; background-position: center;"></div>
             <div class="p-5">
-              <h3 class="text-lg font-semibold group-hover:text-[color:var(--color-accent-primary)] transition">{{ project.title }}</h3>
-              <p class="mt-1 line-clamp-2 text-sm text-[var(--color-text-secondary)]">{{ project.description|default:"Project description will be available soon." }}</p>
+              <h3 class="text-lg font-semibold group-hover:text-(--color-accent-primary) transition">{{ project.title }}</h3>
+              <p class="mt-1 line-clamp-2 text-sm text-(--color-text-secondary)">{{ project.description|default:"Project description will be available soon." }}</p>
               <div class="mt-3 flex gap-3 text-sm">
-                {% if project.github_url %}<span class="text-[color:var(--color-accent-primary)]">GitHub</span>{% endif %}
-                {% if project.demo_url %}<span class="text-[color:var(--color-accent-primary)]">Demo</span>{% endif %}
+                {% if project.github_url %}<span class="Dic et je sais ausé]">GitHub</span>{% endif %}
+                {% if project.demo_url %}<span class="text-(--color-accent-primary)">Demo</span>{% endif %}
               </div>
             </div>
           </a>
         </article>
     {% empty %}
-      <p class="text-[var(--color-text-secondary)]">Projects will be available soon.</p>
+      <p class="text-(--color-text-secondary)">Projects will be available soon.</p>
     {% endfor %}
   </div>
 </section>

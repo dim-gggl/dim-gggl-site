@@ -1,14 +1,14 @@
-<header class="sticky top-0 z-50 border-b border-neutral-900/60 bg-[var(--color-bg-primary)]/80 backdrop-blur transition-transform duration-300 ease-in-out">
+<header class="sticky top-0 z-50 border-b border-neutral-900/60 bg-(--color-bg-primary)/80 backdrop-blur transition-transform duration-300 ease-in-out">
   <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
     <a href="{% url 'core:home' %}" class="flex items-center gap-3 group">
       {% include 'core/components/logo.html' %}
-      <span class="text-lg font-bold tracking-wide text-[var(--color-text-primary)] sm:hidden">
+      <span class="text-lg font-bold tracking-wide text-(--color-text-primary) sm:hidden">
         <span class="text-[#94db40]">DG</span> · Portfolio
       </span>
     </a>
-    <nav class="hidden gap-6 text-base text-[var(--color-text-secondary)] md:flex font-mono font-bold">
-      <a class="navlink hover:text-[var(--color-text-primary)]" href="{% url 'projects:list' %}">Projects</a>
-      <a class="navlink hover:text-[var(--color-text-primary)]" href="{% url 'core:about' %}">About</a>
+    <nav class="hidden gap-6 text-base text-(--color-text-secondary) md:flex font-mono font-bold">
+      <a class="navlink hover:text-(--color-text-primary)" href="{% url 'projects:list' %}">Projects</a>
+      <a class="navlink hover:text-(--color-text-primary)" href="{% url 'core:about' %}">About</a>
     </nav>
   </div>
 </header>
