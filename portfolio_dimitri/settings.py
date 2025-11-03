@@ -204,11 +204,13 @@ if _is_postgres:
 # Override with DATABASE_URL if available
 _database_url = os.environ.get("DATABASE_URL")
 if _database_url:
+    # Don't require SSL in CI environment or when DEBUG is True
+    _is_ci = os.environ.get("CI") == "true" or os.environ.get("GITHUB_ACTIONS") == "true"
     DATABASES["default"] = dj_database_url.config(
         default=_database_url,
         conn_max_age=int(os.environ.get("CONN_MAX_AGE", "600")),
         conn_health_checks=True,
-        ssl_require=not DEBUG,
+        ssl_require=not DEBUG and not _is_ci,
     )
 
 
