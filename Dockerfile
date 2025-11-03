@@ -31,5 +31,7 @@ RUN SECRET_KEY=build-time-secret python manage.py collectstatic --noinput
 # Expose default port (Railway will provide $PORT)
 EXPOSE 8000
 
+
+
 # Start: run migrations then Gunicorn binding on $PORT (fallback 8000)
 CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py load_projects ./projects.json && gunicorn --bind 0.0.0.0:${PORT:-8000} portfolio_dimitri.wsgi:application"]
