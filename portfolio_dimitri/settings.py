@@ -272,9 +272,13 @@ STORAGES = {
     },
 }
 
-if not DEBUG:
-    COMPRESS_OFFLINE = False
-    COMPRESS_ENABLED = True
+COMPRESS_ENABLED = _str_to_bool(os.environ.get("COMPRESS_ENABLED", "True"))
+COMPRESS_OFFLINE = _str_to_bool(
+    os.environ.get(
+        "COMPRESS_OFFLINE",
+        "False" if DEBUG else "True",
+    )
+)
 
 # Media files
 MEDIA_URL = "media/"
