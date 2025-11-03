@@ -1,3 +1,5 @@
+@import 'tailwindcss';
+
 :root {
   /* Core backgrounds */
   --color-bg-primary: #0f0f0f;
