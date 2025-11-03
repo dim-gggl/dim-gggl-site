@@ -36,6 +36,11 @@ pip install -r requirements/dev.txt
 # 5. Appliquer les migrations et lancer le serveur
 python manage.py migrate
 python manage.py runserver
+
+# 6. Build the Tailwind assets after any design change
+python manage.py tailwind build
+# or start the watcher during development
+# python manage.py tailwind start
 ```
 
 ## 🔐 Variables d’environnement

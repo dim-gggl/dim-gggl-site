@@ -112,6 +112,8 @@ INSTALLED_APPS = [
     # Third-party
     "whitenoise.runserver_nostatic",
     "compressor",
+    "tailwind",
+    "theme",
     # Local apps
     "core",
     "projects",
@@ -353,8 +355,7 @@ if not DEBUG:
 CONTENT_SECURITY_POLICY = " ".join(
     [
         "default-src 'self'",
-        "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com "
-        "https://www.googletagmanager.com",
+        "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
         "font-src 'self' https://fonts.gstatic.com",
         "img-src 'self' data: https:",
@@ -519,3 +520,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 ADMIN_SITE_HEADER = "Portfolio Dimitri - Administration"
 ADMIN_SITE_TITLE = "Portfolio Admin"
 ADMIN_INDEX_TITLE = "Bienvenue dans l'administration"
+
+TAILWIND_APP_NAME = "theme"

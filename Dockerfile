@@ -26,7 +26,8 @@ COPY . .
 # Collect static files at build time (does not require DB)
 # Ensure source static directory exists to silence W004 in production
 # Use a dummy SECRET_KEY for collectstatic (it doesn't need the real one)
-RUN SECRET_KEY=build-time-secret python manage.py collectstatic --noinput
+RUN SECRET_KEY=build-time-secret python manage.py collectstatic --noinput && \
+    python manage.py compress
 
 # Expose default port (Railway will provide $PORT)
 EXPOSE 8000
