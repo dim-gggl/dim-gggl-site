@@ -30,26 +30,30 @@ def _str_to_bool(value):
 
 def _load_secret_key():
     """Return the Django secret key from environment or file."""
+    # Priority 1: Direct environment variable (Railway uses this)
     secret = os.environ.get("SECRET_KEY")
     if secret:
         return secret
 
+    # Priority 2: File-based secret (for local/other deployments)
     secret_file = os.environ.get("DJANGO_SECRET_KEY_FILE")
     if secret_file:
         path = Path(secret_file)
-        if not path.exists():
-            raise ValueError(f"SECRET_KEY file not found at {secret_file}.")
-        try:
-            secret = path.read_text(encoding="utf-8").strip()
-        except OSError as exc:
-            raise ValueError(f"Failed to read SECRET_KEY file {secret_file}: {exc}.") from exc
-        if not secret:
-            raise ValueError("SECRET_KEY file is empty.")
-        return secret
+        if path.exists():
+            try:
+                secret = path.read_text(encoding="utf-8").strip()
+                if secret:
+                    return secret
+            except OSError as exc:
+                raise ValueError(f"Failed to read SECRET_KEY file {secret_file}: {exc}.") from exc
+        # File doesn't exist - this is OK during build phase
+        # Fall through to next option
 
+    # Priority 3: Production check
     if os.environ.get("ENVIRONMENT") == "production":
-        raise ValueError("SECRET_KEY must be set in production!")
+        raise ValueError("SECRET_KEY must be set in production via SECRET_KEY environment variable!")
 
+    # Priority 4: Development fallback
     return get_random_secret_key()
 
 

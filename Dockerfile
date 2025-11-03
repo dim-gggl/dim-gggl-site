@@ -5,9 +5,7 @@ FROM python:3.11-slim
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     DEBUG=0 \
-    ENVIRONMENT=production \
-    ALLOWED_HOSTS=127.0.0.1,localhost,dim-gggl.com,www.dim-gggl.com \
-    DJANGO_SECRET_KEY_FILE=/secrets/django_secret_key.txt
+    ALLOWED_HOSTS=127.0.0.1,localhost,dim-gggl.com,www.dim-gggl.com
 
 WORKDIR /app
 
@@ -27,7 +25,8 @@ COPY . .
 
 # Collect static files at build time (does not require DB)
 # Ensure source static directory exists to silence W004 in production
-RUN python manage.py collectstatic --noinput
+# Use a dummy SECRET_KEY for collectstatic (it doesn't need the real one)
+RUN SECRET_KEY=build-time-secret python manage.py collectstatic --noinput
 
 # Expose default port (Railway will provide $PORT)
 EXPOSE 8000
