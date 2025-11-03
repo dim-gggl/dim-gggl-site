@@ -2,6 +2,7 @@
 {% load static %}
 {% load util_tags %}
 {% load image_helpers %}
+{% load l10n %}
 
 {% block title %}À propos - Dimitri Gaggioli{% endblock %}
 
@@ -130,7 +131,7 @@
           {% for tech in backend_techs %}
             <div>
               <div class="flex justify-between mb-2"><span class="text-[var(--color-text-secondary)] font-medium">{{ tech.name }}</span></div>
-              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r rounded-full" style="width: {{ tech.proficiency|mul:20 }}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
+              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r rounded-full" style="width: {% localize off %}{{ tech.proficiency|mul:20 }}{% endlocalize %}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
             </div>
           {% endfor %}
         </div>
@@ -141,7 +142,7 @@
           {% for tech in frontend_techs %}
             <div>
               <div class="flex justify-between mb-2"><span class="text-[var(--color-text-secondary)] font-medium">{{ tech.name }}</span></div>
-              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r rounded-full" style="width: {{ tech.proficiency|mul:20 }}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
+              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r rounded-full" style="width: {% localize off %}{{ tech.proficiency|mul:20 }}{% endlocalize %}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
             </div>
           {% endfor %}
         </div>
@@ -152,7 +153,7 @@
           {% for tech in database_techs %}
             <div>
               <div class="flex justify-between mb-2"><span class="text-[var(--color-text-secondary)] font-medium">{{ tech.name }}</span></div>
-              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r rounded-full" style="width: {{ tech.proficiency|mul:20 }}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
+              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r rounded-full" style="width: {% localize off %}{{ tech.proficiency|mul:20 }}{% endlocalize %}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
             </div>
           {% endfor %}
         </div>
@@ -163,7 +164,7 @@
           {% for tech in tools %}
             <div>
               <div class="flex justify-between mb-2"><span class="text-[var(--color-text-secondary)] font-medium">{{ tech.name }}</span></div>
-              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r rounded-full" style="width: {{ tech.proficiency|mul:20 }}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
+              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r rounded-full" style="width: {% localize off %}{{ tech.proficiency|mul:20 }}{% endlocalize %}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
             </div>
           {% endfor %}
         </div>

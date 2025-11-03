@@ -22,7 +22,7 @@
   }
   .project-hero { 
     background: linear-gradient(
-      135deg, var(--project-primary) 0%, var(--project-secondary) 100%
+      135deg, #000000 0%, #00000000 100%
     ); 
   }
   .accent-color { color: var(--project-primary); }
@@ -43,17 +43,17 @@
 {% endblock %}
 
 {% block content %}
-<section class="project-hero relative min-h-[60vh] flex items-center justify-center text-white overflow-hidden">
+<section class="project-hero relative min-h-[60vh] flex items-center justify-center text-white overflow-hidden border-1 border-[color:var(--color-accent-primary)]">
   <div class="absolute inset-0 opacity-10">
     <div class="absolute inset-0" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 40px 40px;"></div>
   </div>
   <div class="relative z-10 max-w-5xl mx-auto px-4 py-20 text-center">
     <div class="mb-6">
-      <span class="inline-block px-4 py-2 rounded-full text-sm font-medium bg-black/30 backdrop-blur-sm border border-white/20">{{ project.category.name }}</span>
+      <span class="inline-block px-4 py-2 rounded-full text-sm font-medium bg-black/30 backdrop-blur-sm border border-white/20 font-family: var(--font-mono);">{{ project.category.name }}</span>
     </div>
     {% if project.logo %}{% lazy_img project.logo.url alt=project.title|add:" logo" css_class="w-24 h-24 mx-auto mb-6 object-contain" width=96 height=96 %}{% endif %}
-    <h1 class="text-5xl md:text-7xl font-bold mb-6 drop-shadow-lg">{{ project.title }}</h1>
-    <p class="text-2xl md:text-3xl text-white/90 mb-8 font-light">{{ project.tagline }}</p>
+    <h1 class="text-5xl md:text-7xl font-bold mb-6 drop-shadow-lg font-mono">{{ project.title }}</h1>
+    <p class="text-2xl md:text-3xl text-white/90 mb-8 font-light font-mono">{{ project.tagline }}</p>
     <div class="flex flex-wrap gap-3 justify-center mb-10">
       {% for tech in project.technologies.all %}
         <span class="px-4 py-2 rounded-lg bg-black/30 backdrop-blur-sm border border-white/20 text-white font-medium hover:bg-black/40 transition">{{ tech.name }}</span>
@@ -69,6 +69,11 @@
       {% if project.demo_url %}
         <a href="{{ project.demo_url }}" target="_blank" class="inline-flex items-center gap-2 px-8 py-4 bg-black/30 backdrop-blur-sm text-white font-semibold rounded-lg hover:bg-black/40 transition border border-white/20">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+          Voir la démo
+        </a>
+      {% endif %}
+      {% if project.title == "Aura" %}
+        <a href="{% static 'aura/Aura_home.html' %}" target="_blank" class="inline-flex items-center gap-2 px-8 py-4 bg-black/30 backdrop-blur-sm text-white font-semibold rounded-lg hover:bg-black/40 transition border border-white/20">
           Voir la démo
         </a>
       {% endif %}
