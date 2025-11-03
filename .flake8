@@ -9,5 +9,5 @@ exclude =
     staticfiles,
     media,
     node_modules
-max-line-length = 100
+max-line-length = 79
 extend-ignore = E203, W503
