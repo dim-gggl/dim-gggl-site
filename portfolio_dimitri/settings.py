@@ -72,7 +72,7 @@ SITE_URL = os.environ.get(
 # Allowed hosts
 ALLOWED_HOSTS = [
     h.strip()
-    for h in os.environ.get("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+    for h in os.environ.get("ALLOWED_HOSTS", "192.168.1.134,192.168.1.169,127.0.0.1,localhost").split(",")
     if h.strip()
 ]
 
@@ -490,8 +490,8 @@ PORTFOLIO_PERSON = {
 
 # Project list constants
 PROJECTS_PER_PAGE = 6
-FEATURED_PROJECTS_COUNT = 2
-SIMILAR_PROJECTS_COUNT = 2
+FEATURED_PROJECTS_COUNT = 3
+SIMILAR_PROJECTS_COUNT = 3
 
 
 # ==============================================================================

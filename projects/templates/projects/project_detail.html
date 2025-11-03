@@ -94,13 +94,35 @@
   </div>
 </section>
 
-{% if project.features %}
+{% if project.gallery_images.all %}
 <section class="bg-[var(--color-bg-primary)] py-16 px-4">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl font-bold text-[var(--color-text-primary)] mb-12 text-center">Captures <span class="accent-color">d'écran</span></h2>
+    <div class="grid md:grid-cols-2 gap-8">
+      {% for image in project.gallery_images.all %}
+        <div class="group">
+          <div class="relative overflow-hidden rounded-xl border border-neutral-800 hover:accent-border transition shadow-lg hover:shadow-2xl">
+            {% lazy_img image.image.url alt=image.caption css_class="w-full h-auto object-cover" width=800 height=600 %}
+            {% if image.caption %}
+              <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <p class="text-white text-sm font-medium">{{ image.caption }}</p>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if project.features %}
+<section class="bg-[var(--color-bg-secondary)] py-16 px-4">
   <div class="max-w-5xl mx-auto">
     <h2 class="text-3xl font-bold text-[var(--color-text-primary)] mb-12 text-center">Fonctionnalités <span class="accent-color">principales</span></h2>
     <div class="space-y-6">
       {% for feature in project.features %}
-        <div class="feature-item flex gap-4 p-6 bg-[var(--color-bg-secondary)] rounded-lg border border-neutral-800 hover:border-opacity-50 hover:accent-border transition group">
+        <div class="feature-item flex gap-4 p-6 bg-[var(--color-bg-primary)] rounded-lg border border-neutral-800 hover:border-opacity-50 hover:accent-border transition group">
           <div class="flex-shrink-0">
             <div class="w-8 h-8 rounded-full accent-bg flex items-center justify-center group-hover:scale-110 transition">
               <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
@@ -223,13 +245,13 @@
   </div>
 </section>
 
-<section class="accent-gradient py-16 px-4">
+<section class="bg-black py-16 px-4 mx-4 mb-8 rounded-2xl border-2 border-[color:var(--color-accent-primary)]">
   <div class="max-w-4xl mx-auto text-center">
-    <h2 class="text-3xl md:text-4xl font-bold text-[var(--color-text-primary)] mb-4">Ce projet vous intéresse ?</h2>
-    <p class="text-xl text-[var(--color-text-primary)]/90 mb-8">Discutons de la façon dont je peux vous aider sur votre prochain projet</p>
+    <h2 class="text-3xl md:text-4xl font-bold text-[color:var(--color-accent-primary)] mb-4 font-mono">Ce projet vous intéresse ?</h2>
+    <p class="text-xl text-[color:var(--color-accent-primary)]/80 mb-8 font-mono">Discutons de la façon dont je peux vous aider sur votre prochain projet</p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="{% url 'projects:list' %}" class="px-8 py-4 bg-[var(--color-text-primary)] text-[var(--color-bg-primary)] font-semibold rounded-lg hover:bg-[var(--color-text-primary)]/90 transition shadow-lg">Voir tous les projets</a>
-      <a href="{% url 'core:contact' %}" class="px-8 py-4 bg-[var(--color-bg-primary)]/20 backdrop-blur-sm text-[var(--color-text-primary)] font-semibold rounded-lg hover:bg-[var(--color-bg-primary)]/30 transition border border-[var(--color-text-primary)]/20">Me contacter</a>
+      <a href="mailto:dimitri.gaggioli@gmail.com" class="px-8 py-4 bg-[color:var(--color-accent-primary)] text-black font-semibold rounded-lg hover:bg-[color:var(--color-accent-hover)] transition shadow-lg shadow-[color:var(--color-accent-primary)]/20 font-mono">Me contacter</a>
+      <a href="{% url 'projects:list' %}" class="px-8 py-4 bg-transparent text-[color:var(--color-accent-primary)] font-semibold rounded-lg hover:bg-[color:var(--color-accent-primary)]/10 transition border-2 border-[color:var(--color-accent-primary)] font-mono">Voir tous les projets</a>
     </div>
   </div>
 </section>

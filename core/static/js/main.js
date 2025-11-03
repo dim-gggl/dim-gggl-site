@@ -136,4 +136,31 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// Navbar hide on footer intersection
+document.addEventListener('DOMContentLoaded', () => {
+  const navbar = document.querySelector('header');
+  const footer = document.querySelector('footer');
+
+  if (!navbar || !footer) return;
+
+  // Use IntersectionObserver to detect when footer enters viewport
+  const footerObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // Footer is visible, hide navbar by translating it up
+        navbar.style.transform = 'translateY(-100%)';
+      } else {
+        // Footer not visible, show navbar
+        navbar.style.transform = 'translateY(0)';
+      }
+    });
+  }, {
+    // Trigger when footer starts entering the viewport
+    threshold: 0,
+    rootMargin: '0px'
+  });
+
+  footerObserver.observe(footer);
+});
+
 

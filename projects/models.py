@@ -128,7 +128,7 @@ class Project(models.Model):
     # Visual identity
     primary_color = models.CharField(
         max_length=7,
-        default="#ff6b35",
+        default="#95ff17",
         validators=[validate_hex_color],
         help_text="Primary HEX color",
     )

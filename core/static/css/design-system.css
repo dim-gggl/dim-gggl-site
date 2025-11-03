@@ -8,6 +8,7 @@
   --color-accent-primary: #ef0041;
   --color-accent-secondary: #ec3767;
   --color-accent-hover: #e76387;
+  --color-logo-accent: #95ff17;
 
   /* Text */
   --color-text-primary: #eaeaea;
@@ -69,4 +70,11 @@ html, body {
 .glitch::before { transform: translate(1px, 0); color: #ff0066; }
 .glitch::after { transform: translate(-1px, 0); color: #00e1ff; }
 
+.logo:hover {
+  text-shadow: none;
+}
+
+.navlink:hover {
+  color: var(--color-logo-accent);
+}
 

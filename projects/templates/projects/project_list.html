@@ -32,6 +32,7 @@
   .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .h-\[400px\] { height: 400px; }
   .h-\[300px\] { height: 300px; }
+  .collapsible-filter summary::-webkit-details-marker { display: none; }
 </style>
 {% endblock %}
 
@@ -70,15 +71,31 @@
           </select>
         </div>
       </div>
-      <div class="flex flex-wrap gap-2">
-        <span class="text-[var(--color-text-muted)] text-sm self-center mr-2">Technologies :</span>
-        {% for tech in technologies %}
-          <label class="cursor-pointer">
-            <input type="checkbox" name="tech" value="{{ tech.slug }}" {% if tech.slug in active_tech_slugs %}checked{% endif %} onchange="document.getElementById('filter-form').submit()" class="hidden peer">
-            <span class="filter-badge inline-block px-3 py-1.5 rounded-full text-sm border border-neutral-800 peer-checked:border-[color:var(--color-accent-primary)] peer-checked:bg-[color:var(--color-accent-primary)] peer-checked:text-black text-[var(--color-text-secondary)] hover:border-[color:var(--color-accent-primary)]">{{ tech.name }} <span class="text-xs opacity-70">({{ tech.project_count }})</span></span>
-          </label>
-        {% endfor %}
-      </div>
+      <details id="technology-filter" class="collapsible-filter group bg-[var(--color-bg-tertiary)]/60 border border-neutral-800 rounded-lg">
+        <summary class="flex items-center justify-between gap-4 w-full px-4 py-3 cursor-pointer text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition">
+          <span class="flex items-center gap-2 font-medium text-sm md:text-base">
+            <svg class="w-4 h-4 md:w-5 md:h-5 text-[color:var(--color-accent-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+            <span>Technologies ({{ technologies|length }})</span>
+          </span>
+          <span class="flex items-center gap-3">
+            {% if active_tech_slugs %}
+              <span class="inline-flex items-center gap-1 text-xs text-[color:var(--color-accent-primary)] bg-[color:var(--color-accent-primary)]/15 px-2 py-1 rounded-full">{{ active_tech_slugs|length }} sélection{{ active_tech_slugs|pluralize:'s' }}</span>
+            {% endif %}
+            <svg class="w-5 h-5 text-[var(--color-text-muted)] transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+          </span>
+        </summary>
+        <div class="px-4 pb-4">
+          <p class="text-xs text-[var(--color-text-muted)] mb-3">Sélectionnez une ou plusieurs technologies pour affiner la liste.</p>
+          <div class="flex flex-wrap gap-2">
+            {% for tech in technologies %}
+              <label class="cursor-pointer">
+                <input type="checkbox" name="tech" value="{{ tech.slug }}" {% if tech.slug in active_tech_slugs %}checked{% endif %} onchange="document.getElementById('filter-form').submit()" class="hidden peer">
+                <span class="filter-badge inline-block px-3 py-1.5 rounded-full text-sm border border-neutral-800 peer-checked:border-[color:var(--color-accent-primary)] peer-checked:bg-[color:var(--color-accent-primary)] peer-checked:text-black text-[var(--color-text-secondary)] hover:border-[color:var(--color-accent-primary)]">{{ tech.name }} <span class="text-xs opacity-70">({{ tech.project_count }})</span></span>
+              </label>
+            {% endfor %}
+          </div>
+        </div>
+      </details>
 
       {% if active_tech_slugs or active_category or search_query %}
         <div class="flex flex-wrap gap-2 items-center pt-2 border-t border-neutral-800">
@@ -101,6 +118,17 @@
         {% endif %}
       </div>
     </form>
+    <script>
+      (function () {
+        const technologyFilter = document.getElementById('technology-filter');
+        if (!technologyFilter) {
+          return;
+        }
+        if (window.matchMedia('(min-width: 1024px)').matches) {
+          technologyFilter.setAttribute('open', '');
+        }
+      })();
+    </script>
   </div>
 </section>
 
@@ -111,14 +139,14 @@
         {% for project in projects %}
           <article class="project-card-wrapper group">
             <a href="{% url 'projects:detail' project.slug %}" class="block">
-              <div class="project-card relative h-[400px] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow" style="border: 2px solid {{ project.primary_color }}20;">
-                <div class="absolute inset-0 bg-gradient-to-br" style="background: linear-gradient(135deg, {{ project.primary_color }}40 0%, {{ project.secondary_color }}40 100%);">
+              <div class="project-card relative h-[400px] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow" style="border: 2px solid #94db40;">
+                <div class="absolute inset-0 bg-gradient-to-br" style="background: linear-gradient(135deg, var(--color-bg-primary) 40%, #000000 100%);">
                   <div class="absolute inset-0 bg-gradient-to-br from-[var(--color-bg-secondary)] to-[var(--color-bg-primary)] opacity-80"></div>
                 </div>
                 <div class="project-card-overlay absolute inset-0"></div>
                 <div class="relative h-full flex flex-col justify-between p-6">
                   <div class="flex justify-between items-start">
-                    <span class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-black/50 backdrop-blur-sm border" style="color: {{ project.primary_color }}; border-color: {{ project.primary_color }};">{{ project.category.name }}</span>
+                    <span class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-black/50 backdrop-blur-sm border" style="color: #94db40; border-color: #94db40;">{{ project.category.name }}</span>
                     <div class="flex gap-2">
                       {% if project.github_url %}
                         <span class="w-8 h-8 rounded-full bg-[var(--color-bg-primary)]/50 backdrop-blur-sm flex items-center justify-center border border-neutral-800 group-hover:border-[color:var(--color-accent-primary)] transition">
@@ -145,7 +173,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r transition-all duration-300 transform translate-y-1 group-hover:translate-y-0" style="background: linear-gradient(90deg, {{ project.primary_color }}, {{ project.secondary_color }});"></div>
+                <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r transition-all duration-300 transform translate-y-1 group-hover:translate-y-0" style="background: linear-gradient(90deg, var(--color-bg-primary), #000000);"></div>
               </div>
             </a>
           </article>
@@ -184,13 +212,13 @@
   </div>
 </section>
 
-<section class="bg-gradient-to-br from-[color:var(--color-accent-primary)] to-[color:var(--color-accent-hover)] py-16 px-4">
+<section class="bg-black py-16 px-4 mx-4 mb-8 rounded-2xl border-2 border-[color:var(--color-accent-primary)]">
   <div class="max-w-4xl mx-auto text-center">
-    <h2 class="text-3xl md:text-4xl font-bold text-[var(--color-text-primary)] mb-4">Intéressé par mon travail ?</h2>
-    <p class="text-xl text-[var(--color-text-primary)]/90 mb-8">N'hésitez pas à me contacter pour discuter de vos projets</p>
+    <h2 class="text-3xl md:text-4xl font-bold text-[color:var(--color-accent-primary)] mb-4 font-mono">Intéressé par mon travail ?</h2>
+    <p class="text-xl text-[color:var(--color-accent-primary)]/80 mb-8 font-mono">N'hésitez pas à me contacter pour discuter de vos projets</p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="{% url 'core:contact' %}" class="px-8 py-4 bg-[var(--color-text-primary)] text-[color:var(--color-accent-primary)] font-semibold rounded-lg hover:bg-[var(--color-text-primary)]/90 transition shadow-lg">Me contacter</a>
-      <a href="https://github.com/dim-gggl" target="_blank" class="px-8 py-4 bg-[var(--color-bg-primary)]/20 backdrop-blur-sm text-[var(--color-text-primary)] font-semibold rounded-lg hover:bg-[var(--color-bg-primary)]/30 transition border border-[var(--color-text-primary)]/20">Voir mon GitHub</a>
+      <a href="mailto:dimitri.gaggioli@gmail.com" class="px-8 py-4 bg-[color:var(--color-accent-primary)] text-black font-semibold rounded-lg hover:bg-[color:var(--color-accent-hover)] transition shadow-lg shadow-[color:var(--color-accent-primary)]/20 font-mono">Me contacter</a>
+      <a href="https://github.com/dim-gggl" target="_blank" class="px-8 py-4 bg-transparent text-[color:var(--color-accent-primary)] font-semibold rounded-lg hover:bg-[color:var(--color-accent-primary)]/10 transition border-2 border-[color:var(--color-accent-primary)] font-mono">Voir mon GitHub</a>
     </div>
   </div>
 </section>

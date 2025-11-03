@@ -30,9 +30,9 @@
       <!-- Photo et infos principales -->
       <div class="text-center md:text-left">
         <div class="inline-block mb-8">
-          <div class="w-48 h-48 rounded-full overflow-hidden border-4 border-orange-500 shadow-2xl mx-auto md:mx-0">
+          <div class="w-48 h-64 rounded-3xl overflow-hidden border border-[color:var(--color-accent-primary)] shadow-2xl mx-auto md:mx-0">
             {% static 'images/Dimitri_Gaggioli.png' as profile_image %}
-            {% static 'images/about.png' as fallback_image %}
+            {% static 'images/profile-photo.png' as fallback_image %}
             {% lazy_img profile_image alt='Dimitri Gaggioli' css_class='w-full h-full object-cover' width=192 height=192 fallback=fallback_image %}
           </div>
         </div>
@@ -43,13 +43,9 @@
           <span class="px-4 py-2 bg-[color:var(--color-accent-primary)]/20 border border-[color:var(--color-accent-primary)] text-[color:var(--color-accent-primary)] rounded-full font-medium">Code.</span>
           <span class="px-4 py-2 bg-[color:var(--color-accent-primary)]/20 border border-[color:var(--color-accent-primary)] text-[color:var(--color-accent-primary)] rounded-full font-medium">Push.</span>
         </div>
-        <!-- CTA Buttons -->
-        <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-          <a href="{{ MEDIA_URL }}cv/CV_DEVPYTH.pdf" download class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[color:var(--color-accent-primary)] text-[var(--color-text-primary)] font-semibold rounded-lg hover:bg-[color:var(--color-accent-hover)] transition shadow-lg">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-            Télécharger mon CV
-          </a>
-          <a href="{% url 'core:contact' %}" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)] font-semibold rounded-lg hover:bg-neutral-800 transition border border-neutral-800">
+        <!-- CTA Button -->
+        <div class="flex justify-center md:justify-start">
+          <a href="mailto:dimitri.gaggioli@gmail.com" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[color:var(--color-accent-primary)] text-[var(--color-text-primary)] font-semibold rounded-lg hover:bg-[color:var(--color-accent-hover)] transition shadow-lg">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
             Me contacter
           </a>
@@ -71,10 +67,10 @@
   <div class="max-w-4xl mx-auto">
     <h2 class="text-4xl font-bold text-[var(--color-text-primary)] mb-8 text-center">Qui suis-je <span class="text-[color:var(--color-accent-primary)]">?</span></h2>
     <div class="space-y-6 text-[var(--color-text-secondary)] text-lg leading-relaxed">
-      <p><strong class="text-[var(--color-text-primary)]">Développeur Python orienté backend</strong>, je conçois des applications robustes, scalables et maintenables. Ma philosophie de développement se résume en trois mots : <span class="text-[color:var(--color-accent-primary)] font-semibold">Think. Code. Push.</span>.</p>
-      <p>Passionné par <strong class="text-[var(--color-text-primary)]">Django</strong>, les <strong class="text-[var(--color-text-primary)]">APIs REST</strong>, et les <strong class="text-[var(--color-text-primary)]">CLIs modernes</strong>, j'ai développé une solide expertise dans la création d'outils et d'applications backend performantes. Je privilégie les environnements reproductibles (uv), la documentation exploitable, et le code testé.</p>
+      <p><strong class="text-[var(--color-text-primary)]">Développeur Python orienté backend</strong>, je conçois des app robustes, scalables et maintenables.</p>
+      <p>Formé à <strong class="text-[var(--color-text-primary)]">Django</strong>, aux <strong class="text-[var(--color-text-primary)]">APIs REST</strong>, et aux <strong class="text-[var(--color-text-primary)]">CLIs modernes</strong>, j'ai développé une solide expertise dans la création d'outils et d'applications backend performantes. Je privilégie les environnements reproductibles (uv), la documentation exploitable, et le code testé.</p>
+      <p>Passionné par l'<strong class="text-[var(--color-text-primary)]">IA</strong> générative, je me forme en continu à la <strong class="text-[var(--color-text-primary)]">programmation agentique</strong>, et au <strong class="text-[var(--color-text-primary)]">prompt engineering</strong>, je me forge une base solide d'outils et de connaissances pour intgrer ces nouvelles technologies à mon environnement de travail.</p>
       <p>Au-delà du code, je suis également sensible à l'<strong class="text-[var(--color-text-primary)]">expérience utilisateur</strong> et au <strong class="text-[var(--color-text-primary)]">design</strong>. J'aime créer des interfaces qui allient fonctionnalité et esthétique, comme en témoignent mes projets personnels.</p>
-      <p>Actuellement en formation <strong class="text-[var(--color-text-primary)]">Développement Web Python</strong> chez OpenClassrooms (2024-2025), après un Master 1 en Cinéma et 14 ans d'expérience en management dans l'hôtellerie-restauration.</p>
     </div>
   </div>
 </section>
@@ -129,45 +125,45 @@
     <h2 class="text-4xl font-bold text-[var(--color-text-primary)] mb-12 text-center">Stack <span class="text-[color:var(--color-accent-primary)]">technique</span></h2>
     <div class="grid md:grid-cols-2 gap-8">
       <div class="bg-[var(--color-bg-secondary)] p-8 rounded-xl border border-neutral-800">
-        <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center gap-3"><span class="text-3xl">⚙️</span>Backend</h3>
+        <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center gap-3">Backend</h3>
         <div class="space-y-4">
           {% for tech in backend_techs %}
             <div>
-              <div class="flex justify-between mb-2"><span class="text-[var(--color-text-secondary)] font-medium">{{ tech.name }}</span><span class="text-[color:var(--color-accent-primary)]">{{ tech.proficiency }}/5</span></div>
-              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r from-[color:var(--color-accent-primary)] to-[color:var(--color-accent-hover)] rounded-full" style="width: {{ tech.proficiency|mul:20 }}%"></div></div>
+              <div class="flex justify-between mb-2"><span class="text-[var(--color-text-secondary)] font-medium">{{ tech.name }}</span></div>
+              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r rounded-full" style="width: {{ tech.proficiency|mul:20 }}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
             </div>
           {% endfor %}
         </div>
       </div>
       <div class="bg-[var(--color-bg-secondary)] p-8 rounded-xl border border-neutral-800">
-        <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center gap-3"><span class="text-3xl">🎨</span>Frontend</h3>
+        <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center gap-3">Frontend</h3>
         <div class="space-y-4">
           {% for tech in frontend_techs %}
             <div>
-              <div class="flex justify-between mb-2"><span class="text-[var(--color-text-secondary)] font-medium">{{ tech.name }}</span><span class="text-[color:var(--color-accent-primary)]">{{ tech.proficiency }}/5</span></div>
-              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r from-[color:var(--color-accent-primary)] to-[color:var(--color-accent-hover)] rounded-full" style="width: {{ tech.proficiency|mul:20 }}%"></div></div>
+              <div class="flex justify-between mb-2"><span class="text-[var(--color-text-secondary)] font-medium">{{ tech.name }}</span></div>
+              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r rounded-full" style="width: {{ tech.proficiency|mul:20 }}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
             </div>
           {% endfor %}
         </div>
       </div>
       <div class="bg-[var(--color-bg-secondary)] p-8 rounded-xl border border-neutral-800">
-        <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center gap-3"><span class="text-3xl">🗄️</span>Bases de données</h3>
+        <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center gap-3">Bases de données</h3>
         <div class="space-y-4">
           {% for tech in database_techs %}
             <div>
-              <div class="flex justify-between mb-2"><span class="text-[var(--color-text-secondary)] font-medium">{{ tech.name }}</span><span class="text-[color:var(--color-accent-primary)]">{{ tech.proficiency }}/5</span></div>
-              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r from-[color:var(--color-accent-primary)] to-[color:var(--color-accent-hover)] rounded-full" style="width: {{ tech.proficiency|mul:20 }}%"></div></div>
+              <div class="flex justify-between mb-2"><span class="text-[var(--color-text-secondary)] font-medium">{{ tech.name }}</span></div>
+              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r rounded-full" style="width: {{ tech.proficiency|mul:20 }}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
             </div>
           {% endfor %}
         </div>
       </div>
       <div class="bg-[var(--color-bg-secondary)] p-8 rounded-xl border border-neutral-800">
-        <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center gap-3"><span class="text-3xl">🛠️</span>Outils</h3>
+        <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center gap-3">Outils</h3>
         <div class="space-y-4">
           {% for tech in tools %}
             <div>
-              <div class="flex justify-between mb-2"><span class="text-[var(--color-text-secondary)] font-medium">{{ tech.name }}</span><span class="text-[color:var(--color-accent-primary)]">{{ tech.proficiency }}/5</span></div>
-              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r from-[color:var(--color-accent-primary)] to-[color:var(--color-accent-hover)] rounded-full" style="width: {{ tech.proficiency|mul:20 }}%"></div></div>
+              <div class="flex justify-between mb-2"><span class="text-[var(--color-text-secondary)] font-medium">{{ tech.name }}</span></div>
+              <div class="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden"><div class="skill-bar h-full bg-gradient-to-r rounded-full" style="width: {{ tech.proficiency|mul:20 }}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
             </div>
           {% endfor %}
         </div>
@@ -182,13 +178,11 @@
     <h2 class="text-4xl font-bold text-[var(--color-text-primary)] mb-12 text-center">Centres d'<span class="text-[color:var(--color-accent-primary)]">intérêt</span></h2>
     <div class="grid md:grid-cols-2 gap-8">
       <div class="bg-[var(--color-bg-primary)] p-8 rounded-xl border border-neutral-800 hover:border-[color:var(--color-accent-primary)] transition group">
-        <div class="text-5xl mb-4">📖</div>
         <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-3 group-hover:text-[color:var(--color-accent-primary)] transition">Poésie</h3>
         <p class="text-[var(--color-text-secondary)] mb-4">Écriture et partage de poésie sur Instagram sous le pseudonyme <a href="https://instagram.com/remo_nesa" target="_blank" class="text-[color:var(--color-accent-primary)] hover:text-[color:var(--color-accent-hover)]">@remo_nesa</a>.</p>
         <p class="text-[var(--color-text-muted)] text-sm">L'écriture poétique nourrit ma créativité et ma sensibilité à l'esthétique.</p>
       </div>
       <div class="bg-[var(--color-bg-primary)] p-8 rounded-xl border border-neutral-800 hover:border-[color:var(--color-accent-primary)] transition group">
-        <div class="text-5xl mb-4">🎬</div>
         <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-3 group-hover:text-[color:var(--color-accent-primary)] transition">Cinéma & Programmation</h3>
         <p class="text-[var(--color-text-secondary)] mb-4">Passionné de cinéma, j'ai également fait de la programmation de films au Cinéma La Clef <a href="https://instagram.com/laclefrevival" target="_blank" class="text-[color:var(--color-accent-primary)] hover:text-[color:var(--color-accent-hover)]">@laclefrevival</a>.</p>
       </div>
@@ -210,13 +204,13 @@
 </section>
 
 <!-- CTA -->
-<section class="bg-gradient-to-br from-[color:var(--color-accent-primary)] to-[color:var(--color-accent-hover)] py-16 px-4">
+<section class="bg-black py-16 px-4 mx-4 mb-8 rounded-2xl border-2 border-[color:var(--color-accent-primary)]">
   <div class="max-w-4xl mx-auto text-center">
-    <h2 class="text-3xl md:text-4xl font-bold text-[var(--color-text-primary)] mb-4">Travaillons ensemble !</h2>
-    <p class="text-xl text-[var(--color-text-primary)]/90 mb-8">Je suis disponible pour des opportunités de collaboration</p>
+    <h2 class="text-3xl md:text-4xl font-bold text-[color:var(--color-accent-primary)] mb-4 font-mono">Travaillons ensemble !</h2>
+    <p class="text-xl text-[color:var(--color-accent-primary)]/80 mb-8 font-mono">Je suis disponible pour des opportunités de collaboration</p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="{% url 'core:contact' %}" class="px-8 py-4 bg-[var(--color-text-primary)] text-[color:var(--color-accent-primary)] font-semibold rounded-lg hover:bg-[var(--color-text-primary)]/90 transition shadow-lg">Me contacter</a>
-      <a href="{% url 'projects:list' %}" class="px-8 py-4 bg-[var(--color-bg-primary)]/20 backdrop-blur-sm text-[var(--color-text-primary)] font-semibold rounded-lg hover:bg-[var(--color-bg-primary)]/30 transition border border-[var(--color-text-primary)]/20">Voir mes projets</a>
+      <a href="mailto:dimitri.gaggioli@gmail.com" class="px-8 py-4 bg-[color:var(--color-accent-primary)] text-black font-semibold rounded-lg hover:bg-[color:var(--color-accent-hover)] transition shadow-lg shadow-[color:var(--color-accent-primary)]/20 font-mono">Me contacter</a>
+      <a href="{% url 'projects:list' %}" class="px-8 py-4 bg-transparent text-[color:var(--color-accent-primary)] font-semibold rounded-lg hover:bg-[color:var(--color-accent-primary)]/10 transition border-2 border-[color:var(--color-accent-primary)] font-mono">Voir mes projets</a>
     </div>
   </div>
 </section>
