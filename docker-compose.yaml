@@ -11,19 +11,7 @@ services:
     environment:
       DEBUG: "1"
       DB_ENGINE: django.db.backends.sqlite3
-      DB_NAME: db.sqlite3
+      DB_NAME: /app/db.sqlite3
     volumes:
       - .:/app
     command: sh -c "python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000"
-    depends_on:
-      - db
-
-  db:
-    image: sqlite:3.44
-    environment:
-      DB_NAME: db.sqlite3
-    volumes:
-      - sqlite_data:/var/lib/sqlite
-
-volumes:
-  sqlite_data:

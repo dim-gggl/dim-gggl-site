@@ -1,4 +1,0 @@
-# Ignore cache files produced by Django file-based cache backend
-*
-!.gitignore
-
