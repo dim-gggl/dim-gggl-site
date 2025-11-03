@@ -12,6 +12,8 @@ WORKDIR /app
 # System dependencies (only what's needed at runtime)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     postgresql-client \
+    nodejs \
+    npm \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
@@ -23,12 +25,14 @@ RUN python -m pip install --upgrade pip && \
 # Copy project code
 COPY . .
 
+# Install Tailwind toolchain dependencies (npm packages)
+RUN python manage.py tailwind install
+
 # Collect static files at build time (does not require DB)
 # Ensure source static directory exists to silence W004 in production
 # Use a dummy SECRET_KEY for collectstatic (it doesn't need the real one)
 RUN python manage.py tailwind build && \
-    SECRET_KEY=build-time-secret \ 
-    python manage.py collectstatic --noinput && \
+    SECRET_KEY=build-time-secret python manage.py collectstatic --noinput && \
     python manage.py compress
 
 # Expose default port (Railway will provide $PORT)
