@@ -63,21 +63,24 @@ class AboutView(TemplateView):
         context["total_projects"] = Project.published.count()
         context["technologies_count"] = Technology.objects.count()
         context["years_experience"] = settings.PORTFOLIO_PERSON["years_experience"]
-        
 
         # Technologies by category with color gradient based on proficiency
         context["backend_techs"] = self._add_skill_colors(
-            Technology.objects.filter(
-                category__in=["backend", "language"]
-            ).order_by("-proficiency", "name")
+            Technology.objects.filter(category__in=["backend", "language"]).order_by(
+                "-proficiency", "name"
+            )
         )
 
         context["frontend_techs"] = self._add_skill_colors(
-            Technology.objects.filter(category="frontend").order_by("-proficiency", "name")
+            Technology.objects.filter(category="frontend").order_by(
+                "-proficiency", "name"
+            )
         )
 
         context["database_techs"] = self._add_skill_colors(
-            Technology.objects.filter(category="database").order_by("-proficiency", "name")
+            Technology.objects.filter(category="database").order_by(
+                "-proficiency", "name"
+            )
         )
 
         context["tools"] = self._add_skill_colors(
@@ -118,8 +121,6 @@ class CompetencesView(TemplateView):
     template_name = "core/competences.html"
 
 
-
-
 class RobotsTxtView(TemplateView):
     """Serve the robots.txt content dynamically."""
 
@@ -137,4 +138,3 @@ class RobotsTxtView(TemplateView):
 def ratelimit_error(request, exception=None):
     """Custom error page for rate-limited requests."""
     return HttpResponse("Trop de requêtes. Veuillez réessayer plus tard.", status=429)
-

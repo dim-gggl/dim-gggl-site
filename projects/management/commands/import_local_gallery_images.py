@@ -67,9 +67,7 @@ class Command(BaseCommand):
         dry_run = options["dry_run"]
         force = options["force"]
 
-        self.stdout.write(
-            self.style.SUCCESS("Starting local gallery images import...")
-        )
+        self.stdout.write(self.style.SUCCESS("Starting local gallery images import..."))
 
         if dry_run:
             self.stdout.write(
@@ -81,7 +79,9 @@ class Command(BaseCommand):
 
         if not static_images_dir.exists():
             self.stdout.write(
-                self.style.ERROR(f"Static images directory not found: {static_images_dir}")
+                self.style.ERROR(
+                    f"Static images directory not found: {static_images_dir}"
+                )
             )
             return
 
@@ -92,7 +92,9 @@ class Command(BaseCommand):
         for project_slug, images in self.LOCAL_GALLERY_IMAGES.items():
             try:
                 project = Project.objects.get(slug=project_slug)
-                self.stdout.write(f"\nProcessing project: {project.title} ({project_slug})")
+                self.stdout.write(
+                    f"\nProcessing project: {project.title} ({project_slug})"
+                )
 
                 if force and not dry_run:
                     deleted_count = project.gallery_images.all().delete()[0]
@@ -113,9 +115,7 @@ class Command(BaseCommand):
 
                     if not image_path.exists():
                         self.stdout.write(
-                            self.style.ERROR(
-                                f"  ✗ Image file not found: {filename}"
-                            )
+                            self.style.ERROR(f"  ✗ Image file not found: {filename}")
                         )
                         total_errors += 1
                         continue
@@ -136,7 +136,9 @@ class Command(BaseCommand):
 
                     if dry_run:
                         self.stdout.write(
-                            self.style.NOTICE(f"  [DRY RUN] Would import: {filename} - {caption}")
+                            self.style.NOTICE(
+                                f"  [DRY RUN] Would import: {filename} - {caption}"
+                            )
                         )
                         total_created += 1
                         continue

@@ -134,7 +134,9 @@ class Command(BaseCommand):
         for project_slug, images in self.GALLERY_IMAGES.items():
             try:
                 project = Project.objects.get(slug=project_slug)
-                self.stdout.write(f"\nProcessing project: {project.title} ({project_slug})")
+                self.stdout.write(
+                    f"\nProcessing project: {project.title} ({project_slug})"
+                )
 
                 if force and not dry_run:
                     deleted_count = project.gallery_images.all().delete()[0]
@@ -194,16 +196,12 @@ class Command(BaseCommand):
                             save=True,
                         )
 
-                        self.stdout.write(
-                            self.style.SUCCESS(f"  ✓ Created: {caption}")
-                        )
+                        self.stdout.write(self.style.SUCCESS(f"  ✓ Created: {caption}"))
                         total_created += 1
 
                     except requests.RequestException as e:
                         self.stdout.write(
-                            self.style.ERROR(
-                                f"  ✗ Failed to download {url}: {str(e)}"
-                            )
+                            self.style.ERROR(f"  ✗ Failed to download {url}: {str(e)}")
                         )
                         total_errors += 1
                     except Exception as e:

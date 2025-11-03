@@ -45,13 +45,17 @@ def _load_secret_key():
                 if secret:
                     return secret
             except OSError as exc:
-                raise ValueError(f"Failed to read SECRET_KEY file {secret_file}: {exc}.") from exc
+                raise ValueError(
+                    f"Failed to read SECRET_KEY file {secret_file}: {exc}."
+                ) from exc
         # File doesn't exist - this is OK during build phase
         # Fall through to next option
 
     # Priority 3: Production check
     if os.environ.get("ENVIRONMENT") == "production":
-        raise ValueError("SECRET_KEY must be set in production via SECRET_KEY environment variable!")
+        raise ValueError(
+            "SECRET_KEY must be set in production via SECRET_KEY environment variable!"
+        )
 
     # Priority 4: Development fallback
     return get_random_secret_key()
@@ -76,7 +80,9 @@ SITE_URL = os.environ.get(
 # Allowed hosts
 ALLOWED_HOSTS = [
     h.strip()
-    for h in os.environ.get("ALLOWED_HOSTS", "192.168.1.134,192.168.1.169,127.0.0.1,localhost").split(",")
+    for h in os.environ.get(
+        "ALLOWED_HOSTS", "192.168.1.134,192.168.1.169,127.0.0.1,localhost"
+    ).split(",")
     if h.strip()
 ]
 
