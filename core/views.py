@@ -27,7 +27,7 @@ class HomeView(TemplateView):
         # Featured projects with optimized query
         projects_list = [proj.id for proj in Project.published.filter(is_featured=True)]
         featured_ids = []
-        while len(featured_ids) < settings.FEATURED_PROJECTS_COUNT:
+        while len(featured_ids) < settings.FEATURED_PROJECTS_COUNT and projects_list:
             idx = random.randint(0, len(projects_list) - 1)
             featured_ids.append(projects_list.pop(idx))
         featured_projects = [Project.published.get(id=id) for id in featured_ids]

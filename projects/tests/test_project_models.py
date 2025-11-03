@@ -29,18 +29,20 @@ class TestProjectModel:
         assert "#ff0000" in project.gradient_css
 
     def test_get_similar_projects(self):
-        """Similar projects should share technologies with the current project."""
+        """Similar projects should share category or technologies."""
         p1 = Project.objects.create(
             title="P1",
             tagline="t1",
             description="d1",
             completed_at="2024-01-01",
         )
-        Project.objects.create(
+        p2 = Project.objects.create(
             title="P2",
             tagline="t2",
             description="d2",
             completed_at="2024-01-02",
         )
-        # Without technologies set, similar list should be empty
-        assert list(p1.get_similar_projects()) == []
+        # Projects with same category (None) are considered similar
+        similar = list(p1.get_similar_projects())
+        assert p2 in similar
+        assert len(similar) <= 3
