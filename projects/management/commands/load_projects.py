@@ -1,13 +1,13 @@
 import json
 import os
 from datetime import date
+from pathlib import Path
 
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 from django.utils.text import slugify
 
 from projects.models import Project, Technology, Category
-
 
 class Command(BaseCommand):
     help = "Load projects from a JSON file into the database."
@@ -30,6 +30,38 @@ class Command(BaseCommand):
 
         if not isinstance(projects_data, list):
             raise CommandError("JSON root must be an array of projects")
+
+        tech_stack_path = Path(settings.BASE_DIR) / "tech_stack.json"
+        if tech_stack_path.exists():
+            try:
+                with tech_stack_path.open("r", encoding="utf-8") as tech_file:
+                    tech_stack = json.load(tech_file)
+            except json.JSONDecodeError as exc:
+                raise CommandError(
+                    f"Invalid JSON format in tech stack file: {tech_stack_path}"
+                ) from exc
+            if not isinstance(tech_stack, dict):
+                raise CommandError(
+                    "tech_stack.json must contain an object mapping technology names to proficiency levels"
+                )
+        else:
+            tech_stack = {}
+            self.stdout.write(
+                self.style.WARNING(
+                    f"⚠ tech_stack.json not found at {tech_stack_path}. Default proficiency levels will be used."
+                )
+            )
+
+        def get_proficiency(tech_name: str, default: int = 4) -> int:
+            value = tech_stack.get(tech_name)
+            if isinstance(value, (int, float)):
+                try:
+                    value_int = int(value)
+                except (TypeError, ValueError):
+                    return default
+                if 1 <= value_int <= 5:
+                    return value_int
+            return default
 
         def generate_unique_slug(model_cls, base_slug: str, exclude_id=None) -> str:
             slug = base_slug or "item"
@@ -151,8 +183,7 @@ class Command(BaseCommand):
                 by_name.category = tech_categories.get(tech_name, "tool")
                 by_name.color = tech_colors.get(tech_name, "#ff6b35")
                 by_name.icon = base_slug
-                if not by_name.proficiency:
-                    by_name.proficiency = 4
+                by_name.proficiency = get_proficiency(tech_name, by_name.proficiency or 4)
                 by_name.save()
                 tech, created = by_name, False
             else:
@@ -163,8 +194,9 @@ class Command(BaseCommand):
                     by_slug.category = tech_categories.get(tech_name, "tool")
                     by_slug.color = tech_colors.get(tech_name, "#ff6b35")
                     by_slug.icon = base_slug
-                    if not by_slug.proficiency:
-                        by_slug.proficiency = 4
+                    by_slug.proficiency = get_proficiency(
+                        tech_name, by_slug.proficiency or 4
+                    )
                     by_slug.save()
                     tech, created = by_slug, False
                 else:
@@ -175,7 +207,7 @@ class Command(BaseCommand):
                         category=tech_categories.get(tech_name, "tool"),
                         color=tech_colors.get(tech_name, "#ff6b35"),
                         icon=base_slug,
-                        proficiency=4,
+                        proficiency=get_proficiency(tech_name),
                     )
                     tech.save()
                     created = True
