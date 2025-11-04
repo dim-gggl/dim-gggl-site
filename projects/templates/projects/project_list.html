@@ -37,60 +37,57 @@
 {% endblock %}
 
 {% block content %}
-<section class="relative bg-gradient-to-br from-[var(--color-bg-secondary)] via-[var(--color-bg-tertiary)] to-[var(--color-bg-primary)] py-20 px-4">
+<section class="relative bg-transparent py-20 px-4">
   <div class="max-w-7xl mx-auto text-center">
-    <h1 class="text-5xl md:text-6xl font-bold text-[var(--color-text-primary)] mb-6">Mes <span class="text-[color:var(--color-accent-primary)]">Projets</span></h1>
-    <p class="text-xl text-[var(--color-text-secondary)] mb-4">{{ total_projects }} projet{{ total_projects|pluralize }} développé{{ total_projects|pluralize }} avec passion</p>
-    <p class="text-[var(--color-text-muted)]">Du backend robuste aux interfaces modernes, découvrez mon parcours</p>
-  </div>
-  </section>
+    <h1 class="text-5xl md:text-6xl font-bold text-(--color-text-primary) mb-6">My <span class="text-(--color-accent-primary)">Projects</span></h1> </div>
+</section>
 
-<section class="bg-[var(--color-bg-secondary)]/80 backdrop-blur border-b border-[var(--color-bg-tertiary)] sticky top-0 z-40 shadow-lg">
+<section class="bg-transparent backdrop-blur border-b border-(--color-bg-tertiary) sticky top-0 z-40 shadow-lg">
   <div class="max-w-7xl mx-auto px-4 py-6">
     <form method="GET" id="filter-form" class="space-y-4">
       <div class="flex flex-col md:flex-row gap-4 items-center">
         <div class="flex-1 w-full">
           <div class="relative">
-            <input type="text" name="q" value="{{ search_query }}" placeholder="Rechercher un projet..." class="w-full bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)] px-4 py-3 pl-12 rounded-lg border border-neutral-800 focus:border-[color:var(--color-accent-primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-accent-primary)]/20 transition">
-            <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--color-text-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+            <input type="text" name="q" value="{{ search_query }}" placeholder="Search a project..." class="w-full bg-(--color-bg-tertiary) text-(--color-text-primary) px-4 py-3 pl-12 rounded-lg border border-neutral-800 focus:border-(--color-accent-primary) focus:outline-none focus:ring-2 focus:ring-(--color-accent-primary)/20 transition">
+            <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-(--color-text-muted)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
           </div>
         </div>
         <div class="w-full md:w-64">
-          <select name="category" onchange="document.getElementById('filter-form').submit()" class="w-full bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)] px-4 py-3 rounded-lg border border-neutral-800 focus:border-[color:var(--color-accent-primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-accent-primary)]/20 transition cursor-pointer">
-            <option value="">Toutes les catégories</option>
+          <select name="category" onchange="document.getElementById('filter-form').submit()" class="w-full bg-(--color-bg-tertiary) text-(--color-text-primary) px-4 py-3 rounded-lg border border-neutral-800 focus:border-(--color-accent-primary) focus:outline-none focus:ring-2 focus:ring-(--color-accent-primary)/20 transition cursor-pointer">
+            <option value="">All categories</option>
             {% for category in categories %}
               <option value="{{ category.slug }}" {% if category.slug == active_category %}selected{% endif %}>{{ category.name }} ({{ category.project_count }})</option>
             {% endfor %}
           </select>
         </div>
         <div class="w-full md:w-48">
-          <select name="sort" onchange="document.getElementById('filter-form').submit()" class="w-full bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)] px-4 py-3 rounded-lg border border-neutral-800 focus:border-[color:var(--color-accent-primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-accent-primary)]/20 transition cursor-pointer">
-            <option value="order" {% if current_sort == 'order' %}selected{% endif %}>Par défaut</option>
-            <option value="recent" {% if current_sort == 'recent' %}selected{% endif %}>Plus récents</option>
+          <select name="sort" onchange="document.getElementById('filter-form').submit()" class="w-full bg-(--color-bg-tertiary) text-(--color-text-primary) px-4 py-3 rounded-lg border border-neutral-800 focus:border-(--color-accent-primary) focus:outline-none focus:ring-2 focus:ring-(--color-accent-primary)/20 transition cursor-pointer">
+            <option value="order" {% if current_sort == 'order' %}selected{% endif %}>Default</option>
+            <option value="recent" {% if current_sort == 'recent' %}selected{% endif %}>Most recent</option>
             <option value="title" {% if current_sort == 'title' %}selected{% endif %}>A → Z</option>
           </select>
         </div>
       </div>
-      <details id="technology-filter" class="collapsible-filter group bg-[var(--color-bg-tertiary)]/60 border border-neutral-800 rounded-lg">
-        <summary class="flex items-center justify-between gap-4 w-full px-4 py-3 cursor-pointer text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition">
+      <details id="technology-filter" class="collapsible-filter group bg-(--color-bg-tertiary)/60 border border-neutral-800 rounded-lg">
+        <summary class="flex items-center justify-between gap-4 w-full px-4 py-3 cursor-pointer text-(--color-text-secondary) hover:text-(--color-text-primary) transition">
           <span class="flex items-center gap-2 font-medium text-sm md:text-base">
-            <svg class="w-4 h-4 md:w-5 md:h-5 text-[color:var(--color-accent-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+            <svg class="w-4 h-4 md:w-5 md:h-5 text-(--color-accent-primary)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
             <span>Technologies ({{ technologies|length }})</span>
           </span>
           <span class="flex items-center gap-3">
             {% if active_tech_slugs %}
-              <span class="inline-flex items-center gap-1 text-xs text-[color:var(--color-accent-primary)] bg-[color:var(--color-accent-primary)]/15 px-2 py-1 rounded-full">{{ active_tech_slugs|length }} sélection{{ active_tech_slugs|pluralize:'s' }}</span>
+              <span class="inline-flex items-center gap-1 text-xs text-(--color-accent-primary) bg-(--color-accent-primary)/15 px-2 py-1 rounded-full">{{ active_tech_slugs|length }} selection{{ active_tech_slugs|pluralize:'s' }}</span>
             {% endif %}
-            <svg class="w-5 h-5 text-[var(--color-text-muted)] transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            <svg class="w-5 h-5 text-(--color-text-muted) transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
           </span>
         </summary>
         <div class="px-4 pb-4">
-          <p class="text-xs text-[var(--color-text-muted)] mb-3">Sélectionnez une ou plusieurs technologies pour affiner la liste.</p>
+          <p class="text-xs text-(--color-text-muted) mb-3">Select one or more technologies to refine the list.</p>
           <div class="flex flex-wrap gap-2">
             {% for tech in technologies %}
               <label class="cursor-pointer">
                 <input type="checkbox" name="tech" value="{{ tech.slug }}" {% if tech.slug in active_tech_slugs %}checked{% endif %} onchange="document.getElementById('filter-form').submit()" class="hidden peer">
-                <span class="filter-badge inline-block px-3 py-1.5 rounded-full text-sm border border-neutral-800 peer-checked:border-[color:var(--color-accent-primary)] peer-checked:bg-[color:var(--color-accent-primary)] peer-checked:text-black text-[var(--color-text-secondary)] hover:border-[color:var(--color-accent-primary)]">{{ tech.name }} <span class="text-xs opacity-70">({{ tech.project_count }})</span></span>
+                <span class="filter-badge inline-block px-3 py-1.5 rounded-full text-sm border border-neutral-800 peer-checked:border-(--color-accent-primary) peer-checked:bg-(--color-accent-primary) peer-checked:text-black text-(--color-text-secondary) hover:border-(--color-accent-primary)">{{ tech.name }} <span class="text-xs opacity-70">({{ tech.project_count }})</span></span>
               </label>
             {% endfor %}
           </div>
@@ -99,22 +96,22 @@
 
       {% if active_tech_slugs or active_category or search_query %}
         <div class="flex flex-wrap gap-2 items-center pt-2 border-t border-neutral-800">
-          <span class="text-sm text-[var(--color-text-muted)]">Filtres actifs :</span>
+          <span class="text-sm text-(--color-text-muted)">Active filters :</span>
           {% if search_query %}
-            <a href="?{% if active_tech_slugs %}{% for tech in active_tech_slugs %}tech={{ tech }}&{% endfor %}{% endif %}{% if active_category %}category={{ active_category }}{% endif %}" class="inline-flex items-center gap-2 px-3 py-1 bg-[color:var(--color-accent-primary)]/20 border border-[color:var(--color-accent-primary)] text-[color:var(--color-accent-primary)] rounded-full text-sm hover:bg-[color:var(--color-accent-primary)]/30 transition">Recherche : "{{ search_query }}"<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></a>
+            <a href="?{% if active_tech_slugs %}{% for tech in active_tech_slugs %}tech={{ tech }}&{% endfor %}{% endif %}{% if active_category %}category={{ active_category }}{% endif %}" class="inline-flex items-center gap-2 px-3 py-1 bg-(--color-accent-primary)/20 border border-(--color-accent-primary) text-(--color-accent-primary) rounded-full text-sm hover:bg-(--color-accent-primary)/30 transition">Search : "{{ search_query }}"<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></a>
           {% endif %}
           {% if active_category %}
-            <a href="?{% if active_tech_slugs %}{% for tech in active_tech_slugs %}tech={{ tech }}&{% endfor %}{% endif %}{% if search_query %}q={{ search_query }}{% endif %}" class="inline-flex items-center gap-2 px-3 py-1 bg-[color:var(--color-accent-primary)]/20 border border-[color:var(--color-accent-primary)] text-[color:var(--color-accent-primary)] rounded-full text-sm hover:bg-[color:var(--color-accent-primary)]/30 transition">{% for cat in categories %}{% if cat.slug == active_category %}{{ cat.name }}{% endif %}{% endfor %}<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></a>
+            <a href="?{% if active_tech_slugs %}{% for tech in active_tech_slugs %}tech={{ tech }}&{% endfor %}{% endif %}{% if search_query %}q={{ search_query }}{% endif %}" class="inline-flex items-center gap-2 px-3 py-1 bg-(--color-accent-primary)/20 border border-(--color-accent-primary) text-(--color-accent-primary) rounded-full text-sm hover:bg-(--color-accent-primary)/30 transition">{% for cat in categories %}{% if cat.slug == active_category %}{{ cat.name }}{% endif %}{% endfor %}<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></a>
           {% endif %}
-          <a href="{% url 'projects:list' %}" class="inline-flex items-center gap-2 px-3 py-1 bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] rounded-full text-sm hover:bg-neutral-800 transition">Réinitialiser tout</a>
+          <a href="{% url 'projects:list' %}" class="inline-flex items-center gap-2 px-3 py-1 bg-(--color-bg-tertiary) text-(--color-text-secondary) rounded-full text-sm hover:bg-neutral-800 transition">Reset all</a>
         </div>
       {% endif %}
 
-      <div class="text-sm text-[var(--color-text-muted)]">
+      <div class="text-sm text-(--color-text-muted)">
         {% if filtered_count != total_projects %}
-          {{ filtered_count }} projet{{ filtered_count|pluralize }} trouvé{{ filtered_count|pluralize }} sur {{ total_projects }}
+          {{ filtered_count }} project{{ filtered_count|pluralize }} found{{ filtered_count|pluralize }} on {{ total_projects }}
         {% else %}
-          Affichage des {{ total_projects }} projets
+          Displaying {{ total_projects }} projects
         {% endif %}
       </div>
     </form>
@@ -132,7 +129,7 @@
   </div>
 </section>
 
-<section class="bg-[var(--color-bg-primary)] py-16 px-4">
+<section class="bg-(--color-bg-primary) py-16 px-4">
   <div class="max-w-7xl mx-auto">
     {% if projects %}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -140,8 +137,8 @@
           <article class="project-card-wrapper group">
             <a href="{% url 'projects:detail' project.slug %}" class="block">
               <div class="project-card relative h-[400px] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow" style="border: 2px solid #94db40;">
-                <div class="absolute inset-0 bg-gradient-to-br" style="background: linear-gradient(135deg, var(--color-bg-primary) 40%, #000000 100%);">
-                  <div class="absolute inset-0 bg-gradient-to-br from-[var(--color-bg-secondary)] to-[var(--color-bg-primary)] opacity-80"></div>
+                <div class="absolute inset-0 bg-linear-to-br" style="background: linear-gradient(135deg, var(--color-bg-primary) 40%, #000000 100%);">
+                  <div class="absolute inset-0 bg-linear-to-br from-(--color-bg-secondary) to-(--color-bg-primary) opacity-80"></div>
                 </div>
                 <div class="project-card-overlay absolute inset-0"></div>
                 <div class="relative h-full flex flex-col justify-between p-6">
@@ -149,31 +146,31 @@
                     <span class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-black/50 backdrop-blur-sm border" style="color: #94db40; border-color: #94db40;">{{ project.category.name }}</span>
                     <div class="flex gap-2">
                       {% if project.github_url %}
-                        <span class="w-8 h-8 rounded-full bg-[var(--color-bg-primary)]/50 backdrop-blur-sm flex items-center justify-center border border-neutral-800 group-hover:border-[color:var(--color-accent-primary)] transition">
-                          <svg class="w-4 h-4 text-[var(--color-text-secondary)]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        <span class="w-8 h-8 rounded-full bg-(--color-bg-primary)/50 backdrop-blur-sm flex items-center justify-center border border-neutral-800 group-hover:border-(--color-accent-primary) transition">
+                          <svg class="w-4 h-4 text-(--color-text-secondary)" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                         </span>
                       {% endif %}
                       {% if project.demo_url %}
-                        <span class="w-8 h-8 rounded-full bg-[var(--color-bg-primary)]/50 backdrop-blur-sm flex items-center justify-center border border-neutral-800 group-hover:border-[color:var(--color-accent-primary)] transition">
-                          <svg class="w-4 h-4 text-[var(--color-text-secondary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                        <span class="w-8 h-8 rounded-full bg-(--color-bg-primary)/50 backdrop-blur-sm flex items-center justify-center border border-neutral-800 group-hover:border-(--color-accent-primary) transition">
+                          <svg class="w-4 h-4 text-(--color-text-secondary)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                         </span>
                       {% endif %}
                     </div>
                   </div>
                   <div class="space-y-3">
-                    <h3 class="text-2xl font-bold text-[var(--color-text-primary)] group-hover:text-[color:var(--color-accent-primary)] transition-colors">{{ project.title }}</h3>
-                    <p class="text-[var(--color-text-secondary)] text-sm line-clamp-2">{{ project.tagline }}</p>
+                    <h3 class="text-2xl font-bold text-(--color-text-primary) group-hover:text-(--color-accent-primary) transition-colors">{{ project.title }}</h3>
+                    <p class="text-(--color-text-secondary) text-sm line-clamp-2">{{ project.tagline }}</p>
                     <div class="flex flex-wrap gap-2">
                       {% for tech in project.technologies.all|slice:":3" %}
-                        <span class="tech-badge px-2 py-1 text-xs rounded bg-[var(--color-bg-primary)]/50 backdrop-blur-sm border border-neutral-800 text-[var(--color-text-secondary)]">{{ tech.name }}</span>
+                        <span class="tech-badge px-2 py-1 text-xs rounded bg-(--color-bg-primary)/50 backdrop-blur-sm border border-neutral-800 text-(--color-text-secondary)">{{ tech.name }}</span>
                       {% endfor %}
                       {% if project.technologies.count > 3 %}
-                        <span class="px-2 py-1 text-xs rounded bg-[var(--color-bg-primary)]/50 backdrop-blur-sm border border-neutral-800 text-[var(--color-text-muted)]">+{{ project.technologies.count|add:"-3" }}</span>
+                        <span class="px-2 py-1 text-xs rounded bg-(--color-bg-primary)/50 backdrop-blur-sm border border-neutral-800 text-(--color-text-muted)">+{{ project.technologies.count|add:"-3" }}</span>
                       {% endif %}
                     </div>
                   </div>
                 </div>
-                <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r transition-all duration-300 transform translate-y-1 group-hover:translate-y-0" style="background: linear-gradient(90deg, var(--color-bg-primary), #000000);"></div>
+                <div class="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r transition-all duration-300 transform translate-y-1 group-hover:translate-y-0" style="background: linear-gradient(90deg, var(--color-bg-primary), #000000);"></div>
               </div>
             </a>
           </article>
@@ -183,15 +180,15 @@
       {% if is_paginated %}
         <div class="flex justify-center items-center gap-4 mt-12">
           {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if active_category %}&category={{ active_category }}{% endif %}{% for tech in active_tech_slugs %}&tech={{ tech }}{% endfor %}" class="px-6 py-3 bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)] rounded-lg hover:bg-neutral-800 transition flex items-center gap-2">
+            <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if active_category %}&category={{ active_category }}{% endif %}{% for tech in active_tech_slugs %}&tech={{ tech }}{% endfor %}" class="px-6 py-3 bg-(--color-bg-tertiary) text-(--color-text-primary) rounded-lg hover:bg-neutral-800 transition flex items-center gap-2">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-              Précédent
+              Previous
             </a>
           {% endif %}
-          <span class="text-[var(--color-text-muted)]">Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}</span>
+          <span class="text-(--color-text-muted)">Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}</span>
           {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if active_category %}&category={{ active_category }}{% endif %}{% for tech in active_tech_slugs %}&tech={{ tech }}{% endfor %}" class="px-6 py-3 bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)] rounded-lg hover:bg-neutral-800 transition flex items-center gap-2">
-              Suivant
+            <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if active_category %}&category={{ active_category }}{% endif %}{% for tech in active_tech_slugs %}&tech={{ tech }}{% endfor %}" class="px-6 py-3 bg-(--color-bg-tertiary) text-(--color-text-primary) rounded-lg hover:bg-neutral-800 transition flex items-center gap-2">
+              Next
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
             </a>
           {% endif %}
@@ -200,25 +197,25 @@
 
     {% else %}
       <div class="text-center py-20">
-        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[var(--color-bg-tertiary)] mb-6">
-          <svg class="w-10 h-10 text-[var(--color-text-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-(--color-bg-tertiary) mb-6">
+          <svg class="w-10 h-10 text-(--color-text-muted)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
         </div>
-        <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-2">Aucun projet trouvé</h3>
-        <p class="text-[var(--color-text-muted)] mb-6">Essayez de modifier vos filtres ou votre recherche</p>
-        <a href="{% url 'projects:list' %}" class="inline-block px-6 py-3 bg-[color:var(--color-accent-primary)] text-black rounded-lg hover:bg-[color:var(--color-accent-hover)] transition">Voir tous les projets</a>
+        <h3 class="text-2xl font-bold text-(--color-text-primary) mb-2">
+        <p class="text-(--color-text-muted) mb-6">Try to modify your filters or your search</p>
+        <a href="{% url 'projects:list' %}" class="inline-block px-6 py-3 bg-(--color-accent-primary) text-black rounded-lg hover:bg-(--color-accent-hover) transition">See all projects</a>
       </div>
     {% endif %}
 
   </div>
 </section>
 
-<section class="bg-black py-16 px-4 mx-4 mb-8 rounded-2xl border-2 border-[color:var(--color-accent-primary)]">
+<section class="bg-black py-16 px-4 mx-4 mb-8 rounded-2xl border-2 border-(--color-accent-primary)">
   <div class="max-w-4xl mx-auto text-center">
-    <h2 class="text-3xl md:text-4xl font-bold text-[color:var(--color-accent-primary)] mb-4 font-mono">Intéressé par mon travail ?</h2>
-    <p class="text-xl text-[color:var(--color-accent-primary)]/80 mb-8 font-mono">N'hésitez pas à me contacter pour discuter de vos projets</p>
+    <h2 class="text-3xl md:text-4xl font-bold text-(--color-accent-primary) mb-4 font-mono">Interested in my work ?</h2>
+    <p class="text-xl text-(--color-accent-primary)/80 mb-8 font-mono">Don't hesitate to contact me to discuss your projects</p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="mailto:dimitri.gaggioli@gmail.com" class="px-8 py-4 bg-[color:var(--color-accent-primary)] text-black font-semibold rounded-lg hover:bg-[color:var(--color-accent-hover)] transition shadow-lg shadow-[color:var(--color-accent-primary)]/20 font-mono">Me contacter</a>
-      <a href="https://github.com/dim-gggl" target="_blank" class="px-8 py-4 bg-transparent text-[color:var(--color-accent-primary)] font-semibold rounded-lg hover:bg-[color:var(--color-accent-primary)]/10 transition border-2 border-[color:var(--color-accent-primary)] font-mono">Voir mon GitHub</a>
+      <a href="mailto:dimitri.gaggioli@gmail.com" class="px-8 py-4 bg-(--color-accent-primary) text-black font-semibold rounded-lg hover:bg-(--color-accent-hover) transition shadow-lg shadow-(--color-accent-primary)/20 font-mono">Contact
+      <a href="https://github.com/dim-gggl" target="_blank" class="px-8 py-4 bg-transparent text-(--color-accent-primary) font-semibold rounded-lg hover:bg-(--color-accent-primary)/10 transition border-2 border-(--color-accent-primary) font-mono">See my GitHub</a>
     </div>
   </div>
 </section>
