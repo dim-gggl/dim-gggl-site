@@ -376,8 +376,7 @@ CONTENT_SECURITY_POLICY = " ".join(
 # ==============================================================================
 
 LOG_DIR = BASE_DIR / "logs"
-if DEBUG:
-    os.makedirs(LOG_DIR, exist_ok=True)
+os.makedirs(LOG_DIR, exist_ok=True)
 
 LOGGING = {
     "version": 1,
