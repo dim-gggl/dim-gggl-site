@@ -59,7 +59,9 @@ class Technology(models.Model):
         choices=[(i, f"{i}/5") for i in range(1, 6)],
         help_text="Mastery level out of 5",
     )
-    order = models.IntegerField(default=0, help_text="Display order", db_index=True)
+    order = models.IntegerField(default=0, 
+                                help_text="Display order", 
+                                db_index=True)
 
     class Meta:
         ordering = ["order", "name"]
@@ -191,7 +193,8 @@ class Project(models.Model):
     # External links
     github_url = models.URLField(blank=True, verbose_name="GitHub URL")
     demo_url = models.URLField(blank=True, verbose_name="Demo URL")
-    documentation_url = models.URLField(blank=True, verbose_name="Documentation URL")
+    documentation_url = models.URLField(blank=True, 
+                                        verbose_name="Documentation URL")
 
     # Metadata
     completed_at = models.DateField(
@@ -245,7 +248,8 @@ class Project(models.Model):
     def save(self, *args, **kwargs):
         """
         Auto-generate slug and optimize featured image.
-        Note: Image optimization is synchronous - consider using Celery for async processing.
+        Note: Image optimization is synchronous - consider using Celery 
+        for async processing.
         """
         if not self.slug:
             self.slug = slugify(self.title)
@@ -261,7 +265,9 @@ class Project(models.Model):
                 import logging
 
                 logger = logging.getLogger("portfolio")
-                logger.error(f"Failed to optimize image for project {self.title}: {e}")
+                logger.error(
+                    f"Failed to optimize image for project {self.title}: {e}"
+                )
 
         super().save(*args, **kwargs)
 
@@ -272,7 +278,9 @@ class Project(models.Model):
     @property
     def gradient_css(self) -> str:
         """Return CSS string for the project's gradient background."""
-        return f"linear-gradient(135deg, {self.primary_color} 0%, {self.secondary_color} 100%)"
+        return ("linear-gradient(135deg, "
+                f"{self.primary_color} 0%, "
+                f"{self.secondary_color} 100%)")
 
     def get_similar_projects(self, limit: int = 3):
         """
@@ -335,6 +343,7 @@ class ProjectImage(models.Model):
 
                 logger = logging.getLogger("portfolio")
                 logger.error(
-                    f"Failed to optimize gallery image for project {self.project.title}: {e}"
+                    "Failed to optimize gallery image for project "
+                    f"{self.project.title}: {e}"
                 )
         super().save(*args, **kwargs)

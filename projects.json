@@ -220,7 +220,7 @@
 		"Tests covering 88% of the codebase",
 		"Documentation built with Sphinx and hosted on Read the Docs",
 		"Docker image available at `docker pull dgggl88/oc-lettings:latest`",
-		"Deployed on Render at <a href='https://oc-lettings-x670.onrender.com'>https://oc-lettings-x670.onrender.com</a>"
+		"Deployed on Render at https://oc-lettings-x670.onrender.com"
 	  ],
 	  "github_url": "https://github.com/dim-gggl/oc-lettings",
 	  "demo_url": "https://oc-lettings-x670.onrender.com",

@@ -171,7 +171,7 @@ class ProjectDetailView(DetailView):
 
         if ordered_ids is None:
             ordered_ids = list(
-                Project.published.order_by("order", "-completed_at").values_list(
+                Project.objects.order_by("order", "-completed_at").values_list(
                     "id", "slug"
                 )
             )

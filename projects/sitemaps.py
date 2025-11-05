@@ -10,7 +10,9 @@ class ProjectSitemap(Sitemap):
     priority = 0.8
 
     def items(self):
-        return Project.objects.filter(is_published=True).order_by("-completed_at")
+        return Project.objects.filter(
+            is_published=True
+        ).order_by("-completed_at")
 
     def lastmod(self, obj: Project):
         return obj.updated_at
