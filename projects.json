@@ -34,7 +34,7 @@
 	  "duration": "",
 	  "is_featured": true,
 	  "is_published": true,
-	  "order": 0
+	  "order": 5
 	},
 	{
 	  "title": "GUDLFT",
@@ -74,7 +74,7 @@
 	  "duration": "",
 	  "is_featured": false,
 	  "is_published": true,
-	  "order": 1
+	  "order": 6
 	},
 	{
 	  "title": "SoftDesk Support",
@@ -121,7 +121,7 @@
 	  "duration": "",
 	  "is_featured": false,
 	  "is_published": true,
-	  "order": 2
+	  "order": 4
 	},
 	{
 	  "title": "LITReview",
@@ -158,7 +158,7 @@
 	  "duration": "",
 	  "is_featured": false,
 	  "is_published": true,
-	  "order": 3
+	  "order": 7
 	},
 	{
 	  "title": "JustStreamIt",
@@ -192,7 +192,46 @@
 	  "duration": "",
 	  "is_featured": false,
 	  "is_published": true,
-	  "order": 4
+	  "order": 8
+	},
+	{
+	  "title": "OC Lettings",
+	  "slug": "oc_lettings",
+	  "tagline": "Scaling a whole Django project and deploying it with Docker, GitHub Actions and Render",
+	  "description": "Django application for real estate agency. It was needing refactoring and scaling to improve performance and security. A few bugs were fixed, tests were added and the project got containerized with Docker and deployed to Render. CI/CD pipeline was set up with ",
+	  "primary_color": "#ef0041",
+	  "secondary_color": "#ec3767",
+	  "background_style": "gradient",
+	  "featured_image": "static/images/oc-lettings-title.png",
+	  "logo": "",
+	  "category": "Study Projects",
+	  "technologies": [
+		"Django",
+		"Docker",
+		"GitHub Actions",
+		"Render",
+		"CI/CD",
+		"Pytest",
+		"Sentry",
+		"Sphinx",
+		"Read the Docs"
+	  ],
+	  "challenges": "Learning Docker fundamentals, Setting up a CI/CD pipeline with GitHub Actions, Building documentation with Sphinx",
+	  "learnings": "Django, Docker, GitHub Actions, Render, CI/CD, Pytest, Sentry, Sphinx, Read the Docs",
+	  "features": [
+		"Tests covering 88% of the codebase",
+		"Documentation built with Sphinx and hosted on Read the Docs",
+		"Docker image available at `docker pull dgggl88/oc-lettings:latest`",
+		"Deployed on Render at <a href='https://oc-lettings-x670.onrender.com'>https://oc-lettings-x670.onrender.com</a>"
+	  ],
+	  "github_url": "https://github.com/dim-gggl/oc-lettings",
+	  "demo_url": "https://oc-lettings-x670.onrender.com",
+	  "documentation_url": "https://oc-lettingsdocs.readthedocs.io/latest/",
+	  "completed_at": null,
+	  "duration": "",
+	  "is_featured": true,
+	  "is_published": true,
+	  "order": 0
 	},
 	{
 	  "title": "AlgoInvest&Trade",
@@ -334,7 +373,7 @@
 	  "duration": "",
 	  "is_featured": false,
 	  "is_published": true,
-	  "order": 0
+	  "order": 1
 	},
 	{
 	  "title": "Aura",
@@ -378,7 +417,7 @@
 	  "duration": "",
 	  "is_featured": false,
 	  "is_published": true,
-	  "order": 1
+	  "order": 2
 	},
 	{
 	  "title": "kviR-Up",
