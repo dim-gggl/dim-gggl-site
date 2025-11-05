@@ -52,7 +52,6 @@
 		"Flask",
 		"Jinja",
 		"Pytest",
-		"Pytest-Flask",
 		"Locust",
 		"Coverage"
 	  ],
@@ -138,8 +137,8 @@
 		"Python",
 		"poetry",
 		"Django",
-		"MVP",
-		"SQLite"
+		"SQLite",
+		"JWT"
 	  ],
 	  "challenges": "",
 	  "learnings": "",
@@ -210,7 +209,6 @@
 		"Docker",
 		"GitHub Actions",
 		"Render",
-		"CI/CD",
 		"Pytest",
 		"Sentry",
 		"Sphinx",
@@ -246,10 +244,6 @@
 	  "category": "Study Projects",
 	  "technologies": [
 		"Python",
-		"CSV",
-		"Brute force",
-		"Dynamic programming",
-		"Knapsack algorithm",
 		"Big O notation"
 	  ],
 	  "challenges": "Understand how the knapsack algorithm is constructed",
@@ -281,10 +275,6 @@
 	  "category": "Study Projects",
 	  "technologies": [
 		"Python",
-		"OOP",
-		"CLI",
-		"MVC",
-		"JSON",
 		"flake8"
 	  ],
 	  "challenges": "Learn OOP concepts and discover the MVC architecture.",
@@ -319,8 +309,7 @@
 	  "technologies": [
 		"Python",
 		"Requests",
-		"BeautifulSoup",
-		"CLI"
+		"BeautifulSoup"
 	  ],
 	  "challenges": "First programming project",
 	  "learnings": "Web scraping, ETL pipeline, BeautifulSoup, Requests, CLI",
@@ -390,15 +379,15 @@
 		"Django",
 		"Django Rest Framework",
 		"SQLite",
-		"MySQL",
-		"JWT",
+		"PostgreSQL",
 		"HTML",
 		"CSS",
 		"JavaScript",
 		"Git",
 		"GitHub",
-		"Google Fonts",
-		"Bootstrap"
+		"Bootstrap",
+		"Docker",
+		"GitHub Actions"
 	  ],
 	  "challenges": "",
 	  "learnings": "",
@@ -432,11 +421,9 @@
 	  "category": "Personal Projects",
 	  "technologies": [
 		"Django",
+		"Python",
 		"Jinja",
 		"SQLite",
-		"MySQL",
-		"API TheMovieDB",
-		"OpenAI",
 		"HTML",
 		"CSS",
 		"JavaScript",
@@ -479,7 +466,6 @@
 		"JavaScript",
 		"Git",
 		"GitHub",
-		"Google Fonts",
 		"Bootstrap"
 	  ],
 	  "challenges": "",
