@@ -1,5 +1,6 @@
 {% extends 'core/base.html' %}
 {% load static %}
+{% load project_tags %}
 {% load util_tags %}
 {% load image_helpers %}
 {% load l10n %}
@@ -135,7 +136,12 @@
         <div class="space-y-4">
           {% for tech in backend_techs %}
             <div>
-              <div class="flex justify-between mb-2"><span class="text-(--color-text-secondary) font-medium">{{ tech.name }}</span></div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-(--color-text-secondary) font-medium flex items-center gap-2">
+                  {{ tech.name|tech_icon:"w-5 h-5" }}
+                  {{ tech.name }}
+                </span>
+              </div>
               <div class="h-2 bg-(--color-bg-tertiary) rounded-full overflow-hidden"><div class="skill-bar h-full bg-linear-to-r rounded-full" style="width: {% localize off %}{{ tech.proficiency|mul:20 }}{% endlocalize %}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
             </div>
           {% endfor %}
@@ -146,7 +152,12 @@
         <div class="space-y-4">
           {% for tech in frontend_techs %}
             <div>
-              <div class="flex justify-between mb-2"><span class="text-(--color-text-secondary) font-medium">{{ tech.name }}</span></div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-(--color-text-secondary) font-medium flex items-center gap-2">
+                  {{ tech.name|tech_icon:"w-5 h-5" }}
+                  {{ tech.name }}
+                </span>
+              </div>
               <div class="h-2 bg-(--color-bg-tertiary) rounded-full overflow-hidden"><div class="skill-bar h-full bg-linear-to-r rounded-full" style="width: {% localize off %}{{ tech.proficiency|mul:20 }}{% endlocalize %}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
             </div>
           {% endfor %}
@@ -157,7 +168,12 @@
         <div class="space-y-4">
           {% for tech in database_techs %}
             <div>
-              <div class="flex justify-between mb-2"><span class="text-(--color-text-secondary) font-medium">{{ tech.name }}</span></div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-(--color-text-secondary) font-medium flex items-center gap-2">
+                  {{ tech.name|tech_icon:"w-5 h-5" }}
+                  {{ tech.name }}
+                </span>
+              </div>
               <div class="h-2 bg-(--color-bg-tertiary) rounded-full overflow-hidden"><div class="skill-bar h-full bg-linear-to-r rounded-full" style="width: {% localize off %}{{ tech.proficiency|mul:20 }}{% endlocalize %}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
             </div>
           {% endfor %}
@@ -168,7 +184,12 @@
         <div class="space-y-4">
           {% for tech in tools %}
             <div>
-              <div class="flex justify-between mb-2"><span class="text-(--color-text-secondary) font-medium">{{ tech.name }}</span></div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-(--color-text-secondary) font-medium flex items-center gap-2">
+                  {{ tech.name|tech_icon:"w-5 h-5" }}
+                  {{ tech.name }}
+                </span>
+              </div>
               <div class="h-2 bg-(--color-bg-tertiary) rounded-full overflow-hidden"><div class="skill-bar h-full bg-linear-to-r rounded-full" style="width: {% localize off %}{{ tech.proficiency|mul:20 }}{% endlocalize %}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div></div>
             </div>
           {% endfor %}
