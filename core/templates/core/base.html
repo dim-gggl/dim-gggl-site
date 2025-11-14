@@ -3,11 +3,11 @@
 {% load compress %}
 {% load tailwind_tags %}
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{% block title %}Portfolio – Dimitri Gaggioli{% endblock %}</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>{% block title %}Portfolio - Dimitri Gaggioli{% endblock %}</title>
 
     {% block meta_tags %}
       {% seo_meta_tags %}
@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="{% static 'css/theme-variables.css' %}">
     <link rel="stylesheet" href="{% static 'core/css/logo.css' %}">
     <link rel="stylesheet" href="{% static 'core/css/contact-ascii.css' %}">
+    <script src="https://tweakcn.com/live-preview.min.js"></script>
     {% compress css %}
       {% tailwind_css %}
     {% endcompress %}

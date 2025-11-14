@@ -97,3 +97,18 @@ def tech_icon(tech_name, css_class="w-5 h-5"):
         '<svg class="{}" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/></svg>')
 
     return mark_safe(icon_svg.format(css_class))
+
+
+@register.simple_tag
+def project_card_image(project):
+    """
+    Return the URL for a project's card image.
+    Uses the project.get_card_image_url() method.
+    
+    Args:
+        project: Project instance
+        
+    Returns:
+        str: URL to the card image
+    """
+    return project.get_card_image_url()

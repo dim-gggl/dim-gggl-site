@@ -8,7 +8,7 @@
     </div>
     <!-- <h1 id="hero-title" class="glitch text-3xl font-extrabold sm:text-5xl" data-text="{{ person.name }}">{{ person.name }}</h1> -->
      <div class="flex items-center justify-center">
-      {% include 'core/components/dimitri_gaggioli.html' %}
+      <h2 class="logo person-name">{{ person.name }}</h2>
      </div>
     <p class="text-xl font-medium text-(--color-accent-primary)">{{ person.title }}</p>
     <div class="mt-2 flex gap-2">
@@ -19,7 +19,7 @@
     <p class="max-w-2xl text-(--color-text-secondary)">Backend Python Developer in {{ person.location }}. Fast RESTfulAPIs, maintainable code, reliable tests, and helpful docs.</p>
     <div class="flex flex-wrap items-center justify-center gap-3">
       <a href="{% url 'projects:list' %}" class="rounded-md bg-(--color-accent-primary) px-5 py-2 font-semibold text-black transition-colors hover:bg-(--color-accent-hover)">See my projects</a>
-      <a href="mailto:dimitri.gaggioli@gmail.com" class="rounded-md border border-(--color-accent-primary) px-5 py-2 font-semibold text-(--color-text-primary) hover:bg-(--color-bg-secondary)">Contact me</a>
+      <a href="mailto:{{ person.contact_email }}" class="rounded-md border border-(--color-accent-primary) px-5 py-2 font-semibold text-(--color-text-primary) hover:bg-(--color-bg-secondary)">Contact me</a>
     </div>
   </div>
 </section>

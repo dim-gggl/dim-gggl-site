@@ -104,11 +104,13 @@
   </div>
 </section>
 
-{% if project.gallery_images.all %}
+{% with static_gallery=project.get_gallery_images %}
+{% if project.gallery_images.all or static_gallery %}
 <section class="bg-(--color-bg-primary) py-16 px-4">
   <div class="max-w-6xl mx-auto">
     <h2 class="text-3xl font-bold text-(--color-text-primary) mb-12 text-center"><span class="accent-color">screenshots</span></h2>
     <div class="grid md:grid-cols-2 gap-8">
+      {% comment %} Database gallery images {% endcomment %}
       {% for image in project.gallery_images.all %}
         <div class="group">
           <div class="relative overflow-hidden rounded-xl border border-neutral-800 hover:accent-border transition shadow-lg hover:shadow-2xl">
@@ -121,10 +123,23 @@
           </div>
         </div>
       {% endfor %}
+
+      {% comment %} Static gallery images from static/images/gallerie/ {% endcomment %}
+      {% for image in static_gallery %}
+        <div class="group">
+          <div class="relative overflow-hidden rounded-xl border border-neutral-800 hover:accent-border transition shadow-lg hover:shadow-2xl">
+            <img src="{{ image.url }}"
+                 alt="{{ project.title }} - Screenshot {{ image.number }}"
+                 class="w-full h-auto object-cover"
+                 loading="lazy">
+          </div>
+        </div>
+      {% endfor %}
     </div>
   </div>
 </section>
 {% endif %}
+{% endwith %}
 
 {% if project.features %}
 <section class="bg-(--color-bg-secondary) py-16 px-4">
@@ -211,34 +226,12 @@
 </section>
 
 {% if similar_projects %}
-<section class="bg-(--color-bg-secondary) py-16 px-4">
+<section class="bg-(--color-bg-primary) py-16 px-4">
   <div class="max-w-7xl mx-auto">
-    <h2 class="text-3xl font-bold text-(--color-text-primary) mb-12 text-center">You might <span class="accent-color">also like</span></h2>
+    <h2 class="text-3xl font-bold mb-12 text-center">You might <span class="accent-color">also like</span></h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {% for similar in similar_projects %}
-        <article class="group">
-          <a href="{% url 'projects:detail' similar.slug %}" class="block">
-            <div class="relative h-[300px] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all group-hover:-translate-y-2" style="border: 2px solid {{ similar.primary_color }}20;">
-              <div class="absolute inset-0 bg-linear-to-br" style="background: linear-gradient(135deg, {{ similar.primary_color }}40 0%, {{ similar.secondary_color }}40 100%);">
-                <div class="absolute inset-0 bg-linear-to-br from-(--color-bg-secondary) to-(--color-bg-primary) opacity-80"></div>
-              </div>
-              <div class="absolute inset-0 bg-linear-to-t from-(--color-bg-primary)/90 via-(--color-bg-primary)/50 to-transparent"></div>
-              <div class="relative h-full flex flex-col justify-end p-6">
-                <span class="inline-block w-fit px-3 py-1 rounded-full text-xs font-medium bg-(--color-bg-primary)/50 backdrop-blur-sm border mb-3" style="color: {{ similar.primary_color }}; border-color: {{ similar.primary_color }};">{{ similar.category.name }}</span>
-                <h3 class="text-xl font-bold text-(--color-text-primary) mb-2 group-hover:text-(--color-accent-primary) transition-colors">{{ similar.title }}</h3>
-                <p class="text-(--color-text-secondary) text-sm line-clamp-2 mb-3">{{ similar.tagline }}</p>
-                <div class="flex flex-wrap gap-2">
-                  {% for tech in similar.technologies.all|slice:":3" %}
-                    <span class="flex items-center gap-1 px-2 py-1 text-xs rounded bg-(--color-bg-primary)/50 border border-neutral-800 text-(--color-text-secondary)">
-                      {{ tech.name|tech_icon:"w-3 h-3" }}
-                      {{ tech.name }}
-                    </span>
-                  {% endfor %}
-                </div>
-              </div>
-            </div>
-          </a>
-        </article>
+      {% for project in similar_projects %}
+        {% include 'projects/components/project_card.html'%}
       {% endfor %}
     </div>
   </div>
@@ -270,11 +263,11 @@
 
 <section class="bg-black py-16 px-4 mx-4 mb-8 rounded-2xl border-2 border-(--color-accent-primary)">
   <div class="max-w-4xl mx-auto text-center">
-    <h2 class="text-3xl md:text-4xl font-bold text-(--color-accent-primary) mb-4 font-mono">Is this project interesting for you ?</h2>
-    <p class="text-xl text-(--color-accent-primary)/80 mb-8 font-mono">Let's discuss how I can help you with your next project</p>
+    <h2 class="text-2xl text-(--color-accent-secondary) mb-4">Is this project interesting for you ?</h2>
+    <p class="text-(--color-text-primary) mb-8 font-primary">Let's discuss how I can help you with your next project</p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="mailto:dimitri.gaggioli@gmail.com" class="px-8 py-4 bg-(--color-accent-primary) text-black font-semibold rounded-lg hover:bg-(--color-accent-hover) transition shadow-lg shadow-(--color-accent-primary)/20 font-mono">Contact me</a>
-      <a href="{% url 'projects:list' %}" class="px-8 py-4 bg-transparent text-(--color-accent-primary) font-semibold rounded-lg hover:bg-(--color-accent-primary)/10 transition border-2 border-(--color-accent-primary) font-mono">See my projects</a>
+      <a href="mailto:{{ person.contact_email }}" class="px-8 py-4 bg-transparent rounded-lg font-primary border-2 border-(--color-logo-accent)">Contact me</a>
+      <a href="{% url 'projects:list' %}" class="px-8 py-4 bg-transparent text-(--color-logo-accent) rounded-lg font-primary">See my projects</a>
     </div>
   </div>
 </section>

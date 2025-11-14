@@ -13,7 +13,7 @@
 }
 
 .logo {
-	max-height: 10vh;
+	max-height: 17vh;
 	font-size: 6px;
 	color: #95ff17;
 	font-family: monospace;
@@ -28,7 +28,7 @@
   }
 
   .logo-svg {
-	width: 300px;
+	max-height: 17vh;
 	animation: glow-svg 1s ease-in-out infinite;
   }
 

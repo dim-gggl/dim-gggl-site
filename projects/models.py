@@ -312,6 +312,86 @@ class Project(models.Model):
 
         return similar
 
+    def get_card_image_url(self) -> str:
+        """
+        Return the URL for the project card image.
+        Looks for static/images/<slug>_card.png or <slug>_card.svg.
+        Falls back to featured_image if no card image is found.
+
+        Returns:
+            str: URL to the card image or empty string
+        """
+        import os
+        from django.conf import settings
+        from django.templatetags.static import static
+
+        static_dir = settings.BASE_DIR / "static"
+
+        # Check for PNG version
+        png_filename = f"{self.slug}_card.png"
+        png_full_path = static_dir / "images" / png_filename
+
+        if png_full_path.exists():
+            return static(f"images/{png_filename}")
+
+        # Check for SVG version
+        svg_filename = f"{self.slug}_card.svg"
+        svg_full_path = static_dir / "images" / svg_filename
+
+        if svg_full_path.exists():
+            return static(f"images/{svg_filename}")
+
+        # Fallback to featured_image
+        if self.featured_image:
+            return self.featured_image.url
+
+        return ""
+
+    def get_gallery_images(self) -> list:
+        """
+        Return a list of static gallery images for this project.
+        Looks for images in static/images/gallerie/ named <slug>_1.png, <slug>_2.png, etc.
+
+        Returns:
+            list: List of dicts with 'url' and 'number' keys
+        """
+        from django.conf import settings
+        from django.templatetags.static import static
+        from pathlib import Path
+
+        gallery_images = []
+        gallery_dir = settings.BASE_DIR / "static" / "images" / "gallerie"
+
+        if not gallery_dir.exists():
+            return gallery_images
+
+        # Check for numbered images (1 through 20 should be enough)
+        for i in range(1, 21):
+            # Check PNG
+            png_filename = f"{self.slug}_{i}.png"
+            png_path = gallery_dir / png_filename
+
+            if png_path.exists():
+                gallery_images.append({
+                    'url': static(f"images/gallerie/{png_filename}"),
+                    'number': i,
+                    'format': 'png'
+                })
+                continue
+
+            # Check SVG
+            svg_filename = f"{self.slug}_{i}.svg"
+            svg_path = gallery_dir / svg_filename
+
+            if svg_path.exists():
+                gallery_images.append({
+                    'url': static(f"images/gallerie/{svg_filename}"),
+                    'number': i,
+                    'format': 'svg'
+                })
+
+        return gallery_images
+
 
 class ProjectImage(models.Model):
     """Additional gallery images for a project."""
