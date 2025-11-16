@@ -93,12 +93,7 @@
 		"SimpleJWT",
 		"Postman",
 		"SQLite",
-		"uv",
 		"poetry",
-		"MySQL",
-		"HTML",
-		"CSS",
-		"JavaScript",
 		"Git",
 		"GitHub"
 	  ],
@@ -400,11 +395,11 @@
 		"Customizable interface with nearly twenty original themes"
 	  ],
 	  "github_url": "https://github.com/dim-gggl/aura-app",
-	  "demo_url": "",
+	  "demo_url": "https://aura-app.org/",
 	  "documentation_url": "",
 	  "completed_at": null,
 	  "duration": "",
-	  "is_featured": false,
+	  "is_featured": true,
 	  "is_published": true,
 	  "order": 2
 	},
