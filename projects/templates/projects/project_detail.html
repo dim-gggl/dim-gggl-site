@@ -52,8 +52,8 @@
       <span class="inline-block px-4 py-2 rounded-full text-sm font-medium bg-black/30 backdrop-blur-sm border border-white/20 font-family: var(--font-mono);">{{ project.category.name }}</span>
     </div>
     {% if project.logo %}{% lazy_img project.logo.url alt=project.title|add:" logo" css_class="w-24 h-24 mx-auto mb-6 object-contain" width=96 height=96 %}{% endif %}
-    <h1 class="text-5xl md:text-7xl font-bold mb-6 drop-shadow-lg font-mono">{{ project.title }}</h1>
-    <p class="text-2xl md:text-3xl text-white/90 mb-8 font-light font-mono">{{ project.tagline }}</p>
+    <h1 class="text-5xl sm:text-3xl md:text-7xl font-bold mb-6 text-shadow-lg font-mono">{{ project.title }}</h1>
+    <p class="text-2xl sm:text-xl md:text-3xl mb-8 font-light font-mono">{{ project.tagline }}</p>
     <div class="flex flex-wrap gap-3 justify-center mb-10">
       {% for tech in project.technologies.all %}
         <span class="flex items-center gap-2 px-4 py-2 rounded-lg bg-black/30 backdrop-blur-sm border border-white/20 text-white font-medium hover:bg-black/40 transition">
@@ -76,8 +76,8 @@
         </a>
       {% endif %}
       {% if project.title == "Aura" %}
-        <a href="{% static 'aura/Aura_home.html' %}" target="_blank" class="inline-flex items-center gap-2 px-8 py-4 bg-black/30 backdrop-blur-sm text-white font-semibold rounded-lg hover:bg-black/40 transition border border-white/20">
-          See the demo
+        <a href="https://aura-app.org/" target="_blank" class="inline-flex items-center gap-2 px-8 py-4 bg-black/30 backdrop-blur-sm text-white font-semibold rounded-lg hover:bg-black/40 transition border border-white/20">
+          See the website
         </a>
       {% endif %}
       {% if project.documentation_url %}

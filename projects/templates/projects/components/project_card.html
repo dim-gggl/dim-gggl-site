@@ -11,7 +11,7 @@
       {% project_card_image project as card_img_url %}
       {% if card_img_url %}
         <div class="absolute inset-0 flex items-center justify-center p-12 z-10">
-          <div class="relative w-52 h-52 rounded-lg overflow-hidden">
+          <div class="card-image-container relative w-62 h-62 rounded-lg overflow-hidden">
             <img src="{{ card_img_url }}"
                  alt="{{ project.title }}"
                  class="w-full h-full object-cover">
