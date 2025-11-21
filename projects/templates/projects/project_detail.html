@@ -4,13 +4,13 @@
 {% load seo_tags %}
 {% load image_helpers %}
 
-{% block title %}{{ project.title }} - Dimitri Gaggioli{% endblock %}
+{% block title %}{{ project.title }} - dim-gggl{% endblock %}
 
 {% block meta_tags %}
 {% if project.featured_image %}
-{% seo_meta_tags title=project.title|add:" - Portfolio Dimitri Gaggioli" description=project.tagline image=project.featured_image.url page_type="article" %}
+{% seo_meta_tags title=project.title|add:" - Portfolio dim-gggl" description=project.tagline image=project.featured_image.url page_type="article" %}
 {% else %}
-{% seo_meta_tags title=project.title|add:" - Portfolio Dimitri Gaggioli" description=project.tagline page_type="article" %}
+{% seo_meta_tags title=project.title|add:" - Portfolio dim-gggl" description=project.tagline page_type="article" %}
 {% endif %}
 {% endblock %}
 
@@ -22,7 +22,7 @@
   }
   .project-hero { 
     background: linear-gradient(
-      135deg, #000000 0%, #00000000 100%
+      135deg, #000000 0%, #00000010 100%
     ); 
   }
   .accent-color { color: var(--project-primary); }
@@ -43,7 +43,7 @@
 {% endblock %}
 
 {% block content %}
-<section class="project-hero relative min-h-[60vh] flex items-center justify-center text-white overflow-hidden border border-(--color-accent-primary)">
+<section class="project-hero relative min-h-[60vh] flex items-center justify-center overflow-hidden border border-(--color-logo-accent)">
   <div class="absolute inset-0 opacity-10">
     <div class="absolute inset-0" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 40px 40px;"></div>
   </div>
@@ -52,7 +52,7 @@
       <span class="inline-block px-4 py-2 rounded-full text-sm font-medium bg-black/30 backdrop-blur-sm border border-white/20 font-family: var(--font-mono);">{{ project.category.name }}</span>
     </div>
     {% if project.logo %}{% lazy_img project.logo.url alt=project.title|add:" logo" css_class="w-24 h-24 mx-auto mb-6 object-contain" width=96 height=96 %}{% endif %}
-    <h1 class="text-5xl sm:text-3xl md:text-7xl font-bold mb-6 text-shadow-lg font-mono">{{ project.title }}</h1>
+    <h1 class="text-5xl sm:text-3xl md:text-7xl text-(--color-logo-accent) font-bold mb-6 text-shadow-lg font-mono">{{ project.title }}</h1>
     <p class="text-2xl sm:text-xl md:text-3xl mb-8 font-light font-mono">{{ project.tagline }}</p>
     <div class="flex flex-wrap gap-3 justify-center mb-10">
       {% for tech in project.technologies.all %}
@@ -263,7 +263,7 @@
 
 <section class="bg-black py-16 px-4 mx-4 mb-8 rounded-2xl border-2 border-(--color-accent-primary)">
   <div class="max-w-4xl mx-auto text-center">
-    <h2 class="text-2xl text-(--color-accent-secondary) mb-4">Is this project interesting for you ?</h2>
+    <h2 class="text-2xl text-(--color-logo-accent) mb-4">Is this project interesting for you ?</h2>
     <p class="text-(--color-text-primary) mb-8 font-primary">Let's discuss how I can help you with your next project</p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
       <a href="mailto:{{ person.contact_email }}" class="px-8 py-4 bg-transparent rounded-lg font-primary border-2 border-(--color-logo-accent)">Contact me</a>

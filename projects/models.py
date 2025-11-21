@@ -2,6 +2,9 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+from django.conf import settings
+from django.templatetags.static import static
+from pathlib import Path
 
 from core.utils import optimize_image
 
@@ -327,6 +330,13 @@ class Project(models.Model):
 
         static_dir = settings.BASE_DIR / "static"
 
+        # Check for SVG version
+        svg_filename = f"{self.slug}_card.svg"
+        svg_full_path = static_dir / "images" / svg_filename
+
+        if svg_full_path.exists():
+            return static(f"images/{svg_filename}")
+
         # Check for PNG version
         png_filename = f"{self.slug}_card.png"
         png_full_path = static_dir / "images" / png_filename
@@ -334,12 +344,7 @@ class Project(models.Model):
         if png_full_path.exists():
             return static(f"images/{png_filename}")
 
-        # Check for SVG version
-        svg_filename = f"{self.slug}_card.svg"
-        svg_full_path = static_dir / "images" / svg_filename
 
-        if svg_full_path.exists():
-            return static(f"images/{svg_filename}")
 
         # Fallback to featured_image
         if self.featured_image:
@@ -355,10 +360,6 @@ class Project(models.Model):
         Returns:
             list: List of dicts with 'url' and 'number' keys
         """
-        from django.conf import settings
-        from django.templatetags.static import static
-        from pathlib import Path
-
         gallery_images = []
         gallery_dir = settings.BASE_DIR / "static" / "images" / "gallerie"
 

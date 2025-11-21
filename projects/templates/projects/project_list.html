@@ -2,7 +2,7 @@
 {% load static %}
 {% load project_tags %}
 
-{% block title %}Tous mes projets - Dimitri Gaggioli{% endblock %}
+{% block title %}All projects - dim-gggl{% endblock %}
 
 {% block extra_head %}
 <style>
@@ -23,7 +23,7 @@
   .project-card-wrapper { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
   .project-card-wrapper:hover { transform: translateY(-8px) scale(1.02); }
   .project-card-overlay { 
-    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.9) 100%); 
+    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.3) 100%); 
   }
   .tech-badge { transition: all 0.2s ease; }
   .tech-badge:hover { transform: scale(1.1); }
@@ -165,11 +165,11 @@
 
 <section class="bg-black py-16 px-4 mx-4 mb-8 rounded-2xl border-2 border-(--color-accent-primary)">
   <div class="max-w-4xl mx-auto text-center">
-    <h2 class="text-3xl md:text-4xl font-bold text-(--color-accent-primary) mb-4 font-mono">Interested in my work ?</h2>
-    <p class="text-xl text-(--color-accent-primary)/80 mb-8 font-mono">Don't hesitate to contact me to discuss your projects</p>
+    <h2 class="text-3xl md:text-4xl font-bold text-(--color-logo-accent) mb-4 font-mono">Interested in my work ?</h2>
+    <p class="text-xl mb-8 font-mono">Don't hesitate to contact me to discuss your projects</p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="mailto:dimitri.gaggioli@gmail.com" class="px-8 py-4 bg-(--color-accent-primary) text-black font-semibold rounded-lg hover:bg-(--color-accent-hover) transition shadow-lg shadow-(--color-accent-primary)/20 font-mono">Contact
-      <a href="https://github.com/dim-gggl" target="_blank" class="px-8 py-4 bg-transparent text-(--color-accent-primary) font-semibold rounded-lg hover:bg-(--color-accent-primary)/10 transition border-2 border-(--color-accent-primary) font-mono">See my GitHub</a>
+      <a href="mailto:dimitri.gaggioli@gmail.com" class="px-8 py-4 bg-(--color-logo-accent) text-black font-semibold rounded-lg hover:bg-(--color-accent-hover) transition shadow-lg shadow-(--color-accent-primary)/20 font-mono">Contact
+      <a href="https://github.com/dim-gggl" target="_blank" class="px-8 py-4 bg-transparent text-(--color-logo-accent) font-semibold rounded-lg hover:bg-(--color-logo-accent)/10 transition border-2 border-(--color-logo-accent) font-mono">See my GitHub</a>
     </div>
   </div>
 </section>
