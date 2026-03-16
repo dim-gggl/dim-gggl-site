@@ -38,6 +38,7 @@ htmlcov/
 # IDE
 .vscode/
 .idea/
+.worktrees/
 *.swp
 *.swo
 *~
@@ -57,3 +58,4 @@ Thumbs.db
 # Temporary files
 *.tmp
 .python-version
+docs/*

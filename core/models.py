@@ -12,13 +12,16 @@ class ContactMessage(models.Model):
     message = models.TextField(
         verbose_name="Message",
         validators=[
-            MinLengthValidator(20, "Le message doit contenir au moins 20 caractères."),
+            MinLengthValidator(
+                20, "Le message doit contenir au moins 20 caractères."),
             MaxLengthValidator(
                 5000, "Le message ne peut pas dépasser 5000 caractères."
             ),
         ],
     )
-    phone = models.CharField(max_length=20, blank=True, verbose_name="Téléphone")
+    phone = models.CharField(max_length=20, 
+                             blank=True, 
+                             verbose_name="Téléphone")
 
     # Metadata
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)

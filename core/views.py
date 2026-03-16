@@ -25,12 +25,17 @@ class HomeView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         # Featured projects with optimized query
-        projects_list = [proj.id for proj in Project.objects.filter(is_featured=True)]
+        projects_list = [
+            proj.id for proj in Project.objects.filter(is_featured=True)
+        ]
         featured_ids = []
-        while len(featured_ids) < settings.FEATURED_PROJECTS_COUNT and projects_list:
+        while len(featured_ids) < settings.FEATURED_PROJECTS_COUNT \
+            and projects_list:
             idx = random.randint(0, len(projects_list) - 1)
             featured_ids.append(projects_list.pop(idx))
-        featured_projects = [Project.objects.get(id=id) for id in featured_ids]
+        featured_projects = [
+            Project.objects.get(id=id) for id in featured_ids
+        ]
 
         context["featured_projects"] = featured_projects
 
@@ -46,7 +51,6 @@ class HomeView(TemplateView):
             .order_by("-proficiency", "name")
             .values_list("name", flat=True)
         )
-
         return context
 
 

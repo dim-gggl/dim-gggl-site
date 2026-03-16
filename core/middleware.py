@@ -28,7 +28,8 @@ class QueryCountDebugMiddleware:
             num_queries = len(connection.queries)
             if num_queries > self.QUERY_THRESHOLD:
                 logger.warning(
-                    f"High query count on {request.path}: {num_queries} queries"
+                    f"High query count on {request.path}: "
+                        f"{num_queries} queries"
                 )
 
                 # In DEBUG, also log the queries
@@ -54,7 +55,9 @@ class MaintenanceModeMiddleware:
                 request.path.startswith("/admin/")
                 or request.path.startswith("/static/")
             ):
-                logger.info(f"Maintenance mode: Blocked access to {request.path}")
+                logger.info(
+                    f"Maintenance mode: Blocked access to {request.path}"
+                )
                 return render(request, "core/maintenance.html", status=503)
 
         return self.get_response(request)
@@ -70,7 +73,8 @@ class SecurityHeadersMiddleware:
         response = self.get_response(request)
 
         # Only add CSP in production
-        if not settings.DEBUG and getattr(settings, "CONTENT_SECURITY_POLICY", ""):
+        if not settings.DEBUG and getattr(settings, 
+                                          "CONTENT_SECURITY_POLICY", ""):
             response.setdefault(
                 "Content-Security-Policy", settings.CONTENT_SECURITY_POLICY
             )
