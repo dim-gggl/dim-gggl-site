@@ -15,7 +15,7 @@
                          \_/__/  \_/__/  \_/__/        
 ```
 <div align="center">
-  <a href="https//dim-gggl.com">
+  <a href="https://dim-gggl.com">
     <img alt="Static Badge" src="https://img.shields.io/badge/click-me-%23ef0041?style=plastic">
   </a>
 </div>
