@@ -1,4 +1,5 @@
 {% load static %}
+{% load localization_tags %}
 <section class="relative mx-auto max-w-6xl px-4 pb-12 pt-10 sm:pt-14" aria-labelledby="hero-title">
   <div class="flex flex-col items-center gap-6 text-center">
     <div class="relative h-48 w-36 rounded-3xl border border-(--color-accent-primary) bg-(--color-bg-secondary) shadow-xl transition-transform hover:scale-105 overflow-hidden">
@@ -12,16 +13,15 @@
      </div>
     <p class="text-xl font-medium text-(--color-accent-primary)">{{ person.title }}</p>
     <div class="mt-2 flex gap-2">
-      <span class="rounded-md border border-(--color-accent-primary) bg-(--color-bg-secondary) px-3 py-1 text-sm">Think.</span>
-      <span class="rounded-md border border-(--color-accent-primary) bg-(--color-bg-secondary) px-3 py-1 text-sm">Code.</span>
-      <span class="rounded-md border border-(--color-accent-primary) bg-(--color-bg-secondary) px-3 py-1 text-sm">Push.</span>
+      <span class="rounded-md border border-(--color-accent-primary) bg-(--color-bg-secondary) px-3 py-1 text-sm">{% t "hero.tagline_1" %}</span>
+      <span class="rounded-md border border-(--color-accent-primary) bg-(--color-bg-secondary) px-3 py-1 text-sm">{% t "hero.tagline_2" %}</span>
+      <span class="rounded-md border border-(--color-accent-primary) bg-(--color-bg-secondary) px-3 py-1 text-sm">{% t "hero.tagline_3" %}</span>
     </div>
-    <p class="max-w-2xl text-(--color-text-secondary)">Backend Python Developer in {{ person.location }}. Fast RESTfulAPIs, maintainable code, reliable tests, and helpful docs.</p>
+    <p class="max-w-2xl text-(--color-text-secondary)">{% t "hero.description" location=person.location %}</p>
     <div class="flex flex-wrap items-center justify-center gap-3">
-      <a href="{% url 'projects:list' %}" class="rounded-md bg-(--color-accent-primary) px-5 py-2 font-semibold text-black transition-colors hover:bg-(--color-accent-hover)">See my projects</a>
-      <a href="mailto:{{ person.contact_email }}" class="rounded-md border border-(--color-accent-primary) px-5 py-2 font-semibold text-(--color-text-primary) hover:bg-(--color-bg-secondary)">Contact me</a>
+      <a href="{% url 'projects:list' %}" class="rounded-md bg-(--color-accent-primary) px-5 py-2 font-semibold text-black transition-colors hover:bg-(--color-accent-hover)">{% t "hero.cta_projects" %}</a>
+      <a href="mailto:{{ person.contact_email }}" class="rounded-md border border-(--color-accent-primary) px-5 py-2 font-semibold text-(--color-text-primary) hover:bg-(--color-bg-secondary)">{% t "hero.cta_contact" %}</a>
     </div>
   </div>
 </section>
-
 

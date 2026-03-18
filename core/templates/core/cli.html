@@ -1,17 +1,18 @@
 {% extends "core/base.html" %}
+{% load localization_tags %}
 
-{% block title %}CLI - dim-gggl{% endblock %}
+{% block title %}{% t "meta.cli_title" %}{% endblock %}
 
 {% block content %}
   <section class="mx-auto max-w-6xl px-4 py-16">
-    <p class="text-sm uppercase tracking-[0.3em] text-(--color-accent-primary)">CLI</p>
+    <p class="text-sm uppercase tracking-[0.3em] text-(--color-accent-primary)">{{ page_intro.title|translate_content }}</p>
     <h1 class="mt-4 text-4xl font-bold text-(--color-text-primary) md:text-6xl">{{ page_intro.title }}</h1>
-    <p class="mt-6 max-w-3xl text-(--color-text-secondary)">{{ page_intro.body }}</p>
+    <p class="mt-6 max-w-3xl text-(--color-text-secondary)">{{ page_intro.body|translate_content }}</p>
   </section>
 
   <section class="mx-auto max-w-6xl px-4 pb-16">
     {% if missing_project_count %}
-      <p class="mb-6 text-sm text-(--color-text-muted)">More selected work coming soon.</p>
+      <p class="mb-6 text-sm text-(--color-text-muted)">{{ "More selected work coming soon."|translate_content }}</p>
     {% endif %}
 
     <div class="grid gap-6 md:grid-cols-2">

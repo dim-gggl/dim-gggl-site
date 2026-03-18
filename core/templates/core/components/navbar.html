@@ -1,3 +1,4 @@
+{% load localization_tags %}
 {% with current_view=request.resolver_match.view_name current_path=request.path %}
   <header class="sticky top-0 z-50 border-b border-neutral-900/60 bg-(--color-bg-primary)/90 backdrop-blur">
     <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4">
@@ -5,30 +6,78 @@
         {% include 'core/components/logo.html' %}
       </a>
 
-      <nav class="hidden items-center gap-4 text-sm font-bold text-(--color-text-secondary) md:flex" aria-label="Primary navigation">
-        <a href="{% url 'core:home' %}" {% if current_view == "core:home" %}aria-current="page"{% endif %} class="transition hover:text-(--color-text-primary) {% if current_view == 'core:home' %}text-(--color-accent-primary){% endif %}">HOME</a>
-        <a href="{% url 'core:ai' %}" {% if current_view == "core:ai" %}aria-current="page"{% endif %} class="transition hover:text-(--color-text-primary) {% if current_view == 'core:ai' %}text-(--color-accent-primary){% endif %}">IA</a>
-        <a href="{% url 'core:cli' %}" {% if current_view == "core:cli" %}aria-current="page"{% endif %} class="transition hover:text-(--color-text-primary) {% if current_view == 'core:cli' %}text-(--color-accent-primary){% endif %}">CLI</a>
-        <a href="{% url 'core:django' %}" {% if current_view == "core:django" %}aria-current="page"{% endif %} class="transition hover:text-(--color-text-primary) {% if current_view == 'core:django' %}text-(--color-accent-primary){% endif %}">DJANGO</a>
-        <a href="{% url 'projects:list' %}" {% if current_view == "projects:list" or current_view == "projects:detail" or '/projects/' in current_path %}aria-current="page"{% endif %} class="transition hover:text-(--color-text-primary) {% if current_view == 'projects:list' or current_view == 'projects:detail' or '/projects/' in current_path %}text-(--color-accent-primary){% endif %}">PROJETS</a>
-        <a href="{% url 'core:about' %}" {% if current_view == "core:about" %}aria-current="page"{% endif %} class="transition hover:text-(--color-text-primary) {% if current_view == 'core:about' %}text-(--color-accent-primary){% endif %}">A PROPOS</a>
-      </nav>
-
-      <details class="md:hidden">
-        <summary class="cursor-pointer rounded-lg border border-neutral-800 px-3 py-2 text-sm font-semibold text-(--color-text-primary)">Menu</summary>
-        <nav class="absolute right-4 mt-3 min-w-48 rounded-xl border border-neutral-800 bg-(--color-bg-secondary) p-4 text-sm font-bold text-(--color-text-secondary)" aria-label="Mobile navigation">
-          <div class="flex flex-col gap-3">
-            <a href="{% url 'core:home' %}" {% if current_view == "core:home" %}aria-current="page"{% endif %}>HOME</a>
-            <a href="{% url 'core:ai' %}" {% if current_view == "core:ai" %}aria-current="page"{% endif %}>IA</a>
-            <a href="{% url 'core:cli' %}" {% if current_view == "core:cli" %}aria-current="page"{% endif %}>CLI</a>
-            <a href="{% url 'core:django' %}" {% if current_view == "core:django" %}aria-current="page"{% endif %}>DJANGO</a>
-            <a href="{% url 'projects:list' %}" {% if current_view == "projects:list" or current_view == "projects:detail" or '/projects/' in current_path %}aria-current="page"{% endif %}>PROJETS</a>
-            <a href="{% url 'core:about' %}" {% if current_view == "core:about" %}aria-current="page"{% endif %}>A PROPOS</a>
-          </div>
+      <div class="hidden items-center gap-4 md:flex">
+        <nav class="flex items-center gap-4 text-sm font-bold text-(--color-text-secondary)" aria-label="Primary navigation">
+          <a href="{% url 'core:home' %}" {% if current_view == "core:home" %}aria-current="page"{% endif %} class="transition hover:text-(--color-text-primary) {% if current_view == 'core:home' %}text-(--color-accent-primary){% endif %}">{% t "nav.home" %}</a>
+          <a href="{% url 'core:ai' %}" {% if current_view == "core:ai" %}aria-current="page"{% endif %} class="transition hover:text-(--color-text-primary) {% if current_view == 'core:ai' %}text-(--color-accent-primary){% endif %}">{% t "nav.ai" %}</a>
+          <a href="{% url 'core:cli' %}" {% if current_view == "core:cli" %}aria-current="page"{% endif %} class="transition hover:text-(--color-text-primary) {% if current_view == 'core:cli' %}text-(--color-accent-primary){% endif %}">{% t "nav.cli" %}</a>
+          <a href="{% url 'core:django' %}" {% if current_view == "core:django" %}aria-current="page"{% endif %} class="transition hover:text-(--color-text-primary) {% if current_view == 'core:django' %}text-(--color-accent-primary){% endif %}">{% t "nav.django" %}</a>
+          <a href="{% url 'projects:list' %}" {% if current_view == "projects:list" or current_view == "projects:detail" or '/projects/' in current_path %}aria-current="page"{% endif %} class="transition hover:text-(--color-text-primary) {% if current_view == 'projects:list' or current_view == 'projects:detail' or '/projects/' in current_path %}text-(--color-accent-primary){% endif %}">{% t "nav.projects" %}</a>
+          <a href="{% url 'core:about' %}" {% if current_view == "core:about" %}aria-current="page"{% endif %} class="transition hover:text-(--color-text-primary) {% if current_view == 'core:about' %}text-(--color-accent-primary){% endif %}">{% t "nav.about" %}</a>
         </nav>
+
+        <form action="{% url 'set_language' %}" method="post" class="shrink-0">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ request.get_full_path }}">
+          {% if current_language == "fr" %}
+            <input type="hidden" name="language" value="en">
+            <button
+              type="submit"
+              class="rounded-full border border-(--color-accent-primary) px-3 py-1 text-sm font-semibold text-(--color-accent-primary) transition hover:bg-(--color-accent-primary) hover:text-black"
+              aria-label="{% t 'nav.switch_to_english' %}"
+            >
+              EN
+            </button>
+          {% else %}
+            <input type="hidden" name="language" value="fr">
+            <button
+              type="submit"
+              class="rounded-full border border-(--color-accent-primary) px-3 py-1 text-sm font-semibold text-(--color-accent-primary) transition hover:bg-(--color-accent-primary) hover:text-black"
+              aria-label="{% t 'nav.switch_to_french' %}"
+            >
+              FR
+            </button>
+          {% endif %}
+        </form>
+      </div>
+
+      <details class="relative md:hidden">
+        <summary class="cursor-pointer rounded-lg border border-neutral-800 px-3 py-2 text-sm font-semibold text-(--color-text-primary)">{% t "nav.menu" %}</summary>
+        <div class="absolute right-0 mt-3 min-w-56 rounded-xl border border-neutral-800 bg-(--color-bg-secondary) p-4">
+          <nav class="flex flex-col gap-3 text-sm font-bold text-(--color-text-secondary)" aria-label="Mobile navigation">
+            <a href="{% url 'core:home' %}" {% if current_view == "core:home" %}aria-current="page"{% endif %}>{% t "nav.home" %}</a>
+            <a href="{% url 'core:ai' %}" {% if current_view == "core:ai" %}aria-current="page"{% endif %}>{% t "nav.ai" %}</a>
+            <a href="{% url 'core:cli' %}" {% if current_view == "core:cli" %}aria-current="page"{% endif %}>{% t "nav.cli" %}</a>
+            <a href="{% url 'core:django' %}" {% if current_view == "core:django" %}aria-current="page"{% endif %}>{% t "nav.django" %}</a>
+            <a href="{% url 'projects:list' %}" {% if current_view == "projects:list" or current_view == "projects:detail" or '/projects/' in current_path %}aria-current="page"{% endif %}>{% t "nav.projects" %}</a>
+            <a href="{% url 'core:about' %}" {% if current_view == "core:about" %}aria-current="page"{% endif %}>{% t "nav.about" %}</a>
+          </nav>
+
+          <form action="{% url 'set_language' %}" method="post" class="mt-4 border-t border-neutral-800 pt-4">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+            {% if current_language == "fr" %}
+              <input type="hidden" name="language" value="en">
+              <button
+                type="submit"
+                class="rounded-full border border-(--color-accent-primary) px-3 py-1 text-sm font-semibold text-(--color-accent-primary) transition hover:bg-(--color-accent-primary) hover:text-black"
+                aria-label="{% t 'nav.switch_to_english' %}"
+              >
+                EN
+              </button>
+            {% else %}
+              <input type="hidden" name="language" value="fr">
+              <button
+                type="submit"
+                class="rounded-full border border-(--color-accent-primary) px-3 py-1 text-sm font-semibold text-(--color-accent-primary) transition hover:bg-(--color-accent-primary) hover:text-black"
+                aria-label="{% t 'nav.switch_to_french' %}"
+              >
+                FR
+              </button>
+            {% endif %}
+          </form>
+        </div>
       </details>
     </div>
   </header>
 {% endwith %}
-
-

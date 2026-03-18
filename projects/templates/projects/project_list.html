@@ -1,94 +1,83 @@
 {% extends 'core/base.html' %}
-{% load static %}
+{% load localization_tags %}
 {% load project_tags %}
 
-{% block title %}All projects - dim-gggl{% endblock %}
+{% block title %}{% t "meta.projects_title" %}{% endblock %}
 
 {% block extra_head %}
-<style>
-  /* Animation d'entrée */
-  @keyframes fadeInUp {
-    0% { 
-      opacity: 0; transform: translateY(30px); 
+  <style>
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(24px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
-    100% { 
-      opacity: 1; transform: translateY(0); 
-    }
-  }
-  .project-card { animation: fadeInUp 0.6s ease-out; animation-fill-mode: both; }
-  .project-card:nth-child(1) { animation-delay: 0.1s; }
-  .project-card:nth-child(2) { animation-delay: 0.2s; }
-  .project-card:nth-child(3) { animation-delay: 0.3s; }
-  .project-card:nth-child(4) { animation-delay: 0.4s; }
-  .project-card-wrapper { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-  .project-card-wrapper:hover { transform: translateY(-8px) scale(1.02); }
-  .project-card-overlay { 
-    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.3) 100%); 
-  }
-  .tech-badge { transition: all 0.2s ease; }
-  .tech-badge:hover { transform: scale(1.1); }
-  .filter-badge { transition: all 0.2s ease; }
-  .filter-badge:hover { transform: scale(1.05); }
-  .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-  .h-\[400px\] { height: 400px; }
-  .h-\[300px\] { height: 300px; }
-  .collapsible-filter summary::-webkit-details-marker { display: none; }
-</style>
+    .project-card { animation: fadeInUp 0.5s ease-out; animation-fill-mode: both; }
+    .project-card:nth-child(1) { animation-delay: 0.06s; }
+    .project-card:nth-child(2) { animation-delay: 0.12s; }
+    .project-card:nth-child(3) { animation-delay: 0.18s; }
+    .project-card:nth-child(4) { animation-delay: 0.24s; }
+    .filter-badge { transition: all 0.2s ease; }
+    .filter-badge:hover { transform: scale(1.04); }
+    .collapsible-filter summary::-webkit-details-marker { display: none; }
+  </style>
 {% endblock %}
 
 {% block content %}
-<section class="relative bg-transparent py-20 px-4">
-  <div class="max-w-7xl mx-auto text-center">
-    <h1 class="text-5xl md:text-6xl font-bold text-(--color-text-primary) mb-6">My <span class="text-(--color-accent-primary)">Projects</span></h1> </div>
+<section class="px-4 py-20">
+  <div class="mx-auto max-w-7xl text-center">
+    <h1 class="text-5xl font-bold text-(--color-text-primary) md:text-6xl">{% t "projects.hero_title" %}</h1>
+  </div>
 </section>
 
-<section class="bg-transparent backdrop-blur border-b border-(--color-bg-tertiary) sticky top-0 z-40 shadow-lg">
-  <div class="max-w-7xl mx-auto px-4 py-6">
-    <form method="GET" id="filter-form" class="space-y-4">
-      <div class="flex flex-col md:flex-row gap-4 items-center">
-        <div class="flex-1 w-full">
-          <div class="relative">
-            <input type="text" name="q" value="{{ search_query }}" placeholder="Search a project..." class="w-full bg-(--color-bg-tertiary) text-(--color-text-primary) px-4 py-3 pl-12 rounded-lg border border-neutral-800 focus:border-(--color-accent-primary) focus:outline-none focus:ring-2 focus:ring-(--color-accent-primary)/20 transition">
-            <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-(--color-text-muted)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-          </div>
+<section class="sticky top-0 z-40 border-y border-(--color-bg-tertiary) bg-black/50 px-4 py-6 backdrop-blur">
+  <div class="mx-auto max-w-7xl">
+    <form method="get" id="filter-form" class="space-y-4">
+      <div class="flex flex-col items-center gap-4 md:flex-row">
+        <div class="w-full flex-1">
+          <input
+            type="text"
+            name="q"
+            value="{{ search_query }}"
+            placeholder="{% t 'projects.search_placeholder' %}"
+            class="w-full rounded-lg border border-neutral-800 bg-(--color-bg-tertiary) px-4 py-3 text-(--color-text-primary) focus:border-(--color-accent-primary) focus:outline-none"
+          >
         </div>
         <div class="w-full md:w-64">
-          <select name="category" onchange="document.getElementById('filter-form').submit()" class="w-full bg-(--color-bg-tertiary) text-(--color-text-primary) px-4 py-3 rounded-lg border border-neutral-800 focus:border-(--color-accent-primary) focus:outline-none focus:ring-2 focus:ring-(--color-accent-primary)/20 transition cursor-pointer">
-            <option value="">All categories</option>
+          <select name="category" onchange="document.getElementById('filter-form').submit()" class="w-full rounded-lg border border-neutral-800 bg-(--color-bg-tertiary) px-4 py-3 text-(--color-text-primary) focus:border-(--color-accent-primary) focus:outline-none">
+            <option value="">{% t "projects.all_categories" %}</option>
             {% for category in categories %}
-              <option value="{{ category.slug }}" {% if category.slug == active_category %}selected{% endif %}>{{ category.name }} ({{ category.project_count }})</option>
+              <option value="{{ category.slug }}" {% if category.slug == active_category %}selected{% endif %}>
+                {{ category.name|translate_content }} ({{ category.project_count }})
+              </option>
             {% endfor %}
           </select>
         </div>
         <div class="w-full md:w-48">
-          <select name="sort" onchange="document.getElementById('filter-form').submit()" class="w-full bg-(--color-bg-tertiary) text-(--color-text-primary) px-4 py-3 rounded-lg border border-neutral-800 focus:border-(--color-accent-primary) focus:outline-none focus:ring-2 focus:ring-(--color-accent-primary)/20 transition cursor-pointer">
-            <option value="order" {% if current_sort == 'order' %}selected{% endif %}>Default</option>
-            <option value="recent" {% if current_sort == 'recent' %}selected{% endif %}>Most recent</option>
-            <option value="title" {% if current_sort == 'title' %}selected{% endif %}>A → Z</option>
+          <select name="sort" onchange="document.getElementById('filter-form').submit()" class="w-full rounded-lg border border-neutral-800 bg-(--color-bg-tertiary) px-4 py-3 text-(--color-text-primary) focus:border-(--color-accent-primary) focus:outline-none">
+            <option value="order" {% if current_sort == 'order' %}selected{% endif %}>{% t "projects.sort_default" %}</option>
+            <option value="recent" {% if current_sort == 'recent' %}selected{% endif %}>{% t "projects.sort_recent" %}</option>
+            <option value="title" {% if current_sort == 'title' %}selected{% endif %}>{% t "projects.sort_title" %}</option>
           </select>
         </div>
       </div>
-      <details id="technology-filter" class="collapsible-filter group bg-(--color-bg-tertiary)/60 border border-neutral-800 rounded-lg" {% if active_tech_slugs %}open{% endif %}>
-        <summary class="flex items-center justify-between gap-4 w-full px-4 py-3 cursor-pointer text-(--color-text-secondary) hover:text-(--color-text-primary) transition">
-          <span class="flex items-center gap-2 font-medium text-sm md:text-base">
-            <svg class="w-4 h-4 md:w-5 md:h-5 text-(--color-accent-primary)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
-            <span>Technologies ({{ technologies|length }})</span>
-          </span>
-          <span class="flex items-center gap-3">
-            {% if active_tech_slugs %}
-              <span class="inline-flex items-center gap-1 text-xs text-(--color-accent-primary) bg-(--color-accent-primary)/15 px-2 py-1 rounded-full">{{ active_tech_slugs|length }} selection{{ active_tech_slugs|pluralize:'s' }}</span>
+
+      <details class="collapsible-filter rounded-lg border border-neutral-800 bg-(--color-bg-tertiary)/60" {% if active_tech_slugs %}open{% endif %}>
+        <summary class="flex cursor-pointer items-center justify-between gap-4 px-4 py-3 text-(--color-text-secondary)">
+          <span>{% t "projects.technologies" count=technologies|length %}</span>
+          {% if active_tech_slugs %}
+            {% if active_tech_slugs|length == 1 %}
+              <span class="rounded-full bg-(--color-accent-primary)/15 px-2 py-1 text-xs text-(--color-accent-primary)">{% t "projects.selected_count" count=active_tech_slugs|length %}</span>
+            {% else %}
+              <span class="rounded-full bg-(--color-accent-primary)/15 px-2 py-1 text-xs text-(--color-accent-primary)">{% t "projects.selected_count_plural" count=active_tech_slugs|length %}</span>
             {% endif %}
-            <svg class="w-5 h-5 text-(--color-text-muted) transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-          </span>
+          {% endif %}
         </summary>
         <div class="px-4 pb-4">
-          <p class="text-xs text-(--color-text-muted) mb-3">Select one or more technologies to refine the list.</p>
+          <p class="mb-3 text-xs text-(--color-text-muted)">{% t "projects.technology_hint" %}</p>
           <div class="flex flex-wrap gap-2">
             {% for tech in technologies %}
               <label class="cursor-pointer">
                 <input type="checkbox" name="tech" value="{{ tech.slug }}" {% if tech.slug in active_tech_slugs %}checked{% endif %} onchange="document.getElementById('filter-form').submit()" class="hidden peer">
-                <span class="filter-badge inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm border border-neutral-800 peer-checked:border-(--color-accent-primary) peer-checked:bg-(--color-accent-primary) peer-checked:text-black text-(--color-text-secondary) hover:border-(--color-accent-primary)">
+                <span class="filter-badge inline-flex items-center gap-1.5 rounded-full border border-neutral-800 px-3 py-1.5 text-sm text-(--color-text-secondary) peer-checked:border-(--color-accent-primary) peer-checked:bg-(--color-accent-primary) peer-checked:text-black">
                   {{ tech.name|tech_icon:"w-4 h-4" }}
                   {{ tech.name }} <span class="text-xs opacity-70">({{ tech.project_count }})</span>
                 </span>
@@ -99,80 +88,83 @@
       </details>
 
       {% if active_tech_slugs or active_category or search_query %}
-        <div class="flex flex-wrap gap-2 items-center pt-2 border-t border-neutral-800">
-          <span class="text-sm text-(--color-text-muted)">Active filters :</span>
+        <div class="flex flex-wrap items-center gap-2 border-t border-neutral-800 pt-2">
+          <span class="text-sm text-(--color-text-muted)">{% t "projects.active_filters" %}</span>
           {% if search_query %}
-            <a href="?{% if active_tech_slugs %}{% for tech in active_tech_slugs %}tech={{ tech }}&{% endfor %}{% endif %}{% if active_category %}category={{ active_category }}{% endif %}" class="inline-flex items-center gap-2 px-3 py-1 bg-(--color-accent-primary)/20 border border-(--color-accent-primary) text-(--color-accent-primary) rounded-full text-sm hover:bg-(--color-accent-primary)/30 transition">Search : "{{ search_query }}"<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></a>
+            <span class="rounded-full border border-(--color-accent-primary) bg-(--color-accent-primary)/20 px-3 py-1 text-sm text-(--color-accent-primary)">{% t "projects.search_filter" query=search_query %}</span>
           {% endif %}
           {% if active_category %}
-            <a href="?{% if active_tech_slugs %}{% for tech in active_tech_slugs %}tech={{ tech }}&{% endfor %}{% endif %}{% if search_query %}q={{ search_query }}{% endif %}" class="inline-flex items-center gap-2 px-3 py-1 bg-(--color-accent-primary)/20 border border-(--color-accent-primary) text-(--color-accent-primary) rounded-full text-sm hover:bg-(--color-accent-primary)/30 transition">{% for cat in categories %}{% if cat.slug == active_category %}{{ cat.name }}{% endif %}{% endfor %}<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></a>
+            {% for cat in categories %}
+              {% if cat.slug == active_category %}
+                <span class="rounded-full border border-(--color-accent-primary) bg-(--color-accent-primary)/20 px-3 py-1 text-sm text-(--color-accent-primary)">{{ cat.name|translate_content }}</span>
+              {% endif %}
+            {% endfor %}
           {% endif %}
-          <a href="{% url 'projects:list' %}" class="inline-flex items-center gap-2 px-3 py-1 bg-(--color-bg-tertiary) text-(--color-text-secondary) rounded-full text-sm hover:bg-neutral-800 transition">Reset all</a>
+          <a href="{% url 'projects:list' %}" class="rounded-full bg-(--color-bg-tertiary) px-3 py-1 text-sm text-(--color-text-secondary) transition hover:bg-neutral-800">{% t "projects.reset" %}</a>
         </div>
       {% endif %}
 
       <div class="text-sm text-(--color-text-muted)">
         {% if filtered_count != total_projects %}
-          {{ filtered_count }} project{{ filtered_count|pluralize }} found{{ filtered_count|pluralize }} on {{ total_projects }}
+          {% if filtered_count == 1 %}
+            {% t "projects.results_filtered_single" count=filtered_count total=total_projects %}
+          {% else %}
+            {% t "projects.results_filtered_plural" count=filtered_count total=total_projects %}
+          {% endif %}
         {% else %}
-          Displaying {{ total_projects }} projects
+          {% if total_projects == 1 %}
+            {% t "projects.results_all_single" count=total_projects %}
+          {% else %}
+            {% t "projects.results_all_plural" count=total_projects %}
+          {% endif %}
         {% endif %}
       </div>
     </form>
   </div>
 </section>
 
-<section class="bg-(--color-bg-primary) py-16 px-4">
-  <div class="max-w-7xl mx-auto">
+<section class="bg-(--color-bg-primary) px-4 py-16">
+  <div class="mx-auto max-w-7xl">
     {% if projects %}
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {% for project in projects %}
-          {% include 'projects/components/project_card.html'%}
+          {% include 'projects/components/project_card.html' %}
         {% endfor %}
       </div>
 
       {% if is_paginated %}
-        <div class="flex justify-center items-center gap-4 mt-12">
+        <div class="mt-12 flex items-center justify-center gap-4">
           {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if active_category %}&category={{ active_category }}{% endif %}{% for tech in active_tech_slugs %}&tech={{ tech }}{% endfor %}" class="px-6 py-3 bg-(--color-bg-tertiary) text-(--color-text-primary) rounded-lg hover:bg-neutral-800 transition flex items-center gap-2">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-              Previous
+            <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if active_category %}&category={{ active_category }}{% endif %}{% for tech in active_tech_slugs %}&tech={{ tech }}{% endfor %}" class="rounded-lg bg-(--color-bg-tertiary) px-6 py-3 text-(--color-text-primary) transition hover:bg-neutral-800">
+              {% t "projects.previous" %}
             </a>
           {% endif %}
-          <span class="text-(--color-text-muted)">Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}</span>
+          <span class="text-(--color-text-muted)">{% t "projects.page" current=page_obj.number total=page_obj.paginator.num_pages %}</span>
           {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if active_category %}&category={{ active_category }}{% endif %}{% for tech in active_tech_slugs %}&tech={{ tech }}{% endfor %}" class="px-6 py-3 bg-(--color-bg-tertiary) text-(--color-text-primary) rounded-lg hover:bg-neutral-800 transition flex items-center gap-2">
-              Next
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+            <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if active_category %}&category={{ active_category }}{% endif %}{% for tech in active_tech_slugs %}&tech={{ tech }}{% endfor %}" class="rounded-lg bg-(--color-bg-tertiary) px-6 py-3 text-(--color-text-primary) transition hover:bg-neutral-800">
+              {% t "projects.next" %}
             </a>
           {% endif %}
         </div>
       {% endif %}
-
     {% else %}
-      <div class="text-center py-20">
-        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-(--color-bg-tertiary) mb-6">
-          <svg class="w-10 h-10 text-(--color-text-muted)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-        </div>
-        <h3 class="text-2xl font-bold text-(--color-text-primary) mb-2">
-        <p class="text-(--color-text-muted) mb-6">Try to modify your filters or your search</p>
-        <a href="{% url 'projects:list' %}" class="inline-block px-6 py-3 bg-(--color-accent-primary) text-black rounded-lg hover:bg-(--color-accent-hover) transition">See all projects</a>
+      <div class="py-20 text-center">
+        <h2 class="mb-2 text-2xl font-bold text-(--color-text-primary)">{% t "projects.empty_title" %}</h2>
+        <p class="mb-6 text-(--color-text-muted)">{% t "projects.empty_body" %}</p>
+        <a href="{% url 'projects:list' %}" class="inline-block rounded-lg bg-(--color-accent-primary) px-6 py-3 text-black transition hover:bg-(--color-accent-hover)">{% t "projects.empty_cta" %}</a>
       </div>
     {% endif %}
-
   </div>
 </section>
 
-<section class="bg-black py-16 px-4 mx-4 mb-8 rounded-2xl border-2 border-(--color-accent-primary)">
-  <div class="max-w-4xl mx-auto text-center">
-    <h2 class="text-3xl md:text-4xl font-bold text-(--color-logo-accent) mb-4 font-mono">Interested in my work ?</h2>
-    <p class="text-xl mb-8 font-mono">Don't hesitate to contact me to discuss your projects</p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="mailto:dimitri.gaggioli@gmail.com" class="px-8 py-4 bg-(--color-logo-accent) text-black font-semibold rounded-lg hover:bg-(--color-accent-hover) transition shadow-lg shadow-(--color-accent-primary)/20 font-mono">Contact
-      <a href="https://github.com/dim-gggl" target="_blank" class="px-8 py-4 bg-transparent text-(--color-logo-accent) font-semibold rounded-lg hover:bg-(--color-logo-accent)/10 transition border-2 border-(--color-logo-accent) font-mono">See my GitHub</a>
+<section class="mx-4 mb-8 rounded-2xl border-2 border-(--color-accent-primary) bg-black px-4 py-16">
+  <div class="mx-auto max-w-4xl text-center">
+    <h2 class="mb-4 font-mono text-3xl font-bold text-(--color-logo-accent) md:text-4xl">{% t "projects.cta_title" %}</h2>
+    <p class="mb-8 font-mono text-xl">{% t "projects.cta_body" %}</p>
+    <div class="flex flex-col justify-center gap-4 sm:flex-row">
+      <a href="mailto:{{ person.contact_email }}" class="rounded-lg bg-(--color-logo-accent) px-8 py-4 font-mono font-semibold text-black transition hover:bg-(--color-accent-hover)">{% t "projects.cta_contact" %}</a>
+      <a href="{{ person.github }}" target="_blank" rel="noopener noreferrer" class="rounded-lg border-2 border-(--color-logo-accent) px-8 py-4 font-mono font-semibold text-(--color-logo-accent) transition hover:bg-(--color-logo-accent)/10">{% t "projects.cta_github" %}</a>
     </div>
   </div>
 </section>
 {% endblock %}
-
-

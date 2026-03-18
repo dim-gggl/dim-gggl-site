@@ -1,4 +1,5 @@
 {% load project_tags %}
+{% load localization_tags %}
 <article class="project-card-wrapper group pt-4">
   <a href="{% url 'projects:detail' project.slug %}{% if origin_context %}?from={{ origin_context }}{% endif %}" class="block">
     <div class="project-card relative h-[400px] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow" style="border: 2px solid #94db40;">
@@ -25,7 +26,7 @@
       {# Contenu au premier plan (z-30) #}
       <div class="relative h-full flex flex-col justify-between p-6 z-30">
         <div class="flex justify-between items-start">
-          <span class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-black/50 backdrop-blur-sm border" style="color: #94db40; border-color: #94db40;">{{ project.category.name }}</span>
+          <span class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-black/50 backdrop-blur-sm border" style="color: #94db40; border-color: #94db40;">{{ project.category.name|translate_content }}</span>
           <div class="flex gap-2">
             {% if project.github_url %}
               <span class="w-8 h-8 rounded-full bg-(--color-bg-primary)/50 backdrop-blur-sm flex items-center justify-center border border-neutral-800 group-hover:border-(--color-accent-primary) transition">
@@ -41,7 +42,7 @@
         </div>
         <div class="space-y-3">
           <h3 class="text-2xl font-bold text-(--color-text-primary) group-hover:text-(--color-accent-primary) transition-colors">{{ project.title }}</h3>
-          <p class="text-(--color-text-secondary) text-sm line-clamp-2">{{ project.tagline }}</p>
+          <p class="text-(--color-text-secondary) text-sm line-clamp-2">{{ project.tagline|translate_content }}</p>
           <div class="flex flex-wrap gap-2">
             {% for tech in project.technologies.all|slice:":3" %}
               <span class="tech-badge flex items-center gap-1 px-2 py-1 text-xs rounded bg-(--color-bg-primary)/50 backdrop-blur-sm border border-neutral-800 text-(--color-text-secondary)">

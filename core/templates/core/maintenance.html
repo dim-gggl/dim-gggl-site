@@ -1,6 +1,7 @@
 {% load tailwind_tags %}
+{% load localization_tags %}
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{{ current_language }}">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,12 +16,12 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
       </div>
-      <h1 class="text-5xl font-bold mb-4">Maintenance in progress</h1>
+      <h1 class="text-5xl font-bold mb-4">{% t "maintenance.title" %}</h1>
       <p class="text-xl text-gray-300 mb-8">
-        The site is currently undergoing maintenance for improvements. We'll be back very soon!
+        {% t "maintenance.body" %}
       </p>
       <div class="bg-gray-800 rounded-lg p-6 mb-8">
-        <p class="text-gray-400">In the meantime, you can contact me by email:</p>
+        <p class="text-gray-400">{% t "maintenance.contact_label" %}</p>
         <a href="mailto:dimitri.gaggioli@gmail.com" class="text-[#FF6B35] hover:text-[#FF8555] font-semibold text-lg">
           dimitri.gaggioli@gmail.com
         </a>
@@ -45,4 +46,3 @@
     </style>
   </body>
 </html>
-

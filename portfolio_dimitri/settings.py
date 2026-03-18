@@ -147,6 +147,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "core.middleware.MaintenanceModeMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -264,7 +265,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # INTERNATIONALIZATION
 # ==============================================================================
 
-LANGUAGE_CODE = "fr-fr"
+LANGUAGE_CODE = "en"
+LANGUAGES = (
+    ("en", "English"),
+    ("fr", "Français"),
+)
 TIME_ZONE = "Europe/Paris"
 USE_I18N = True
 USE_TZ = True

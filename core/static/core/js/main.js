@@ -44,18 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  // Lines to type
-  const lines = [
-    '> Initializing...',
-    '> Loading skills... [████████] 100%',
-    '> Loading projects... [████████] 100%',
-    '>',
-    '> Think...',
-    '> Code...',
-    '> Push...',
-    '>',
-    '> Press [ENTER] or wait to continue...'
-  ];
+  const lines = overlay.dataset.lines ? JSON.parse(overlay.dataset.lines) : [];
 
   let aborted = false;
   let lineIndex = 0;
@@ -191,5 +180,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
-
 

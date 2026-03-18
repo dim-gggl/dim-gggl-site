@@ -1,4 +1,7 @@
 from django.conf import settings
+from django.utils.translation import get_language
+
+from core.localization.translation_service import normalize_language_code
 
 
 def global_settings(_request):
@@ -18,4 +21,6 @@ def site_info(_request):
         "person": settings.PORTFOLIO_PERSON,
         "site_url": settings.SITE_URL,
         "years_experience": settings.PORTFOLIO_PERSON.get("years_experience", 0),
+        "current_language": normalize_language_code(get_language()),
+        "available_languages": tuple(settings.LANGUAGES),
     }

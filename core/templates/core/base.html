@@ -2,8 +2,9 @@
 {% load seo_tags %}
 {% load compress %}
 {% load tailwind_tags %}
+{% load localization_tags %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ current_language }}">
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -49,7 +50,5 @@
     {% endcompress %}
     {% block extra_js %}{% endblock %}
   </body>
-  
 </html>
-
 

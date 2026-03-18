@@ -1,3 +1,4 @@
+{% load localization_tags %}
 <footer class="bg-black border-t-2 border-(--color-accent-primary) mt-16">
   <div class="max-w-7xl mx-auto px-4 pt-12 pb-0">
     <!-- Logo ASCII Art -->
@@ -35,7 +36,7 @@
       <div class="w-12 h-12 rounded-lg flex items-center justify-center">
         <svg class="w-6 h-6 text-(--color-accent-primary)" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
       </div>
-      <span class="text-xs text-(--color-text-secondary) font-mono">Paris, France</span>
+      <span class="text-xs text-(--color-text-secondary) font-mono">{% t "footer.location" %}</span>
     </div>
 
 
@@ -46,10 +47,10 @@
           <span class="text-(--color-accent-primary)">$</span>
           <span>© {% now "Y" %} Dimitri Gaggioli</span>
           <span class="hidden md:inline text-(--color-accent-primary)/40">|</span>
-          <span class="hidden md:inline">All rights reserved</span>
+          <span class="hidden md:inline">{% t "footer.rights" %}</span>
         </p>
         <p class="text-(--color-text-muted) flex items-center gap-2">
-          <span class="text-(--color-accent-primary)">Built with</span>
+          <span class="text-(--color-accent-primary)">{% t "footer.built_with" %}</span>
           <span class="text-(--color-accent-primary) animate-pulse">❤</span>
           <span>& Django</span>
         </p>

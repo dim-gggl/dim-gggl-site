@@ -4,10 +4,12 @@ import random
 from django.conf import settings
 from django.http import HttpResponse
 from django.urls import reverse
+from django.utils.translation import get_language
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.views.generic import TemplateView
 
+from core.localization.translation_service import translate_text
 from projects.models import Project, Technology
 
 logger = logging.getLogger("portfolio")
@@ -43,7 +45,9 @@ def _ordered_projects_by_slugs(slugs):
     projects_by_slug = {
         project.slug: project for project in projects
     }
-    return [projects_by_slug[slug] for slug in slugs if slug in projects_by_slug]
+    return [
+        projects_by_slug[slug] for slug in slugs if slug in projects_by_slug
+        ]
 
 
 def _top_technologies(categories, limit=6):
@@ -84,7 +88,7 @@ class HomeView(TemplateView):
         context["navigation_sections"] = [
             {
                 "eyebrow": "Explore",
-                "title": "IA",
+                "title": "AI",
                 "description": "Prompting, music, video, jailbreaks, and vibe-engineering.",
                 "url": reverse("core:ai"),
             },
@@ -102,13 +106,13 @@ class HomeView(TemplateView):
             },
             {
                 "eyebrow": "Browse",
-                "title": "Projets",
+                "title": "Projects",
                 "description": "The complete archive with filters, search, and details.",
                 "url": reverse("projects:list"),
             },
             {
                 "eyebrow": "Profile",
-                "title": "A propos",
+                "title": "About",
                 "description": "Background, stack, and a broader presentation page.",
                 "url": reverse("core:about"),
             },
@@ -129,8 +133,8 @@ class AIView(TemplateView):
                 "intro": {
                     "title": "Prompting",
                     "body": (
-                        "A focused page for AI experiments "
-                        "built around authored prompts and reverse-analysis workflows."
+                        "A focused page for AI experiments built around "
+                        "authored prompts and reverse-analysis workflows."
                     ),
                 },
                 "music": {
@@ -143,14 +147,124 @@ class AIView(TemplateView):
                         "https://open.spotify.com/album/"
                         "5i9pJkPpbr0LzhRMQUHgFc"
                     ),
-                    "spotify_caption": "Artist mapping EP on Spotify.",
+                    "spotify_caption": ("The artist Nola, now available on every music "
+                                        "platform is a fictional artist with all the "
+                                        "generated music I made through Suno AI"),
                     "track_title": "Un mot",
                     "style_prompt": (
-                        "Dark cinematic French chanson with textured synths, "
-                        "intimate male vocals, restrained pulse, and a haunted "
-                        "late-night atmosphere."
+                        "The Style Prompt:\n\n"
+                        "Alternative Electronic, Atmospheric IDM, Experimental Melodic "
+                        "Ambient, Ternary Rhythm, 6/8 time signature, Jazz chords, "
+                        "Prophet 6, Moog Matriarch, Eurorack Modular System, Roland "
+                        "Space Echo, Modular Synthesizer, glitchy gentle drum kit, "
+                        "electric guitar ambient swells, electric bass guitar, tape echo, "
+                        "falsetto male vocals, breathy and resonant, ethereal, intimate, "
+                        "French lyrics, minor key, building emotional crescendo, whispered "
+                        "intro and outro, spacious mix. \n-rock, -pop, -radio, -lyrical vocal, "
+                        "-choirs, -violin, -binary rhythm, -4/4 time signature, -yelling, "
+                        "-shouting, -operatic, -happy, -radio, -pop\n\n"
+                        "Weirdness: 6%\nStyle: 85%"
                     ),
-                    "lyrics_prompt": "",
+                    "lyrics_prompt": """
+--------------------------------
+Lyrics Prompt:
+
+[Mood: Melancholic] [Energy: Low]
+[Instrument: Analog Synth, Space Echo, Soft Drums]
+
+[Intro]
+(misty atmosphere, slow analog synth arpeggiator building)
+
+[Instrumental Break]
+(relentless analog synth arpeggiator, reverb swells)
+
+[Verse 1 | Whispered, Intimate]
+(falsetto, floating delivery)
+Il suffirait d'un mot
+Pour que du monde
+L'ordre chancelle
+Possible ou rien
+À vue perdue
+Et qu'infinis
+S'ouvrent les champs
+
+Il suffirait d'un mot
+Parmi les plus petits qui soient
+De ceux tu sais
+Qui ne sont pas
+Labiaux mais qui sont ronds et chauds
+
+[Pre-Chorus | Build-Up]
+(space echo swells, instruments rising)
+Il suffit de ce mot, oui
+Décoré de l'écrin
+Des velours de ton grain
+Habillé d'abandon
+
+[Chorus | Energy: Medium]
+(ethereal, resonant, full reverb)
+Sponte année… délicat...
+Venu là déposé
+Comme par l'évidence
+Pour que s'écroule ma fierté
+Et qu'à genoux
+Je ne sois qu'à toi
+
+[Instrumental Break]
+(synth arpeggiator reprises, echo trails)
+
+[Verse 2 | Whispered, Intimate]
+(breathy, close-mic)
+Oui c'est ce mot-là qu'il faudrait
+Né de ta voix
+Battu dans mes tempes
+Comme un vieux métronome
+Que n'atteint pas l'usure
+
+Qui se fait désirer
+À coups de litanies
+Et qui rappelle au temps
+Ce qu'il lui doit encore
+
+[Bridge | Breakdown]
+(sparse, drums enter softly, voice alone)
+Combien tu ne le dis pas...
+Combien tu ne le dis pas...
+Combien tu ne le dis pas...
+
+[Chorus | Energy: High]
+(ethereal, resonant, fuller arrangement)
+Sponte année… délicat...
+Venu là déposé
+Comme par l'évidence
+Pour que s'écroule ma fierté
+Et qu'à genoux
+Je ne sois qu'à toi
+
+[Bridge | Energy: Medium]
+(building slowly, emotional tension)
+Il suffit de ta bouche
+Pour laisser passer l'air
+Et qui dans mon oreille
+Viendra lui donner forme
+
+[Final Chorus | Energy: High | Harmonies]
+(full band, maximum emotional release)
+Sponte année… délicat...
+Venu là déposé
+Comme par l'évidence
+Pour que s'écroule ma fierté
+Et qu'à genoux
+Je ne sois qu'à toi
+
+[Outro | Energy: Low]
+(fading, whispered, instruments dissolving)
+Une forme précieuse...
+Qui te ressemblerait...
+
+[End]
+(hold last word; leave room for Studio fade)
+                    """,
                 },
                 "video": {
                     "title": "Video",
@@ -159,24 +273,26 @@ class AIView(TemplateView):
                         "prompting work."
                     ),
                     "sora_url": "https://sora.chatgpt.com/profile/dim-gggl",
-                    "cta_label": "Voir ma page Sora",
+                    "cta_label": "Open my Sora page",
                 },
                 "jailbreak": {
                     "title": "Jailbreak",
                     "body": (
-                        "I train to understand how LLMs work by iterating on different kind "
-                        "of prompts and from time to time I jailbreak the model to understand."
-                        "\n(For obvious reasons, parts of the answer from the model have been erased)"
+                        "I train to understand how LLMs work by iterating on "
+                        "different kinds of prompts and, from time to time, I "
+                        "jailbreak the model to understand its limits.\n"
+                        "(For obvious reasons, parts of the model answer have "
+                        "been erased.)"
                     ),
                     "screenshot_path": "static/images/Jailbreak_grok.",
-                    "image_alt": "Exemple of a conversation with a jailbreak version of Grok",
+                    "image_alt": "Example of a conversation with a jailbroken version of Grok",
                 },
             },
             "vibe_engineering": {
-                "title": "Vibe-Engineering",
+                "title": "Vibe Engineering",
                 "body": (
-                    "Projects built on Google AI Studio with Gemini 3 Pro and Gemini 3.1 Pro "
-                    "so just with prompting and iterations."
+                    "Projects built on Google AI Studio with Gemini 3 Pro so "
+                    "mostly through prompting and iteration."
                 ),
                 "project_slugs": VIBE_PROJECT_SLUGS,
             },
@@ -212,11 +328,18 @@ class DjangoProjectsView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        intro_body = (
+            "Projects built with Django and Django REST Framework, both from "
+            "personal projects and study projects."
+        )
         context["page_intro"] = {
             "title": "Django",
             "body": (
-                "Projects built with Django and Django REST Framework, ordered as part "
-                "of the published portfolio."
+                translate_text(
+                    intro_body,
+                    getattr(self.request, "LANGUAGE_CODE", None),
+                )
+                or intro_body
             ),
         }
         context["projects"] = (
@@ -226,6 +349,8 @@ class DjangoProjectsView(TemplateView):
             .order_by("order", "-completed_at")
             .distinct()
         )
+        context["total_projects"] = Project.published.count()
+        context["technologies_count"] = Technology.objects.count()
         return context
 
 
@@ -316,4 +441,11 @@ class RobotsTxtView(TemplateView):
 
 def ratelimit_error(request, exception=None):
     """Custom error page for rate-limited requests."""
-    return HttpResponse("Trop de requêtes. Veuillez réessayer plus tard.", status=429)
+    return HttpResponse(
+        translate_text(
+            "Too many requests. Please try again later.",
+            getattr(request, "LANGUAGE_CODE", get_language()),
+        )
+        or "Too many requests. Please try again later.",
+        status=429,
+    )

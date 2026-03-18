@@ -7,21 +7,23 @@ from django.db.models import Q, Count, Prefetch
 from django.urls import reverse
 from django.views.generic import ListView, DetailView
 
+from core.localization.translation_service import translate_text
+
 from .models import Project, Technology, Category, ProjectImage
 
 logger = logging.getLogger("portfolio")
 
 ORIGIN_CONTEXTS = {
     "ai": {
-        "label": "Retour vers IA",
+        "label": "Back to AI",
         "url": "core:ai",
     },
     "cli": {
-        "label": "Retour vers CLI",
+        "label": "Back to CLI",
         "url": "core:cli",
     },
     "django": {
-        "label": "Retour vers DJANGO",
+        "label": "Back to Django",
         "url": "core:django",
     },
 }
@@ -227,7 +229,11 @@ class ProjectDetailView(DetailView):
         origin_context = ORIGIN_CONTEXTS.get(requested_origin)
         if origin_context:
             context["origin_context"] = {
-                "label": origin_context["label"],
+                "label": translate_text(
+                    origin_context["label"],
+                    getattr(self.request, "LANGUAGE_CODE", None),
+                )
+                or origin_context["label"],
                 "url": reverse(origin_context["url"]),
             }
 
