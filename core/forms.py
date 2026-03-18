@@ -24,7 +24,9 @@ class ContactForm(forms.ModelForm):
 
     class Meta:
         model = ContactMessage
-        fields = ["name", "email", "phone", "subject", "message"]
+        fields = [
+            "name", "email", "phone", "subject", "message"
+        ]
 
         # Use form template instead of inline classes
         # Create core/templates/core/forms/contact_form.html with proper styling

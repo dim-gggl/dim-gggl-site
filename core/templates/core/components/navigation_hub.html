@@ -1,0 +1,11 @@
+<section class="mx-auto max-w-6xl px-4 py-8">
+  <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+    {% for section in navigation_sections %}
+      <a href="{{ section.url }}" class="group rounded-2xl border border-neutral-800 bg-(--color-bg-secondary) p-6 transition hover:border-(--color-accent-primary)">
+        <p class="text-sm uppercase tracking-[0.3em] text-(--color-accent-primary)">{{ section.eyebrow }}</p>
+        <h2 class="mt-4 text-2xl font-bold text-(--color-text-primary) group-hover:text-(--color-accent-primary)">{{ section.title }}</h2>
+        <p class="mt-3 text-(--color-text-secondary)">{{ section.description }}</p>
+      </a>
+    {% endfor %}
+  </div>
+</section>

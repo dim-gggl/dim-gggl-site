@@ -43,6 +43,14 @@
 {% endblock %}
 
 {% block content %}
+{% if origin_context %}
+<section class="mx-auto max-w-5xl px-4 pt-8">
+  <a href="{{ origin_context.url }}" class="inline-flex items-center gap-2 text-sm font-semibold text-(--color-accent-primary)">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+    {{ origin_context.label }}
+  </a>
+</section>
+{% endif %}
 <section class="project-hero relative min-h-[60vh] flex items-center justify-center overflow-hidden border border-(--color-logo-accent)">
   <div class="absolute inset-0 opacity-10">
     <div class="absolute inset-0" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 40px 40px;"></div>

@@ -1,6 +1,6 @@
 {% load project_tags %}
 <article class="project-card-wrapper group pt-4">
-  <a href="{% url 'projects:detail' project.slug %}" class="block">
+  <a href="{% url 'projects:detail' project.slug %}{% if origin_context %}?from={{ origin_context }}{% endif %}" class="block">
     <div class="project-card relative h-[400px] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow" style="border: 2px solid #94db40;">
       {# Fond en premier (z-0) #}
       <div class="absolute inset-0 bg-linear-to-br z-0" style="background: linear-gradient(135deg, var(--color-bg-primary) 40%, #000000 100%);">

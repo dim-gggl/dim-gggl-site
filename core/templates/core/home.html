@@ -3,10 +3,25 @@
 {% block title %}Home - dim-gggl{% endblock %}
 
 {% block content %}
-  {% include 'core/components/hero_section.html' %}
-  {% include 'core/components/summary_section.html' %}
-  {% include 'core/components/featured_projects.html' %}
-  {% include 'core/components/tech_stack.html' %}
+{% include 'core/components/hero_section.html' %}
+{% include 'core/components/summary_section.html' %}
+{% include 'core/components/featured_projects.html' %}
+
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <div class="max-w-3xl">
+      <p class="text-sm uppercase tracking-[0.3em] text-(--color-accent-primary)">Home</p>
+      <h1 class="mt-4 text-4xl font-bold text-(--color-text-primary) md:text-6xl">{{ home_intro.title }}</h1>
+      <p class="mt-6 text-lg leading-relaxed text-(--color-text-secondary)">{{ home_intro.body }}</p>
+    </div>
+  </section>
+
+  {% include 'core/components/navigation_hub.html' %}
+
+  <section class="mx-auto max-w-6xl px-4 pb-16">
+    <a href="{{ archive_url }}" class="inline-flex items-center gap-2 rounded-lg border border-(--color-accent-primary) px-5 py-3 font-semibold text-(--color-text-primary) transition hover:bg-(--color-bg-secondary)">
+      Voir tous les projets
+    </a>
+  </section>
 {% endblock %}
 
 

@@ -1,0 +1,178 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}IA - dim-gggl{% endblock %}
+
+{% block content %}
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <p class="text-sm uppercase tracking-[0.3em] text-(--color-accent-primary)">IA</p>
+    <h1 class="mt-4 text-4xl font-bold text-(--color-text-primary) md:text-6xl">IA</h1>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 pb-10">
+    <div class="rounded-2xl border border-neutral-800 bg-(--color-bg-secondary) p-6">
+      <h2 class="text-3xl font-bold text-(--color-text-primary)">{{ ai_page.prompting.intro.title }}</h2>
+      <p class="mt-4 text-(--color-text-secondary)">{{ ai_page.prompting.intro.body }}</p>
+
+      <div class="mt-10 grid gap-6 lg:grid-cols-2">
+        <article class="rounded-xl border border-neutral-800 bg-(--color-bg-primary) p-5">
+          <h3 class="text-2xl font-semibold text-(--color-text-primary)">{{ ai_page.prompting.music.title }}</h3>
+          <iframe
+            src="{{ ai_page.prompting.music.spotify_embed_url }}"
+            width="100%"
+            height="352"
+            frameborder="0"
+            allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            class="mt-4 rounded-xl"
+            title="Spotify embed"
+          ></iframe>
+          <p class="mt-4 text-(--color-text-secondary)">{{ ai_page.prompting.music.spotify_caption }}</p>
+          <a href="{{ ai_page.prompting.music.spotify_external_url }}" target="_blank" rel="noreferrer" class="mt-4 inline-flex rounded-lg border border-(--color-accent-primary) px-4 py-2 font-semibold text-(--color-text-primary)">
+            Ouvrir sur Spotify
+          </a>
+          <div class="mt-6 rounded-xl border border-neutral-800 bg-(--color-bg-secondary) p-4">
+            <p class="text-sm uppercase tracking-[0.2em] text-(--color-accent-primary)">{{ ai_page.prompting.music.track_title }}</p>
+            <p class="mt-3 whitespace-pre-wrap text-sm text-(--color-text-secondary)">{{ ai_page.prompting.music.style_prompt }}</p>
+            {% if ai_page.prompting.music.lyrics_prompt %}
+              <p class="mt-3 whitespace-pre-wrap text-sm text-(--color-text-secondary)">{{ ai_page.prompting.music.lyrics_prompt }}</p>
+            {% endif %}
+          </div>
+        </article>
+
+        <div class="space-y-6">
+          <article class="rounded-xl border border-neutral-800 bg-(--color-bg-primary) p-5">
+            <h3 class="text-2xl font-semibold text-(--color-text-primary)">{{ ai_page.prompting.video.title }}</h3>
+            <p class="mt-4 text-(--color-text-secondary)">{{ ai_page.prompting.video.body }}</p>
+            <a href="{{ ai_page.prompting.video.sora_url }}" target="_blank" rel="noreferrer" class="mt-4 inline-flex rounded-lg border border-(--color-accent-primary) px-4 py-2 font-semibold text-(--color-text-primary)">
+              {{ ai_page.prompting.video.cta_label }}
+            </a>
+          </article>
+
+          <article class="rounded-xl border border-neutral-800 bg-(--color-bg-primary) p-5">
+            <h3 class="text-2xl font-semibold text-(--color-text-primary)">{{ ai_page.prompting.jailbreak.title }}</h3>
+            <p class="mt-4 text-(--color-text-secondary)">{{ ai_page.prompting.jailbreak.body }}</p>
+            {% if ai_page.prompting.jailbreak.screenshot_path %}
+              <button
+                type="button"
+                class="mt-4 block cursor-zoom-in overflow-hidden rounded-xl border border-neutral-800 transition hover:border-(--color-accent-primary)"
+                data-jailbreak-lightbox-trigger
+              >
+                <img
+                  src="{% static 'images/Jailbreak_grok.png' %}"
+                  alt="{{ ai_page.prompting.jailbreak.image_alt }}"
+                  class="w-full rounded-xl"
+                >
+              </button>
+            {% endif %}
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 pb-16">
+    <div class="mb-6">
+      <p class="text-sm uppercase tracking-[0.3em] text-(--color-accent-primary)">Vibe-Engineering</p>
+      <h2 class="mt-3 text-3xl font-bold text-(--color-text-primary)">{{ ai_page.vibe_engineering.title }}</h2>
+      <p class="mt-3 text-(--color-text-secondary)">{{ ai_page.vibe_engineering.body }}</p>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2">
+      {% for project in vibe_projects %}
+        {% include "projects/components/project_card.html" with project=project origin_context="ai" %}
+      {% endfor %}
+    </div>
+  </section>
+
+  <div
+    class="fixed inset-0 z-50 hidden flex min-h-0 flex-col bg-black/90 backdrop-blur-sm"
+    aria-hidden="true"
+    data-jailbreak-lightbox
+    style="height: 100dvh; overflow: hidden;"
+  >
+    <div class="sticky top-0 z-10 flex justify-end p-3">
+      <button
+        type="button"
+        class="rounded-full bg-neutral-900/80 px-4 py-1.5 text-sm font-medium text-white ring-1 ring-neutral-700 hover:bg-neutral-800"
+        data-jailbreak-lightbox-close
+      >
+        Fermer ✕
+      </button>
+    </div>
+    <div
+      class="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 pb-10 touch-pan-y [-webkit-overflow-scrolling:touch] sm:px-6"
+      data-jailbreak-lightbox-inner
+      style="flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;"
+    >
+      <img
+        src="{% static 'images/Jailbreak_grok.png' %}"
+        alt="{{ ai_page.prompting.jailbreak.image_alt }}"
+        class="block h-auto w-full select-none rounded-xl"
+        data-jailbreak-lightbox-image
+        draggable="false"
+      >
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const trigger = document.querySelector("[data-jailbreak-lightbox-trigger]");
+      const lightbox = document.querySelector("[data-jailbreak-lightbox]");
+      const closeBtn = document.querySelector("[data-jailbreak-lightbox-close]");
+      const scrollContainer = lightbox?.querySelector("[data-jailbreak-lightbox-inner]");
+
+      if (!trigger || !lightbox || !closeBtn || !scrollContainer) {
+        return;
+      }
+
+      const isWithinScrollContainer = target => scrollContainer.contains(target);
+
+      const preventBackgroundScroll = event => {
+        if (isWithinScrollContainer(event.target)) {
+          return;
+        }
+        event.preventDefault();
+      };
+
+      const openLightbox = () => {
+        lightbox.classList.remove("hidden");
+        lightbox.removeAttribute("aria-hidden");
+        document.documentElement.style.overflow = "hidden";
+        document.body.style.overflow = "hidden";
+        scrollContainer.scrollTop = 0;
+
+        // Stop wheel/touch events from scrolling the page underneath.
+        // Allow natural scrolling only inside the scroll container.
+        lightbox.addEventListener("wheel", preventBackgroundScroll, { passive: false });
+        lightbox.addEventListener("touchmove", preventBackgroundScroll, { passive: false });
+      };
+
+      const closeLightbox = () => {
+        lightbox.classList.add("hidden");
+        lightbox.setAttribute("aria-hidden", "true");
+        document.documentElement.style.overflow = "";
+        document.body.style.overflow = "";
+
+        lightbox.removeEventListener("wheel", preventBackgroundScroll);
+        lightbox.removeEventListener("touchmove", preventBackgroundScroll);
+      };
+
+      trigger.addEventListener("click", openLightbox);
+      closeBtn.addEventListener("click", closeLightbox);
+
+      lightbox.addEventListener("click", event => {
+        if (event.target === lightbox) {
+          closeLightbox();
+        }
+      });
+
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && !lightbox.classList.contains("hidden")) {
+          closeLightbox();
+        }
+      });
+    })();
+  </script>
+{% endblock %}

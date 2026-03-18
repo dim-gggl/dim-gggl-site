@@ -4,11 +4,27 @@ import logging
 from django.conf import settings
 from django.core.cache import cache
 from django.db.models import Q, Count, Prefetch
+from django.urls import reverse
 from django.views.generic import ListView, DetailView
 
 from .models import Project, Technology, Category, ProjectImage
 
 logger = logging.getLogger("portfolio")
+
+ORIGIN_CONTEXTS = {
+    "ai": {
+        "label": "Retour vers IA",
+        "url": "core:ai",
+    },
+    "cli": {
+        "label": "Retour vers CLI",
+        "url": "core:cli",
+    },
+    "django": {
+        "label": "Retour vers DJANGO",
+        "url": "core:django",
+    },
+}
 
 
 def make_cache_key(request, prefix="projectlist"):
@@ -179,20 +195,40 @@ class ProjectDetailView(DetailView):
 
         try:
             ids_only = [pid for pid, _ in ordered_ids]
-            slugs_dict = {pid: slug for pid, slug in ordered_ids}
+            projects_dict = {
+                related_project.id: related_project
+                for related_project in Project.published.only("id", "slug", "title")
+            }
             idx = ids_only.index(project.id)
 
             if idx > 0:
                 prev_id = ids_only[idx - 1]
-                context["previous_project"] = {
-                    "id": prev_id,
-                    "slug": slugs_dict[prev_id],
-                }
+                previous_project = projects_dict.get(prev_id)
+                if previous_project:
+                    context["previous_project"] = {
+                        "id": prev_id,
+                        "slug": previous_project.slug,
+                        "title": previous_project.title,
+                    }
 
             if idx < len(ids_only) - 1:
                 next_id = ids_only[idx + 1]
-                context["next_project"] = {"id": next_id, "slug": slugs_dict[next_id]}
+                next_project = projects_dict.get(next_id)
+                if next_project:
+                    context["next_project"] = {
+                        "id": next_id,
+                        "slug": next_project.slug,
+                        "title": next_project.title,
+                    }
         except ValueError:
             logger.warning(f"Project {project.id} not found in ordered list")
+
+        requested_origin = self.request.GET.get("from", "")
+        origin_context = ORIGIN_CONTEXTS.get(requested_origin)
+        if origin_context:
+            context["origin_context"] = {
+                "label": origin_context["label"],
+                "url": reverse(origin_context["url"]),
+            }
 
         return context

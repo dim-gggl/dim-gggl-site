@@ -12,44 +12,219 @@ from projects.models import Project, Technology
 
 logger = logging.getLogger("portfolio")
 
+VIBE_PROJECT_SLUGS = [
+    "sunoreverse",
+    "suno-arch",
+    "market-pal",
+    "KinoLOG",
+]
+
+CLI_PROJECT_SLUGS = [
+    "epic_events",
+    "AlgoInvest-Trade",
+    "Chess_Up",
+    "Book_Scraper",
+    "clinkey-cli",
+    "yotta",
+    "super-pocket",
+    "video-specs"
+]
+
+DJANGO_TECH_SLUGS = ["django", "django-rest-framework"]
+FEATURED_PROJECTS_COUNT = 4
+
+
+def _ordered_projects_by_slugs(slugs):
+    projects = (
+        Project.published.select_related("category")
+        .prefetch_related("technologies")
+        .filter(slug__in=slugs)
+    )
+    projects_by_slug = {
+        project.slug: project for project in projects
+    }
+    return [projects_by_slug[slug] for slug in slugs if slug in projects_by_slug]
+
+
+def _top_technologies(categories, limit=6):
+    return (
+        Technology.objects.filter(category__in=categories)
+        .order_by("-proficiency", "name")
+        .values_list("name", flat=True)[:limit]
+    )
+
+
+def _random_featured_projects(limit=FEATURED_PROJECTS_COUNT):
+    featured_projects = list(
+        Project.published.select_related("category")
+        .prefetch_related("technologies")
+        .filter(is_featured=True)
+    )
+    selection_size = min(len(featured_projects), limit)
+    if not selection_size:
+        return []
+    return random.sample(featured_projects, selection_size)
+
 
 class HomeView(TemplateView):
-    """
-    Homepage view with featured projects and tech stack.
-    Uses centralized settings for personal info.
-    """
+    """Homepage view with a short introduction and navigation hub."""
 
     template_name = "core/home.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        # Featured projects with optimized query
-        projects_list = [
-            proj.id for proj in Project.objects.filter(is_featured=True)
+        context["featured_projects"] = _random_featured_projects()
+        context["home_intro"] = {
+            "title": "dim-gggl",
+            "body": (
+                "Backend Python developer building Django applications, CLI tools, "
+                "and AI-assisted creative workflows."
+            ),
+        }
+        context["navigation_sections"] = [
+            {
+                "eyebrow": "Explore",
+                "title": "IA",
+                "description": "Prompting, music, video, jailbreaks, and vibe-engineering.",
+                "url": reverse("core:ai"),
+            },
+            {
+                "eyebrow": "Build",
+                "title": "CLI",
+                "description": "A curated selection of command-line oriented projects.",
+                "url": reverse("core:cli"),
+            },
+            {
+                "eyebrow": "Ship",
+                "title": "Django",
+                "description": "Published Django and DRF projects from the portfolio.",
+                "url": reverse("core:django"),
+            },
+            {
+                "eyebrow": "Browse",
+                "title": "Projets",
+                "description": "The complete archive with filters, search, and details.",
+                "url": reverse("projects:list"),
+            },
+            {
+                "eyebrow": "Profile",
+                "title": "A propos",
+                "description": "Background, stack, and a broader presentation page.",
+                "url": reverse("core:about"),
+            },
         ]
-        featured_ids = []
-        while len(featured_ids) < settings.FEATURED_PROJECTS_COUNT \
-            and projects_list:
-            idx = random.randint(0, len(projects_list) - 1)
-            featured_ids.append(projects_list.pop(idx))
-        featured_projects = [
-            Project.objects.get(id=id) for id in featured_ids
-        ]
+        context["archive_url"] = reverse("projects:list")
+        return context
 
-        context["featured_projects"] = featured_projects
 
-        # Tech stack for homepage
-        context["tech_backend"] = (
-            Technology.objects.filter(category__in=["backend", "language"])
-            .order_by("-proficiency", "name")
-            .values_list("name", flat=True)
-        )
+class AIView(TemplateView):
+    """Editorial AI page with prompting sections and curated projects."""
 
-        context["tech_data_tools"] = (
-            Technology.objects.filter(category__in=["database", "tool"])
-            .order_by("-proficiency", "name")
-            .values_list("name", flat=True)
+    template_name = "core/ai.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["ai_page"] = {
+            "prompting": {
+                "intro": {
+                    "title": "Prompting",
+                    "body": (
+                        "A focused page for AI experiments "
+                        "built around authored prompts and reverse-analysis workflows."
+                    ),
+                },
+                "music": {
+                    "title": "Music",
+                    "spotify_embed_url": (
+                        "https://open.spotify.com/embed/album/"
+                        "5i9pJkPpbr0LzhRMQUHgFc?utm_source=generator"
+                    ),
+                    "spotify_external_url": (
+                        "https://open.spotify.com/album/"
+                        "5i9pJkPpbr0LzhRMQUHgFc"
+                    ),
+                    "spotify_caption": "Artist mapping EP on Spotify.",
+                    "track_title": "Un mot",
+                    "style_prompt": (
+                        "Dark cinematic French chanson with textured synths, "
+                        "intimate male vocals, restrained pulse, and a haunted "
+                        "late-night atmosphere."
+                    ),
+                    "lyrics_prompt": "",
+                },
+                "video": {
+                    "title": "Video",
+                    "body": (
+                        "A direct entry point to the Sora experiments and video-oriented "
+                        "prompting work."
+                    ),
+                    "sora_url": "https://sora.chatgpt.com/profile/dim-gggl",
+                    "cta_label": "Voir ma page Sora",
+                },
+                "jailbreak": {
+                    "title": "Jailbreak",
+                    "body": (
+                        "I train to understand how LLMs work by iterating on different kind "
+                        "of prompts and from time to time I jailbreak the model to understand."
+                        "\n(For obvious reasons, parts of the answer from the model have been erased)"
+                    ),
+                    "screenshot_path": "static/images/Jailbreak_grok.",
+                    "image_alt": "Exemple of a conversation with a jailbreak version of Grok",
+                },
+            },
+            "vibe_engineering": {
+                "title": "Vibe-Engineering",
+                "body": (
+                    "Projects built on Google AI Studio with Gemini 3 Pro and Gemini 3.1 Pro "
+                    "so just with prompting and iterations."
+                ),
+                "project_slugs": VIBE_PROJECT_SLUGS,
+            },
+        }
+        context["vibe_projects"] = _ordered_projects_by_slugs(VIBE_PROJECT_SLUGS)
+        return context
+
+
+class CLIProjectsView(TemplateView):
+    """Curated CLI portfolio page."""
+
+    template_name = "core/cli.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        projects = _ordered_projects_by_slugs(CLI_PROJECT_SLUGS)
+        context["page_intro"] = {
+            "title": "CLI",
+            "body": (
+                "A first-release selection of command-line projects focused on "
+                "workflow, ergonomics, and packaging."
+            ),
+        }
+        context["projects"] = projects
+        context["missing_project_count"] = len(CLI_PROJECT_SLUGS) - len(projects)
+        return context
+
+
+class DjangoProjectsView(TemplateView):
+    """Published Django and DRF project page."""
+
+    template_name = "core/django.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_intro"] = {
+            "title": "Django",
+            "body": (
+                "Projects built with Django and Django REST Framework, ordered as part "
+                "of the published portfolio."
+            ),
+        }
+        context["projects"] = (
+            Project.published.select_related("category")
+            .prefetch_related("technologies")
+            .filter(technologies__slug__in=DJANGO_TECH_SLUGS)
+            .order_by("order", "-completed_at")
+            .distinct()
         )
         return context
 

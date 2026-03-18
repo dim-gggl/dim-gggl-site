@@ -28,6 +28,25 @@ def _str_to_bool(value):
     return str(value).lower() in {"1", "true", "yes", "on"}
 
 
+def _resolve_environment(raw_environment, raw_debug):
+    """Resolve the runtime environment from explicit env vars."""
+    if raw_environment:
+        return str(raw_environment).strip().lower()
+
+    if raw_debug:
+        return "development"
+
+    return "development"
+
+
+def _resolve_debug(raw_debug, environment):
+    """Resolve DEBUG with safe defaults for local development."""
+    if raw_debug:
+        return _str_to_bool(raw_debug)
+
+    return environment != "production"
+
+
 def _load_secret_key():
     """Return the Django secret key from environment or file."""
     # Priority 1: Direct environment variable (Railway uses this)
@@ -52,7 +71,7 @@ def _load_secret_key():
         # Fall through to next option
 
     # Priority 3: Production check
-    if os.environ.get("ENVIRONMENT") == "production":
+    if ENVIRONMENT == "production":
         raise ValueError(
             "SECRET_KEY must be set in production via SECRET_KEY environment variable!"
         )
@@ -61,14 +80,17 @@ def _load_secret_key():
     return get_random_secret_key()
 
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = _load_secret_key()
+# Environment
+ENVIRONMENT = _resolve_environment(
+    os.environ.get("ENVIRONMENT"),
+    os.environ.get("DEBUG"),
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = _str_to_bool(os.environ.get("DEBUG", "False"))
+DEBUG = _resolve_debug(os.environ.get("DEBUG"), ENVIRONMENT)
 
-# Environment
-ENVIRONMENT = os.environ.get("ENVIRONMENT", "development" if DEBUG else "production")
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = _load_secret_key()
 
 # Google Analytics & Monitoring
 GOOGLE_ANALYTICS_ID = os.environ.get("GOOGLE_ANALYTICS_ID", "")
@@ -268,7 +290,11 @@ STORAGES = {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": (
+            "django.contrib.staticfiles.storage.StaticFilesStorage"
+            if DEBUG
+            else "whitenoise.storage.CompressedManifestStaticFilesStorage"
+        ),
     },
 }
 
