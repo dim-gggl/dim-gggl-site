@@ -58,25 +58,28 @@ def project_factory(db, category_factory) -> Callable[..., Project]:
         nonlocal counter
         counter += 1
 
-        category = overrides.pop(
-            "category",
-            category_factory(
-                name="Study Projects",
+        category = overrides.pop("category", None)
+        if category is None:
+            category, _ = Category.objects.get_or_create(
                 slug="study-projects",
-                description="Projects completed during training.",
-            ),
-        )
+                defaults={
+                    "name": "Study Projects",
+                    "description": "Projects completed during training.",
+                },
+            )
 
         defaults = {
             "title": f"Localized Project {counter}",
             "slug": f"localized-project-{counter}",
             "tagline": "CLI CRM for an event agency",
             "description": (
-                "Manage your events, clients, contracts, and teammate profiles "
+                "Manage your events, clients, contracts, and teammate "
+                "profiles "
                 "with an ergonomic, intuitive Command Line Interface."
             ),
             "challenges": (
-                "Implemented the PostgreSQL database and secured the application "
+                "Implemented the PostgreSQL database and secured the "
+                "application "
                 "with password hashing and JWT authentication."
             ),
             "learnings": "PostgreSQL, JWT, hashing, TUI",
@@ -92,4 +95,3 @@ def project_factory(db, category_factory) -> Callable[..., Project]:
         return Project.objects.create(**defaults)
 
     return create_project
-

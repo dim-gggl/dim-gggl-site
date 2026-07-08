@@ -5,12 +5,11 @@ FROM python:3.11-slim
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     DEBUG=0 \
-    COMPRESS_OFFLINE=1 \
     ALLOWED_HOSTS=127.0.0.1,localhost,dim-gggl.com,www.dim-gggl.com
 
 WORKDIR /app
 
-# System dependencies (only what's needed at runtime)
+# System dependencies (Node is only needed to build the React frontend)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     postgresql-client \
     nodejs \
@@ -23,18 +22,19 @@ COPY requirements/ ./requirements/
 RUN python -m pip install --upgrade pip && \
     python -m pip install --no-cache-dir -r requirements/prod.txt
 
+# Install frontend dependencies (cached layer as long as the lockfile is stable)
+COPY frontend/package.json frontend/package-lock.json ./frontend/
+RUN npm ci --prefix frontend
+
 # Copy project code
 COPY . .
 
-# Install Tailwind toolchain dependencies (npm packages)
-RUN python manage.py tailwind install
+# Build the React frontend into static/frontend/
+RUN npm run build --prefix frontend
 
 # Collect static files at build time (does not require DB)
-# Ensure source static directory exists to silence W004 in production
 # Use a dummy SECRET_KEY for collectstatic (it doesn't need the real one)
-RUN python manage.py tailwind build && \
-    SECRET_KEY=build-time-secret python manage.py collectstatic --noinput && \
-    python manage.py compress
+RUN SECRET_KEY=build-time-secret python manage.py collectstatic --noinput
 
 # Expose default port (Railway will provide $PORT)
 EXPOSE 8000

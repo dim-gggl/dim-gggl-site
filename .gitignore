@@ -59,3 +59,7 @@ Thumbs.db
 *.tmp
 .python-version
 docs/*
+
+# Frontend
+frontend/node_modules/
+static/frontend/

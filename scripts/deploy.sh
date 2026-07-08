@@ -31,11 +31,12 @@ pip install -r requirements/prod.txt
 echo "🗄️  Application des migrations..."
 python manage.py migrate --settings=portfolio_dimitri.settings
 
+echo "⚛️  Build du frontend React..."
+npm ci --prefix frontend
+npm run build --prefix frontend
+
 echo "📁 Collecte des fichiers statiques..."
 python manage.py collectstatic --noinput --settings=portfolio_dimitri.settings
-
-echo "🎨 Compression des assets..."
-python manage.py compress --settings=portfolio_dimitri.settings
 
 echo "🔄 Redémarrage de Gunicorn..."
 sudo systemctl restart gunicorn

@@ -1,11 +1,13 @@
+import json
+
 from django.test import TestCase
 from django.urls import reverse
 
 from projects.models import Project
 
 
-class HomeViewTests(TestCase):
-    def test_homepage_injects_four_random_featured_projects(self):
+class HomeApiTests(TestCase):
+    def test_home_api_returns_four_random_featured_projects(self):
         [
             Project.objects.create(
                 title=f"Featured {index}",
@@ -28,10 +30,14 @@ class HomeViewTests(TestCase):
             is_published=True,
         )
 
-        response = self.client.get(reverse("core:home"))
-        featured_projects = response.context["featured_projects"]
+        response = self.client.get(reverse("api:home"))
+        data = json.loads(response.content)
+        featured_slugs = {project["slug"] for project in data["featured"]}
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(featured_projects), 4)
-        self.assertTrue(all(project.is_featured for project in featured_projects))
-        self.assertTrue(all(project.is_published for project in featured_projects))
+        self.assertEqual(len(data["featured"]), 4)
+        self.assertNotIn("hidden-featured", featured_slugs)
+        self.assertNotIn("regular-project", featured_slugs)
+        self.assertTrue(
+            featured_slugs <= {f"featured-{index}" for index in range(5)}
+        )

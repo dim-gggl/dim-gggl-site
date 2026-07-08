@@ -1,9 +1,0 @@
-.card-image-container {
-	margin: 0 auto;
-}
-
-@media (max-width: 768px) {
-	.card-image-container {
-		margin: auto;
-	}
-}

@@ -1,34 +1,46 @@
 """
-Tests for translated project content rendering.
+Tests for translated project content in the API payloads.
 """
-from html import unescape
+
+import json
 
 import pytest
-from django.conf import settings
 from django.urls import reverse
 
 
 @pytest.mark.django_db
 class TestProjectLocalization:
-    def test_should_render_project_content_in_french_when_locale_is_french(
+    def test_should_return_french_content_when_lang_is_french(
         self,
         client,
         project_factory,
     ):
-        """
-        Ensure dynamic project fields are translated when French is active.
-        """
+        """Ensure dynamic project fields are translated for ?lang=fr."""
 
         project = project_factory()
-        client.cookies[settings.LANGUAGE_COOKIE_NAME] = "fr"
 
         response = client.get(
-            reverse("projects:detail", kwargs={"slug": project.slug})
+            reverse("api:project-detail", kwargs={"slug": project.slug})
+            + "?lang=fr"
         )
 
         assert response.status_code == 200
-        content = unescape(response.content.decode())
+        data = json.loads(response.content)
 
-        assert "Projets d'étude" in content
-        assert "CRM CLI pour une agence événementielle" in content
-        assert "Authentification JWT (SimpleJWT)" in content
+        assert data["category"]["name"] == "Projets d'étude"
+        assert data["tagline"] == "CRM CLI pour une agence événementielle"
+        assert "Authentification JWT (SimpleJWT)" in data["features"]
+
+    def test_should_return_english_content_by_default(
+        self,
+        client,
+        project_factory,
+    ):
+        project = project_factory()
+
+        response = client.get(
+            reverse("api:project-detail", kwargs={"slug": project.slug})
+        )
+
+        data = json.loads(response.content)
+        assert data["tagline"] == "CLI CRM for an event agency"

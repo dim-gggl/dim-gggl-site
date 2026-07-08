@@ -133,12 +133,10 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     # Third-party
     "whitenoise.runserver_nostatic",
-    "compressor",
-    "tailwind",
-    "theme",
     # Local apps
     "core",
     "projects",
+    "api",
 ]
 
 # Note: django_ratelimit requires Redis. Use custom rate_limit decorator in development.
@@ -286,7 +284,6 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    "compressor.finders.CompressorFinder",
 ]
 
 # Storage configuration
@@ -302,14 +299,6 @@ STORAGES = {
         ),
     },
 }
-
-COMPRESS_ENABLED = _str_to_bool(os.environ.get("COMPRESS_ENABLED", "True"))
-COMPRESS_OFFLINE = _str_to_bool(
-    os.environ.get(
-        "COMPRESS_OFFLINE",
-        "False" if DEBUG else "True",
-    )
-)
 
 # Media files
 MEDIA_URL = "media/"
@@ -555,4 +544,3 @@ ADMIN_SITE_HEADER = "Portfolio Dimitri - Administration"
 ADMIN_SITE_TITLE = "Portfolio Admin"
 ADMIN_INDEX_TITLE = "Bienvenue dans l'administration"
 
-TAILWIND_APP_NAME = "theme"

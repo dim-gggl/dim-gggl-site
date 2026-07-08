@@ -1,3 +1,5 @@
+import json
+
 import pytest
 from django.urls import reverse
 
@@ -6,8 +8,6 @@ from projects.models import Category, Project, Technology
 
 @pytest.fixture(autouse=True)
 def core_view_test_settings(settings):
-    settings.COMPRESS_ENABLED = False
-    settings.COMPRESS_OFFLINE = False
     settings.STORAGES = {
         "default": {
             "BACKEND": "django.core.files.storage.FileSystemStorage",
@@ -18,114 +18,159 @@ def core_view_test_settings(settings):
     }
 
 
+def make_category(name, slug):
+    return Category.objects.create(
+        name=name,
+        slug=slug,
+        description=f"{name} category",
+    )
+
+
+def make_technology(name, slug, category):
+    return Technology.objects.create(name=name, slug=slug, category=category)
+
+
+def make_project(
+    title,
+    slug,
+    category,
+    technologies=None,
+    is_published=True,
+    is_featured=False,
+    order=0,
+):
+    project = Project.objects.create(
+        title=title,
+        slug=slug,
+        tagline=f"{title} tagline",
+        description=f"{title} description",
+        category=category,
+        github_url=f"https://github.com/dim-gggl/{slug}",
+        completed_at="2024-01-01",
+        is_published=is_published,
+        is_featured=is_featured,
+        order=order,
+    )
+    if technologies:
+        project.technologies.set(technologies)
+    return project
+
+
 @pytest.mark.django_db
-class TestCoreViews:
-    def _make_category(self, name, slug):
-        return Category.objects.create(
-            name=name,
-            slug=slug,
-            description=f"{name} category",
-        )
+class TestSpaViews:
+    """Every page route serves the React SPA shell."""
 
-    def _make_technology(self, name, slug, category):
-        return Technology.objects.create(
-            name=name,
-            slug=slug,
-            category=category,
-        )
-
-    def _make_project(
-        self,
-        title,
-        slug,
-        category,
-        technologies=None,
-        is_published=True,
-        order=0,
-    ):
-        project = Project.objects.create(
-            title=title,
-            slug=slug,
-            tagline=f"{title} tagline",
-            description=f"{title} description",
-            category=category,
-            github_url=f"https://github.com/dim-gggl/{slug}",
-            completed_at="2024-01-01",
-            is_published=is_published,
-            order=order,
-        )
-        if technologies:
-            project.technologies.set(technologies)
-        return project
-
-    def test_home_page(self, client):
-        response = client.get(reverse("core:home"), secure=True)
+    @pytest.mark.parametrize(
+        "url_name",
+        [
+            "core:home",
+            "core:ai",
+            "core:cli",
+            "core:django",
+            "core:about",
+            "core:skills",
+        ],
+    )
+    def test_page_serves_spa_shell(self, client, url_name):
+        response = client.get(reverse(url_name), secure=True)
 
         assert response.status_code == 200
-        assert "Dimitri" in response.content.decode()
-
-    def test_home_page_exposes_navigation_context(self, client):
-        response = client.get(reverse("core:home"), secure=True)
-
-        assert response.status_code == 200
-        assert "home_intro" in response.context
-        assert "navigation_sections" in response.context
-        assert len(response.context["navigation_sections"]) == 5
-
-    def test_home_page_renders_navigation_links(self, client):
-        response = client.get(reverse("core:home"), secure=True)
         content = response.content.decode()
+        assert 'id="root"' in content
+        assert "frontend/assets/app.js" in content
+
+
+@pytest.mark.django_db
+class TestSiteApi:
+    def test_site_payload_exposes_person_ui_and_stats(self, client):
+        response = client.get(reverse("api:site"), secure=True)
 
         assert response.status_code == 200
-        assert reverse("core:ai") in content
-        assert reverse("core:cli") in content
-        assert reverse("core:django") in content
-        assert reverse("projects:list") in content
-        assert reverse("core:about") in content
+        data = json.loads(response.content)
+        assert data["person"]["name"] == "Dimitri Gaggioli"
+        assert data["languages"] == ["en", "fr"]
+        assert data["ui"]["nav.home"] == "Home"
+        assert "projects" in data["stats"]
 
-    def test_ai_page_returns_200_and_exposes_context(self, client):
-        category = self._make_category("AI", "ai")
-        python = self._make_technology("Python", "python", "language")
+    def test_site_payload_localizes_ui_catalog(self, client):
+        response = client.get(reverse("api:site") + "?lang=fr", secure=True)
 
-        self._make_project("sunoreverse", "sunoreverse", category, [python], order=1)
-        self._make_project("suno-arch", "suno-arch", category, [python], order=2)
-        self._make_project("market-pal", "market-pal", category, [python], order=3)
-        self._make_project("KinoLOG", "KinoLOG", category, [python], order=4)
+        data = json.loads(response.content)
+        assert data["language"] == "fr"
+        assert data["ui"]["nav.home"] == "Accueil"
 
-        response = client.get(reverse("core:ai"), secure=True)
+
+@pytest.mark.django_db
+class TestHomeApi:
+    def test_home_exposes_intro_and_navigation(self, client):
+        response = client.get(reverse("api:home"), secure=True)
 
         assert response.status_code == 200
-        assert "ai_page" in response.context
-        assert "vibe_projects" in response.context
-        assert [project.slug for project in response.context["vibe_projects"]] == [
-            "sunoreverse",
-            "suno-arch",
-            "market-pal",
-            "KinoLOG",
+        data = json.loads(response.content)
+        assert data["intro"]["title"] == "dim-gggl"
+        assert len(data["navigation"]) == 5
+        assert [section["url"] for section in data["navigation"]] == [
+            "/ai/",
+            "/cli/",
+            "/django/",
+            "/projects/",
+            "/about/",
         ]
 
-    def test_cli_page_returns_curated_published_projects_only(self, client):
-        category = self._make_category("CLI", "cli")
-        python = self._make_technology("Python", "python", "language")
+    def test_home_returns_featured_projects_only(self, client):
+        category = make_category("Web", "web")
+        make_project("Featured", "featured", category, is_featured=True)
+        make_project("Regular", "regular", category, is_featured=False)
 
-        self._make_project("Epic Events", "epic_events", category, [python], order=1)
-        self._make_project(
-            "AlgoInvest&Trade",
-            "AlgoInvest-Trade",
-            category,
-            [python],
-            order=2,
+        response = client.get(reverse("api:home"), secure=True)
+
+        data = json.loads(response.content)
+        assert [
+            project["slug"] for project in data["featured"]
+        ] == ["featured"]
+
+
+@pytest.mark.django_db
+class TestAiApi:
+    def test_ai_payload_exposes_prompting_and_curated_projects(self, client):
+        category = make_category("AI", "ai")
+        python = make_technology("Python", "python", "language")
+
+        make_project("sunoreverse", "sunoreverse", category, [python], order=1)
+        make_project("suno-arch", "suno-arch", category, [python], order=2)
+        make_project("market-pal", "market-pal", category, [python], order=3)
+        make_project("KinoLOG", "KinoLOG", category, [python], order=4)
+
+        response = client.get(reverse("api:ai"), secure=True)
+
+        assert response.status_code == 200
+        data = json.loads(response.content)
+        assert data["prompting"]["intro"]["title"] == "Prompting"
+        assert data["prompting"]["music"]["track_title"] == "Un mot"
+        assert data["prompting"]["video"]["sora_url"].startswith(
+            "https://sora"
         )
-        self._make_project("ChessUp", "Chess_Up", category, [python], order=3)
-        self._make_project(
-            "Book Scraper",
-            "Book_Scraper",
-            category,
-            [python],
-            order=4,
+        assert [
+            project["slug"] for project in data["vibe_engineering"]["projects"]
+        ] == ["sunoreverse", "suno-arch", "market-pal", "KinoLOG"]
+
+
+@pytest.mark.django_db
+class TestCliApi:
+    def test_cli_returns_curated_published_projects_only(self, client):
+        category = make_category("CLI", "cli")
+        python = make_technology("Python", "python", "language")
+
+        make_project("Epic Events", "epic_events", category, [python], order=1)
+        make_project(
+            "AlgoInvest&Trade", "AlgoInvest-Trade", category, [python], order=2
         )
-        self._make_project("clinkey-cli", "clinkey-cli", category, [python], order=5)
-        self._make_project(
+        make_project("ChessUp", "Chess_Up", category, [python], order=3)
+        make_project(
+            "Book Scraper", "Book_Scraper", category, [python], order=4
+        )
+        make_project("clinkey-cli", "clinkey-cli", category, [python], order=5)
+        make_project(
             "Hidden CLI",
             "hidden-cli",
             category,
@@ -134,10 +179,11 @@ class TestCoreViews:
             order=6,
         )
 
-        response = client.get(reverse("core:cli"), secure=True)
+        response = client.get(reverse("api:cli"), secure=True)
 
         assert response.status_code == 200
-        assert [project.slug for project in response.context["projects"]] == [
+        data = json.loads(response.content)
+        assert [project["slug"] for project in data["projects"]] == [
             "epic_events",
             "AlgoInvest-Trade",
             "Chess_Up",
@@ -145,38 +191,27 @@ class TestCoreViews:
             "clinkey-cli",
         ]
 
-    def test_django_page_selects_django_and_drf_projects(self, client):
-        category = self._make_category("Web", "web")
-        django = self._make_technology("Django", "django", "backend")
-        drf = self._make_technology(
-            "Django Rest Framework",
-            "django-rest-framework",
-            "backend",
-        )
-        python = self._make_technology("Python", "python", "language")
 
-        django_only = self._make_project(
-            "LITReview",
-            "lit_review",
-            category,
-            [django],
-            order=1,
+@pytest.mark.django_db
+class TestDjangoApi:
+    def test_django_selects_django_and_drf_projects(self, client):
+        category = make_category("Web", "web")
+        django = make_technology("Django", "django", "backend")
+        drf = make_technology(
+            "Django Rest Framework", "django-rest-framework", "backend"
         )
-        drf_project = self._make_project(
+        python = make_technology("Python", "python", "language")
+
+        make_project("LITReview", "lit_review", category, [django], order=1)
+        make_project(
             "SoftDesk Support",
             "softdesk_support",
             category,
             [django, drf],
             order=2,
         )
-        self._make_project(
-            "Python CLI",
-            "python-cli",
-            category,
-            [python],
-            order=3,
-        )
-        self._make_project(
+        make_project("Python CLI", "python-cli", category, [python], order=3)
+        make_project(
             "Hidden DRF",
             "hidden-drf",
             category,
@@ -185,37 +220,36 @@ class TestCoreViews:
             order=4,
         )
 
-        response = client.get(reverse("core:django"), secure=True)
+        response = client.get(reverse("api:django"), secure=True)
 
         assert response.status_code == 200
-        assert response.context["projects"][0] == django_only
-        assert response.context["projects"][1] == drf_project
-        assert [project.slug for project in response.context["projects"]] == [
+        data = json.loads(response.content)
+        assert [project["slug"] for project in data["projects"]] == [
             "lit_review",
             "softdesk_support",
         ]
 
-    def test_about_page(self, client):
-        response = client.get(reverse("core:about"), secure=True)
+
+@pytest.mark.django_db
+class TestAboutApi:
+    def test_about_groups_technologies_by_category(self, client):
+        make_technology("Python", "python", "language")
+        make_technology("PostgreSQL", "postgresql", "database")
+        make_technology("Docker", "docker", "tool")
+        make_technology("React", "react", "frontend")
+
+        response = client.get(reverse("api:about"), secure=True)
+
         assert response.status_code == 200
-
-    def test_skills_page(self, client):
-        response = client.get(reverse("core:skills"), secure=True)
-        assert response.status_code == 200
-
-    def test_navbar_uses_canonical_labels(self, client):
-        response = client.get(reverse("core:home"), secure=True)
-        content = response.content.decode()
-
-        assert "HOME" in content
-        assert "IA" in content
-        assert "CLI" in content
-        assert "DJANGO" in content
-        assert "PROJETS" in content
-        assert "A PROPOS" in content
-
-    def test_navbar_marks_current_page(self, client):
-        response = client.get(reverse("core:ai"), secure=True)
-        content = response.content.decode()
-
-        assert 'aria-current="page"' in content
+        data = json.loads(response.content)
+        assert [
+            tech["name"] for tech in data["skills"]["backend"]
+        ] == ["Python"]
+        assert [tech["name"] for tech in data["skills"]["database"]] == [
+            "PostgreSQL"
+        ]
+        assert [tech["name"] for tech in data["skills"]["tools"]] == ["Docker"]
+        assert [
+            tech["name"] for tech in data["skills"]["frontend"]
+        ] == ["React"]
+        assert data["skills"]["backend"][0]["color_from"]
