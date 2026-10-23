@@ -1,12 +1,13 @@
 {% load localization_tags %}
-<section class="mx-auto max-w-6xl px-4 py-8">
-  <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+<section class="section shell" aria-labelledby="index-title">
+  <h2 id="index-title" class="subheading muted mb-8">{% t "index.title" %}</h2>
+  <nav class="index-list" aria-labelledby="index-title">
     {% for section in navigation_sections %}
-      <a href="{{ section.url }}" class="group rounded-2xl border border-neutral-800 bg-(--color-bg-secondary) p-6 transition hover:border-(--color-accent-primary)">
-        <p class="text-sm uppercase tracking-[0.3em] text-(--color-accent-primary)">{{ section.eyebrow|translate_content }}</p>
-        <h2 class="mt-4 text-2xl font-bold text-(--color-text-primary) group-hover:text-(--color-accent-primary)">{{ section.title|translate_content }}</h2>
-        <p class="mt-3 text-(--color-text-secondary)">{{ section.description|translate_content }}</p>
+      <a href="{{ section.url }}" class="index-row">
+        <span class="index-word">{{ section.title|translate_content }}</span>
+        <span class="index-desc">{{ section.description|translate_content }}</span>
+        <span class="index-glyph {% cycle 'glyph-circle' 'glyph-square' 'glyph-bar' 'glyph-half' 'glyph-ring' %}" aria-hidden="true"></span>
       </a>
     {% endfor %}
-  </div>
+  </nav>
 </section>

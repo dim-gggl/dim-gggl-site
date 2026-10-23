@@ -4,14 +4,10 @@
 {% block title %}{% t "meta.django_title" %}{% endblock %}
 
 {% block content %}
-  <section class="mx-auto max-w-6xl px-4 py-16">
-    <p class="text-sm uppercase tracking-[0.3em] text-(--color-accent-primary)">{{ page_intro.title|translate_content }}</p>
-    <h1 class="mt-4 text-4xl font-bold text-(--color-text-primary) md:text-6xl">{{ page_intro.title }}</h1>
-    <p class="mt-6 max-w-3xl text-(--color-text-secondary)">{{ page_intro.body|translate_content }}</p>
-  </section>
+  {% include "core/components/page_header.html" with title=page_intro.title body=page_intro.body|translate_content glyph="bar" %}
 
-  <section class="mx-auto max-w-6xl px-4 pb-16">
-    <div class="grid gap-6 md:grid-cols-2">
+  <section class="section shell">
+    <div class="grid gap-x-10 gap-y-16 md:grid-cols-2 xl:grid-cols-3">
       {% for project in projects %}
         {% include "projects/components/project_card.html" with project=project origin_context="django" %}
       {% endfor %}

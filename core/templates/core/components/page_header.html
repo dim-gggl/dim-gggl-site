@@ -1,0 +1,11 @@
+{% comment %}
+Shared page header.
+Params: title (required), body (optional), glyph (optional: circle|square|bar|half|ring).
+{% endcomment %}
+<header class="shell pt-[clamp(3rem,9vw,8rem)]">
+  <div class="grid gap-8 md:grid-cols-12 md:items-end">
+    <h1 class="display display-lg md:col-span-8">{{ title }}</h1>
+    {% if glyph %}<span class="index-glyph glyph-{{ glyph }} hidden md:col-span-4 md:block" aria-hidden="true"></span>{% endif %}
+  </div>
+  {% if body %}<p class="lede mt-8 max-w-[52ch] text-bone/85">{{ body }}</p>{% endif %}
+</header>

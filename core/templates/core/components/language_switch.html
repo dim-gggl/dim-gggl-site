@@ -1,0 +1,12 @@
+{% load localization_tags %}
+<form action="{% url 'set_language' %}" method="post" class="shrink-0">
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ request.get_full_path }}">
+  {% if current_language == "fr" %}
+    <input type="hidden" name="language" value="en">
+    <button type="submit" class="lang-toggle" aria-label="{% t 'nav.switch_to_english' %}" lang="en">EN</button>
+  {% else %}
+    <input type="hidden" name="language" value="fr">
+    <button type="submit" class="lang-toggle" aria-label="{% t 'nav.switch_to_french' %}" lang="fr">FR</button>
+  {% endif %}
+</form>

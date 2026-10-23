@@ -1,31 +1,17 @@
-{% load image_tags %}
 {% load localization_tags %}
-<section id="projects" class="mx-auto max-w-6xl px-4 py-12" aria-labelledby="featured-title">
-  <h2 id="featured-title" class="mb-6 text-2xl font-bold">{% t "featured.title" %}</h2>
-  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
-    {% for project in featured_projects %}
-        <article class="group overflow-hidden rounded-xl border border-neutral-800 bg-(--color-bg-secondary) shadow transition hover:-translate-y-1 hover:shadow-xl">
-          <a href="{% url 'projects:detail' project.slug %}" class="block p-6">
-            {% project_image project as img_url %}
-            <div class="aspect-4/3 m-3 p-3 bg-transparent" style="background-image: url('{{ project.featured_image }}'); background-size: cover; background-position: center;"></div>
-            <div class="p-5">
-              <h3 class="text-lg font-semibold group-hover:text-(--color-accent-primary) transition">{{ project.title }}</h3>
-              {% if project.description %}
-                <p class="mt-1 line-clamp-2 text-sm text-(--color-text-secondary)">{{ project.description|translate_content }}</p>
-              {% elif project.tagline %}
-                <p class="mt-1 line-clamp-2 text-sm text-(--color-text-secondary)">{{ project.tagline|translate_content }}</p>
-              {% else %}
-                <p class="mt-1 line-clamp-2 text-sm text-(--color-text-secondary)">{% t "featured.fallback_description" %}</p>
-              {% endif %}
-              <div class="mt-3 flex gap-3 text-sm">
-                {% if project.github_url %}<span class="text-(--color-accent-primary)">GitHub</span>{% endif %}
-                {% if project.demo_url %}<span class="text-(--color-accent-primary)">Demo</span>{% endif %}
-              </div>
-            </div>
-          </a>
-        </article>
-    {% empty %}
-      <p class="text-(--color-text-secondary)">{% t "featured.empty" %}</p>
-    {% endfor %}
+<section id="projects" class="section shell" aria-labelledby="featured-title">
+  <div class="mb-12 flex flex-wrap items-end justify-between gap-6 md:mb-16">
+    <h2 id="featured-title" class="display display-lg">{% t "featured.title" %}</h2>
+    <a href="{{ archive_url }}" class="link">{% t "home.archive" %}</a>
   </div>
+
+  {% if featured_projects %}
+    <div class="work-grid grid gap-x-[clamp(1.5rem,5vw,5rem)] gap-y-16 md:grid-cols-2">
+      {% for project in featured_projects %}
+        {% include 'projects/components/project_card.html' with project=project %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="muted">{% t "featured.empty" %}</p>
+  {% endif %}
 </section>

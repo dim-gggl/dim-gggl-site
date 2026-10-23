@@ -1,241 +1,91 @@
 {% extends 'core/base.html' %}
 {% load static %}
-{% load util_tags %}
 {% load localization_tags %}
-{% load l10n %}
 
 {% block title %}{% t "meta.about_title" %}{% endblock %}
 
-{% block extra_head %}
-  <style>
-    .timeline-item {
-      animation: fadeInLeft 0.6s ease-out;
-      animation-fill-mode: both;
-    }
-    .timeline-item:nth-child(1) { animation-delay: 0.1s; }
-    .timeline-item:nth-child(2) { animation-delay: 0.2s; }
-    .timeline-item:nth-child(3) { animation-delay: 0.3s; }
-    @keyframes fadeInLeft {
-      0% { opacity: 0; transform: translateX(-30px); }
-      100% { opacity: 1; transform: translateX(0); }
-    }
-    .skill-bar { transition: width 1s ease-out; }
-  </style>
-{% endblock %}
-
 {% block content %}
-<section class="mx-auto relative bg-linear-to-br from-[--color-bg-secondary] via-[--color-bg-tertiary] to-[--color-bg-primary] px-4 py-20">
-  <div class="mx-auto max-w-5xl">
-    <div class="grid items-center gap-12 md:grid-cols-2">
-      <div class="text-center md:text-left">
-        <div class="mb-8 inline-block">
-          <div class="mx-auto h-64 w-48 overflow-hidden rounded-3xl border border-(--color-accent-primary) shadow-2xl md:mx-0">
-            <img src="{% static 'images/profile-photo.png' %}" alt="Dimitri Gaggioli" class="h-full w-full object-cover">
-          </div>
-        </div>
-        <h1 class="mb-4 text-5xl font-bold text-(--color-text-primary) md:text-6xl">
-          Dimitri <span class="text-(--color-accent-primary)">Gaggioli</span>
-        </h1>
-        <p class="mb-6 text-2xl text-(--color-text-secondary)">{{ person.title|translate_content }}</p>
-        <div class="mb-8 flex flex-wrap justify-center gap-3 md:justify-start">
-          <span class="rounded-full border border-(--color-accent-primary) bg-(--color-accent-primary)/20 px-4 py-2 font-medium text-(--color-accent-primary)">{% t "hero.tagline_1" %}</span>
-          <span class="rounded-full border border-(--color-accent-primary) bg-(--color-accent-primary)/20 px-4 py-2 font-medium text-(--color-accent-primary)">{% t "hero.tagline_2" %}</span>
-          <span class="rounded-full border border-(--color-accent-primary) bg-(--color-accent-primary)/20 px-4 py-2 font-medium text-(--color-accent-primary)">{% t "hero.tagline_3" %}</span>
-        </div>
-        <div class="flex justify-center md:justify-start">
-          <a href="mailto:{{ person.contact_email }}" class="inline-flex items-center justify-center gap-2 rounded-lg bg-(--color-accent-primary) px-8 py-4 font-semibold text-black transition hover:bg-(--color-accent-hover) shadow-lg">
-            {% t "about.cta_contact" %}
-          </a>
-        </div>
-      </div>
+<section class="shell pt-[clamp(3rem,9vw,8rem)]" aria-labelledby="about-title">
+  <div class="grid gap-14 md:grid-cols-12">
+    <div class="md:col-span-5">
+      <figure class="portrait relative mx-auto max-w-sm md:mx-0">
+        <span class="absolute -right-5 -bottom-5 h-2/3 w-2/3 bg-cobalt" aria-hidden="true"></span>
+        <span class="absolute -top-4 -left-4 h-14 w-14 rounded-full bg-saffron" aria-hidden="true"></span>
+        <img src="{% static 'images/profile-photo.png' %}" alt="{% t 'about.portrait_alt' %}" class="relative aspect-[4/5] w-full object-cover grayscale contrast-[1.08] transition duration-700 hover:grayscale-0">
+      </figure>
+    </div>
 
-      <div class="grid grid-cols-2 gap-6">
-        <div class="rounded-xl border border-neutral-800 bg-[--color-bg-secondary] p-6 text-center">
-          <div class="mb-2 text-5xl font-bold text-(--color-accent-primary)">{{ total_projects }}+</div>
-          <div class="text-[--color-text-muted]">{% t "about.stats_projects" %}</div>
-        </div>
-        <div class="rounded-xl border border-neutral-800 bg-[--color-bg-secondary] p-6 text-center">
-          <div class="mb-2 text-5xl font-bold text-(--color-accent-primary)">{{ years_experience }}+</div>
-          <div class="text-[--color-text-muted]">{% t "about.stats_years" %}</div>
-        </div>
-        <div class="rounded-xl border border-neutral-800 bg-[--color-bg-secondary] p-6 text-center">
-          <div class="mb-2 text-5xl font-bold text-(--color-accent-primary)">{{ technologies_count }}+</div>
-          <div class="text-[--color-text-muted]">{% t "about.stats_technologies" %}</div>
-        </div>
-        <div class="rounded-xl border border-neutral-800 bg-[--color-bg-secondary] p-6 text-center">
-          <div class="mb-2 text-5xl font-bold text-(--color-accent-primary)">100%</div>
-          <div class="text-[--color-text-muted]">{% t "about.stats_passion" %}</div>
-        </div>
+    <div class="md:col-span-7">
+      <h1 id="about-title" class="display display-lg">Dimitri Gaggioli</h1>
+      <p class="subheading mt-4 muted">{% t "about.role" %}</p>
+      <div class="prose-body mt-10 text-lg">
+        <p>{% t "about.p1" %}</p>
+        <p>{% t "about.p2" %}</p>
+        <p>{% t "about.p3" %}</p>
+        <p>{% t "about.p4" %}</p>
+      </div>
+      <div class="mt-10 flex flex-wrap gap-3">
+        <a href="mailto:{{ person.contact_email }}" class="btn btn-solid">{% t "about.cta_contact" %}</a>
+        <a href="{% url 'projects:list' %}" class="btn btn-line">{% t "about.cta_projects" %}</a>
       </div>
     </div>
   </div>
 </section>
 
-<section class="bg-[--color-bg-primary] px-4 py-16">
-  <div class="mx-auto max-w-4xl">
-    <h2 class="mb-8 text-center text-4xl font-bold text-[--color-text-primary]">{% t "about.who_title" %}</h2>
-    <div class="space-y-6 text-lg leading-relaxed text-[--color-text-secondary]">
-      <p>{% t "about.p1" %}</p>
-      <p>{% t "about.p2" %}</p>
-      <p>{% t "about.p3" %}</p>
-      <p>{% t "about.p4" %}</p>
-    </div>
+<section class="section shell" aria-labelledby="timeline-title">
+  <h2 id="timeline-title" class="display display-md mb-12">{% t "about.timeline_title" %}</h2>
+  <ol class="border-t border-(--rule)">
+    <li class="grid gap-4 border-b border-(--rule) py-10 md:grid-cols-12">
+      <p class="heading text-cobalt md:col-span-3">2024–2025</p>
+      <div class="md:col-span-8 md:col-start-5">
+        <h3 class="subheading">{% t "about.timeline_1_title" %}</h3>
+        <p class="small muted mt-1">OpenClassrooms</p>
+        <p class="prose-body mt-4">{% t "about.timeline_1_body" %}</p>
+      </div>
+    </li>
+    <li class="grid gap-4 border-b border-(--rule) py-10 md:grid-cols-12">
+      <p class="heading muted md:col-span-3">2010–2024</p>
+      <div class="md:col-span-8 md:col-start-5">
+        <h3 class="subheading">{% t "about.timeline_3_title" %}</h3>
+        <p class="small muted mt-1">La Clef Revival &amp; independent venues</p>
+        <p class="prose-body mt-4">{% t "about.timeline_3_body" %}</p>
+      </div>
+    </li>
+    <li class="grid gap-4 border-b border-(--rule) py-10 md:grid-cols-12">
+      <p class="heading muted md:col-span-3">2012</p>
+      <div class="md:col-span-8 md:col-start-5">
+        <h3 class="subheading">{% t "about.timeline_2_title" %}</h3>
+        <p class="small muted mt-1">Paris X Nanterre</p>
+        <p class="prose-body mt-4">{% t "about.timeline_2_body" %}</p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section class="section shell" aria-labelledby="skills-title">
+  <h2 id="skills-title" class="display display-md mb-12">{% t "about.skills_title" %}</h2>
+  <div class="grid gap-x-10 gap-y-14 sm:grid-cols-2 xl:grid-cols-[1fr_1fr_1fr_2fr]">
+    {% t "about.skills_backend" as g1 %}{% include "core/components/skill_group.html" with title=g1 techs=backend_techs %}
+    {% t "about.skills_frontend" as g2 %}{% include "core/components/skill_group.html" with title=g2 techs=frontend_techs %}
+    {% t "about.skills_databases" as g3 %}{% include "core/components/skill_group.html" with title=g3 techs=database_techs %}
+    {% t "about.skills_tools" as g4 %}{% include "core/components/skill_group.html" with title=g4 techs=tools wide=True %}
   </div>
 </section>
 
-<section class="bg-[--color-bg-secondary] px-4 py-16">
-  <div class="mx-auto max-w-5xl">
-    <h2 class="mb-12 text-center text-4xl font-bold text-[--color-text-primary]">{% t "about.timeline_title" %}</h2>
-    <div class="relative space-y-12">
-      <div class="absolute left-1/2 hidden h-full w-0.5 -translate-x-1/2 bg-neutral-800 md:block"></div>
-      <div class="timeline-item grid items-center gap-8 md:grid-cols-2">
-        <div class="md:text-right">
-          <div class="mb-3 inline-block rounded-full bg-(--color-accent-primary) px-4 py-2 text-sm font-medium text-black">2024 - 2025</div>
-          <h3 class="mb-2 text-2xl font-bold text-[--color-text-primary]">{% t "about.timeline_1_title" %}</h3>
-          <p class="mb-3 text-[--color-text-muted]">OpenClassrooms</p>
-          <p class="text-[--color-text-secondary]">{% t "about.timeline_1_body" %}</p>
-        </div>
-        <div class="hidden md:block"></div>
-      </div>
-      <div class="timeline-item grid items-center gap-8 md:grid-cols-2">
-        <div class="hidden md:block"></div>
-        <div>
-          <div class="mb-3 inline-block rounded-full bg-[--color-bg-tertiary] px-4 py-2 text-sm font-medium text-[--color-text-primary]">2012</div>
-          <h3 class="mb-2 text-2xl font-bold text-[--color-text-primary]">{% t "about.timeline_2_title" %}</h3>
-          <p class="mb-3 text-[--color-text-muted]">Paris X Nanterre</p>
-          <p class="text-[--color-text-secondary]">{% t "about.timeline_2_body" %}</p>
-        </div>
-      </div>
-      <div class="timeline-item grid items-center gap-8 md:grid-cols-2">
-        <div class="md:text-right">
-          <div class="mb-3 inline-block rounded-full bg-[--color-bg-tertiary] px-4 py-2 text-sm font-medium text-[--color-text-primary]">2010 - 2024</div>
-          <h3 class="mb-2 text-2xl font-bold text-[--color-text-primary]">{% t "about.timeline_3_title" %}</h3>
-          <p class="mb-3 text-[--color-text-muted]">La Clef Revival & independent venues</p>
-          <p class="text-[--color-text-secondary]">{% t "about.timeline_3_body" %}</p>
-        </div>
-        <div class="hidden md:block"></div>
-      </div>
+<section class="section shell" aria-labelledby="interests-title">
+  <h2 id="interests-title" class="display display-md mb-12">{% t "about.interests_title" %}</h2>
+  <div class="grid gap-14 md:grid-cols-2">
+    <div class="border-t border-(--rule) pt-8">
+      <span class="block h-10 w-10 rounded-full bg-saffron" aria-hidden="true"></span>
+      <h3 class="heading mt-6">{% t "about.interest_poetry_title" %}</h3>
+      <p class="prose-body mt-4">{% t "about.interest_poetry_body" %}</p>
+      <p class="small muted mt-3">{% t "about.interest_poetry_note" %}</p>
     </div>
-  </div>
-</section>
-
-<section class="bg-[--color-bg-primary] px-4 py-16">
-  <div class="mx-auto max-w-6xl">
-    <h2 class="mb-12 text-center text-4xl font-bold text-[--color-text-primary]">{% t "about.skills_title" %}</h2>
-    <div class="grid gap-8 md:grid-cols-2">
-      <div class="rounded-xl border border-neutral-800 bg-(--color-bg-secondary) p-8">
-        <h3 class="mb-6 text-2xl font-bold text-(--color-text-primary)">{% t "about.skills_backend" %}</h3>
-        <div class="space-y-4">
-          {% for tech in backend_techs %}
-            <div>
-              <div class="mb-2 flex items-center justify-between">
-                <span class="font-medium text-(--color-text-secondary)">{{ tech.name }}</span>
-              </div>
-              <div class="h-2 overflow-hidden rounded-full bg-(--color-bg-tertiary)">
-                <div class="skill-bar h-full rounded-full" style="width: {% localize off %}{{ tech.proficiency|mul:20 }}{% endlocalize %}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div>
-              </div>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-      <div class="rounded-xl border border-neutral-800 bg-(--color-bg-secondary) p-8">
-        <h3 class="mb-6 text-2xl font-bold text-(--color-text-primary)">{% t "about.skills_frontend" %}</h3>
-        <div class="space-y-4">
-          {% for tech in frontend_techs %}
-            <div>
-              <div class="mb-2 flex items-center justify-between">
-                <span class="font-medium text-(--color-text-secondary)">{{ tech.name }}</span>
-              </div>
-              <div class="h-2 overflow-hidden rounded-full bg-(--color-bg-tertiary)">
-                <div class="skill-bar h-full rounded-full" style="width: {% localize off %}{{ tech.proficiency|mul:20 }}{% endlocalize %}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div>
-              </div>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-      <div class="rounded-xl border border-neutral-800 bg-(--color-bg-secondary) p-8">
-        <h3 class="mb-6 text-2xl font-bold text-(--color-text-primary)">{% t "about.skills_databases" %}</h3>
-        <div class="space-y-4">
-          {% for tech in database_techs %}
-            <div>
-              <div class="mb-2 flex items-center justify-between">
-                <span class="font-medium text-(--color-text-secondary)">{{ tech.name }}</span>
-              </div>
-              <div class="h-2 overflow-hidden rounded-full bg-(--color-bg-tertiary)">
-                <div class="skill-bar h-full rounded-full" style="width: {% localize off %}{{ tech.proficiency|mul:20 }}{% endlocalize %}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div>
-              </div>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-      <div class="rounded-xl border border-neutral-800 bg-(--color-bg-secondary) p-8">
-        <h3 class="mb-6 text-2xl font-bold text-(--color-text-primary)">{% t "about.skills_tools" %}</h3>
-        <div class="space-y-4">
-          {% for tech in tools %}
-            <div>
-              <div class="mb-2 flex items-center justify-between">
-                <span class="font-medium text-(--color-text-secondary)">{{ tech.name }}</span>
-              </div>
-              <div class="h-2 overflow-hidden rounded-full bg-(--color-bg-tertiary)">
-                <div class="skill-bar h-full rounded-full" style="width: {% localize off %}{{ tech.proficiency|mul:20 }}{% endlocalize %}%; background: linear-gradient(to right, {{ tech.color_from }}, {{ tech.color_to }});"></div>
-              </div>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="bg-(--color-bg-secondary) px-4 py-16">
-  <div class="mx-auto max-w-5xl">
-    <h2 class="mb-12 text-center text-4xl font-bold text-(--color-text-primary)">{% t "about.interests_title" %}</h2>
-    <div class="grid gap-8 md:grid-cols-2">
-      <div class="group rounded-xl border border-neutral-800 bg-(--color-bg-primary) p-8 transition hover:border-(--color-accent-primary)">
-        <h3 class="mb-3 text-2xl font-bold text-(--color-text-primary) transition group-hover:text-(--color-accent-primary)">{% t "about.interest_poetry_title" %}</h3>
-        <p class="mb-4 text-(--color-text-secondary)">{% t "about.interest_poetry_body" %}</p>
-        <p class="text-sm text-(--color-text-muted)">{% t "about.interest_poetry_note" %}</p>
-      </div>
-      <div class="group rounded-xl border border-neutral-800 bg-(--color-bg-primary) p-8 transition hover:border-(--color-accent-primary)">
-        <h3 class="mb-3 text-2xl font-bold text-(--color-text-primary) transition group-hover:text-(--color-accent-primary)">{% t "about.interest_cinema_title" %}</h3>
-        <p class="mb-4 text-(--color-text-secondary)">{% t "about.interest_cinema_body" %}</p>
-        <p class="text-sm text-(--color-text-muted)">{% t "about.interest_cinema_note" %}</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="bg-(--color-bg-primary) px-4 py-16">
-  <div class="mx-auto max-w-4xl">
-    <h2 class="mb-12 text-center text-4xl font-bold text-(--color-text-primary)">{% t "about.qualities_title" %}</h2>
-    <div class="grid gap-6 md:grid-cols-2">
-      <div class="rounded-xl border border-neutral-800 bg-(--color-bg-secondary) p-6">
-        <h3 class="mb-2 text-xl font-bold text-(--color-text-primary)">{% t "about.quality_creativity_title" %}</h3>
-        <p class="text-(--color-text-muted)">{% t "about.quality_creativity_body" %}</p>
-      </div>
-      <div class="rounded-xl border border-neutral-800 bg-(--color-bg-secondary) p-6">
-        <h3 class="mb-2 text-xl font-bold text-(--color-text-primary)">{% t "about.quality_adaptability_title" %}</h3>
-        <p class="text-(--color-text-muted)">{% t "about.quality_adaptability_body" %}</p>
-      </div>
-      <div class="rounded-xl border border-neutral-800 bg-(--color-bg-secondary) p-6">
-        <h3 class="mb-2 text-xl font-bold text-(--color-text-primary)">{% t "about.quality_team_title" %}</h3>
-        <p class="text-(--color-text-muted)">{% t "about.quality_team_body" %}</p>
-      </div>
-      <div class="rounded-xl border border-neutral-800 bg-(--color-bg-secondary) p-6">
-        <h3 class="mb-2 text-xl font-bold text-(--color-text-primary)">{% t "about.quality_results_title" %}</h3>
-        <p class="text-(--color-text-muted)">{% t "about.quality_results_body" %}</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="mx-4 mb-8 rounded-2xl border-2 border-(--color-accent-primary) bg-black px-4 py-16">
-  <div class="mx-auto max-w-4xl text-center">
-    <h2 class="mb-4 font-mono text-3xl font-bold text-(--color-accent-primary) md:text-4xl">{% t "about.cta_title" %}</h2>
-    <p class="mb-8 font-mono text-xl text-(--color-accent-primary)/80">{% t "about.cta_body" %}</p>
-    <div class="flex flex-col justify-center gap-4 sm:flex-row">
-      <a href="mailto:{{ person.contact_email }}" class="rounded-lg bg-(--color-accent-primary) px-8 py-4 font-mono font-semibold text-black transition hover:bg-(--color-accent-hover)">{% t "about.cta_contact" %}</a>
-      <a href="{% url 'projects:list' %}" class="rounded-lg border-2 border-(--color-accent-primary) px-8 py-4 font-mono font-semibold text-(--color-accent-primary) transition hover:bg-(--color-accent-primary)/10">{% t "about.cta_projects" %}</a>
+    <div class="border-t border-(--rule) pt-8">
+      <span class="block h-10 w-10 bg-cobalt" aria-hidden="true"></span>
+      <h3 class="heading mt-6">{% t "about.interest_cinema_title" %}</h3>
+      <p class="prose-body mt-4">{% t "about.interest_cinema_body" %}</p>
+      <p class="small muted mt-3">{% t "about.interest_cinema_note" %}</p>
     </div>
   </div>
 </section>

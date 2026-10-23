@@ -1,0 +1,17 @@
+{% load util_tags %}
+{% load localization_tags %}
+{% load l10n %}
+{% comment %}Params: title, techs (iterable of Technology with name and proficiency 1-5).{% endcomment %}
+<div{% if wide %} class="sm:col-span-2 xl:col-span-1"{% endif %}>
+  <h3 class="subheading mb-5">{{ title }}</h3>
+  <ul class="grid gap-4{% if wide %} sm:grid-cols-2 sm:gap-x-10{% endif %}">
+    {% for tech in techs %}
+      <li>
+        <span class="small">{{ tech.name }}</span>
+        <span class="meter mt-2 block" role="img" aria-label="{% t 'about.proficiency' name=tech.name level=tech.proficiency %}">
+          <span style="width: {% localize off %}{{ tech.proficiency|mul:20 }}{% endlocalize %}%"></span>
+        </span>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

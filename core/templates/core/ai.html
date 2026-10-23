@@ -5,173 +5,82 @@
 {% block title %}{% t "meta.ai_title" %}{% endblock %}
 
 {% block content %}
-  <section class="mx-auto max-w-6xl px-4 py-16">
-    <h1 class="mt-4 text-4xl font-bold text-(--color-accent-primary) md:text-6xl">{{ "AI"|translate_content }}</h1>
-  </section>
+  {% include "core/components/page_header.html" with title="AI"|translate_content body=ai_page.prompting.intro.body|translate_content glyph="circle" %}
 
-  <section class="mx-auto max-w-6xl px-4 pb-10">
-    <div class="rounded-2xl border border-neutral-800 bg-(--color-bg-secondary) p-6">
-      <h2 class="text-3xl font-bold text-(--color-text-primary)">{{ ai_page.prompting.intro.title|translate_content }}</h2>
-      <p class="mt-4 text-(--color-text-secondary)">{{ ai_page.prompting.intro.body|translate_content }}</p>
+  <section class="section shell" aria-labelledby="prompting-title">
+    <h2 id="prompting-title" class="display display-md mb-12">{{ ai_page.prompting.intro.title|translate_content }}</h2>
 
-      <div class="mt-10 grid gap-6 lg:grid-cols-2">
-        <article class="rounded-xl border border-neutral-800 bg-(--color-bg-primary) p-5">
-          <h3 class="text-2xl font-semibold text-(--color-text-primary)">{{ ai_page.prompting.music.title|translate_content }}</h3>
-          <iframe
-            src="{{ ai_page.prompting.music.spotify_embed_url }}"
-            width="100%"
-            height="352"
-            frameborder="0"
-            allowfullscreen=""
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-            class="mt-4 rounded-xl"
-            title="Spotify embed"
-          ></iframe>
-          <p class="mt-4 text-(--color-text-secondary)">{{ ai_page.prompting.music.spotify_caption|translate_content }}</p>
-          <a href="{{ ai_page.prompting.music.spotify_external_url }}" target="_blank" rel="noreferrer" class="mt-4 inline-flex rounded-lg border border-(--color-accent-primary) px-4 py-2 font-semibold text-(--color-text-primary)">
-            {% t "ai.spotify_open" %}
-          </a>
-          <div class="mt-6 rounded-xl border border-neutral-800 bg-(--color-bg-secondary) p-4">
-            <p class="text-sm uppercase tracking-[0.2em] text-(--color-accent-primary)">{{ ai_page.prompting.music.track_title }}</p>
-            <div class="mt-3 text-sm text-(--color-text-secondary)">{{ ai_page.prompting.music.style_prompt|linebreaksbr }}</div>
-            {% if ai_page.prompting.music.lyrics_prompt %}
-              <div class="mt-3 text-sm text-(--color-text-secondary)">{{ ai_page.prompting.music.lyrics_prompt|linebreaksbr }}</div>
-            {% endif %}
-          </div>
+    <div class="grid gap-14 lg:grid-cols-12">
+      <article class="lg:col-span-7" aria-labelledby="music-title">
+        <h3 id="music-title" class="heading">{{ ai_page.prompting.music.title|translate_content }}</h3>
+        <p class="prose-body mt-4">{{ ai_page.prompting.music.spotify_caption|translate_content }}</p>
+        <iframe
+          src="{{ ai_page.prompting.music.spotify_embed_url }}"
+          width="100%"
+          height="352"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+          class="mt-8 block border-0"
+          title="Spotify: {{ ai_page.prompting.music.track_title }}"
+        ></iframe>
+        <a href="{{ ai_page.prompting.music.spotify_external_url }}" target="_blank" rel="noopener noreferrer" class="link mt-4 inline-block small">{% t "ai.spotify_open" %}</a>
+
+        <details class="group mt-10 border-t border-(--rule) pt-6">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
+            <span class="subheading">{% t "ai.prompt_toggle" track=ai_page.prompting.music.track_title %}</span>
+            <span class="block h-4 w-4 bg-saffron transition-transform duration-500 group-open:rotate-45 group-open:rounded-full" aria-hidden="true"></span>
+          </summary>
+          <pre class="mt-6 max-h-[32rem] overflow-auto whitespace-pre-wrap bg-plane p-6 text-[0.78rem] leading-relaxed text-bone/85">{{ ai_page.prompting.music.style_prompt }}{% if ai_page.prompting.music.lyrics_prompt %}
+{{ ai_page.prompting.music.lyrics_prompt }}{% endif %}</pre>
+        </details>
+      </article>
+
+      <div class="grid content-start gap-14 lg:col-span-5">
+        <article aria-labelledby="video-title" class="border-t border-(--rule) pt-8 lg:border-t-0 lg:pt-0">
+          <h3 id="video-title" class="heading">{{ ai_page.prompting.video.title|translate_content }}</h3>
+          <p class="prose-body mt-4">{{ ai_page.prompting.video.body|translate_content }}</p>
+          <a href="{{ ai_page.prompting.video.sora_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-line mt-6">{{ ai_page.prompting.video.cta_label|translate_content }}</a>
         </article>
 
-        <div class="space-y-6">
-          <article class="rounded-xl border border-neutral-800 bg-(--color-bg-primary) p-5">
-            <h3 class="text-2xl font-semibold text-(--color-text-primary)">{{ ai_page.prompting.video.title|translate_content }}</h3>
-            <p class="mt-4 text-(--color-text-secondary)">{{ ai_page.prompting.video.body|translate_content }}</p>
-            <a href="{{ ai_page.prompting.video.sora_url }}" target="_blank" rel="noreferrer" class="mt-4 inline-flex rounded-lg border border-(--color-accent-primary) px-4 py-2 font-semibold text-(--color-text-primary)">
-              {{ ai_page.prompting.video.cta_label|translate_content }}
-            </a>
-          </article>
-
-          <article class="rounded-xl border border-neutral-800 bg-(--color-bg-primary) p-5">
-            <h3 class="text-2xl font-semibold text-(--color-text-primary)">{{ ai_page.prompting.jailbreak.title|translate_content }}</h3>
-            <p class="mt-4 text-(--color-text-secondary)">{{ ai_page.prompting.jailbreak.body|translate_content|linebreaksbr }}</p>
-            {% if ai_page.prompting.jailbreak.screenshot_path %}
-              <button
-                type="button"
-                class="mt-4 block cursor-zoom-in overflow-hidden rounded-xl border border-neutral-800 transition hover:border-(--color-accent-primary)"
-                data-jailbreak-lightbox-trigger
-              >
-                <img
-                  src="{% static 'images/Jailbreak_grok.png' %}"
-                  alt="{{ ai_page.prompting.jailbreak.image_alt }}"
-                  class="w-full rounded-xl"
-                >
-              </button>
-            {% endif %}
-          </article>
-        </div>
+        <article aria-labelledby="jailbreak-title" class="border-t border-(--rule) pt-8">
+          <h3 id="jailbreak-title" class="heading">{{ ai_page.prompting.jailbreak.title|translate_content }}</h3>
+          <p class="prose-body mt-4">{{ ai_page.prompting.jailbreak.body|translate_content|linebreaksbr }}</p>
+          {% if ai_page.prompting.jailbreak.screenshot_path %}
+            <button type="button" class="mt-6 block w-full cursor-zoom-in text-left" data-lightbox-trigger="jailbreak-lightbox" aria-haspopup="dialog">
+              <span class="block max-h-96 overflow-hidden bg-plane">
+                <img src="{% static 'images/Jailbreak_grok.png' %}" alt="{{ ai_page.prompting.jailbreak.image_alt }}" class="block h-auto w-full transition duration-700 hover:scale-[1.02]" loading="lazy">
+              </span>
+              <span class="small muted mt-3 block">{% t "ai.lightbox_open" %}</span>
+            </button>
+          {% endif %}
+        </article>
       </div>
     </div>
   </section>
 
-  <section class="mx-auto max-w-6xl px-4 pb-16">
-    <div class="mb-6">
-      <h2 class="mt-3 text-3xl font-bold text-(--color-accent-primary)">{{ ai_page.vibe_engineering.title }}</h2>
-      <p class="mt-3 text-(--color-text-secondary)">{{ ai_page.vibe_engineering.body|translate_content }}</p>
-    </div>
+  <section class="section shell" aria-labelledby="vibe-title">
+    <h2 id="vibe-title" class="display display-md">{{ ai_page.vibe_engineering.title }}</h2>
+    <p class="lede mt-6 max-w-[52ch] text-bone/85">{{ ai_page.vibe_engineering.body|translate_content }}</p>
 
-    <div class="grid gap-6 md:grid-cols-2">
+    <div class="mt-14 grid gap-x-10 gap-y-16 md:grid-cols-2">
       {% for project in vibe_projects %}
         {% include "projects/components/project_card.html" with project=project origin_context="ai" %}
       {% endfor %}
     </div>
   </section>
 
-  <div
-    class="fixed inset-0 z-50 hidden flex min-h-0 flex-col bg-black/90 backdrop-blur-sm"
-    aria-hidden="true"
-    data-jailbreak-lightbox
-    style="height: 100dvh; overflow: hidden;"
-  >
-    <div class="sticky top-0 z-10 flex justify-end p-3">
-      <button
-        type="button"
-        class="rounded-full bg-neutral-900/80 px-4 py-1.5 text-sm font-medium text-white ring-1 ring-neutral-700 hover:bg-neutral-800"
-        data-jailbreak-lightbox-close
-      >
-        {% t "ai.lightbox_close" %}
-      </button>
-    </div>
-    <div
-      class="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 pb-10 touch-pan-y [-webkit-overflow-scrolling:touch] sm:px-6"
-      data-jailbreak-lightbox-inner
-      style="flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;"
-    >
-      <img
-        src="{% static 'images/Jailbreak_grok.png' %}"
-        alt="{{ ai_page.prompting.jailbreak.image_alt }}"
-        class="block h-auto w-full select-none rounded-xl"
-        data-jailbreak-lightbox-image
-        draggable="false"
-      >
-    </div>
-  </div>
-
-  <script>
-    (() => {
-      const trigger = document.querySelector("[data-jailbreak-lightbox-trigger]");
-      const lightbox = document.querySelector("[data-jailbreak-lightbox]");
-      const closeBtn = document.querySelector("[data-jailbreak-lightbox-close]");
-      const scrollContainer = lightbox?.querySelector("[data-jailbreak-lightbox-inner]");
-
-      if (!trigger || !lightbox || !closeBtn || !scrollContainer) {
-        return;
-      }
-
-      const isWithinScrollContainer = target => scrollContainer.contains(target);
-
-      const preventBackgroundScroll = event => {
-        if (isWithinScrollContainer(event.target)) {
-          return;
-        }
-        event.preventDefault();
-      };
-
-      const openLightbox = () => {
-        lightbox.classList.remove("hidden");
-        lightbox.removeAttribute("aria-hidden");
-        document.documentElement.style.overflow = "hidden";
-        document.body.style.overflow = "hidden";
-        scrollContainer.scrollTop = 0;
-
-        // Stop wheel/touch events from scrolling the page underneath.
-        // Allow natural scrolling only inside the scroll container.
-        lightbox.addEventListener("wheel", preventBackgroundScroll, { passive: false });
-        lightbox.addEventListener("touchmove", preventBackgroundScroll, { passive: false });
-      };
-
-      const closeLightbox = () => {
-        lightbox.classList.add("hidden");
-        lightbox.setAttribute("aria-hidden", "true");
-        document.documentElement.style.overflow = "";
-        document.body.style.overflow = "";
-
-        lightbox.removeEventListener("wheel", preventBackgroundScroll);
-        lightbox.removeEventListener("touchmove", preventBackgroundScroll);
-      };
-
-      trigger.addEventListener("click", openLightbox);
-      closeBtn.addEventListener("click", closeLightbox);
-
-      lightbox.addEventListener("click", event => {
-        if (event.target === lightbox) {
-          closeLightbox();
-        }
-      });
-
-      document.addEventListener("keydown", event => {
-        if (event.key === "Escape" && !lightbox.classList.contains("hidden")) {
-          closeLightbox();
-        }
-      });
-    })();
-  </script>
+  {% if ai_page.prompting.jailbreak.screenshot_path %}
+    <dialog id="jailbreak-lightbox" class="lightbox" aria-label="{{ ai_page.prompting.jailbreak.title|translate_content }}">
+      <div class="flex h-full flex-col">
+        <div class="shell flex h-16 shrink-0 items-center justify-end">
+          <button type="button" class="btn btn-line" data-lightbox-close autofocus>{% t "ai.lightbox_close" %}</button>
+        </div>
+        <div class="min-h-0 flex-1 overflow-y-auto overscroll-contain" data-lightbox-scroll>
+          <div class="shell pb-10">
+            <img src="{% static 'images/Jailbreak_grok.png' %}" alt="{{ ai_page.prompting.jailbreak.image_alt }}" class="mx-auto block h-auto w-full max-w-4xl" draggable="false">
+          </div>
+        </div>
+      </div>
+    </dialog>
+  {% endif %}
 {% endblock %}
